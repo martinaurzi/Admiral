@@ -1,6 +1,7 @@
 package com.admiral;
 
 import java.util.Map;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 public class Admiral {
@@ -12,7 +13,7 @@ public class Admiral {
     private Map<String, Porto> porti;
     private Map<String, Nave> navi;
 
-    private Adminal() {
+    private Admiral() {
         this.itinerari = new HashMap<>();
         this.destinazioni = new HashMap<>();
         this.porti = new HashMap<>();
@@ -25,7 +26,7 @@ public class Admiral {
 
     public static Admiral getInstance() {
 		if (admiral == null)
-			admiral = new Adminal();
+			admiral = new Admiral();
 		else
 			System.out.println("Istanza già creata");
 
@@ -50,10 +51,9 @@ public class Admiral {
 
     public void confermaInserimento() {
 		if (itinerarioCorrente != null) {
-			this.itinerari.put(itinerarioCorrente.codice, itinerarioCorrente);
+			this.itinerari.put(itinerarioCorrente.getCodice(), itinerarioCorrente);
 			System.out.println("Operazione Inserimento Intinerario Conclusa");
 		}
-
 	}
 
     public void loadDestinazioni(){
@@ -82,37 +82,23 @@ public class Admiral {
         Nave n3 = new Nave("3", "Diadema");
         this.navi.put("1", n1);
         this.navi.put("2", n2);
-        this.navii.put("3", n3);
+        this.navi.put("3", n3);
         System.out.println("Caricamento Navi Completato");
     }
 
     public Destinazione getDestinazione(String codDestinazione) {
-        Destinazione d = destinazioni.get(codDestinazione);
-        if (d != null){
-           return d;
-        }else
-            System.out.println("Destinazione Inesistente");
+        return destinazioni.get(codDestinazione);
     }
 
     public Porto getPorto(String codPorto) {
-        Porto p = porti.get(codPorto);
-        if (p != null){
-           return p;
-        }else
-            System.out.println("Porto Inesistente");
+        return porti.get(codPorto);
     }
 
     public Nave getNave(String codNave) {
-        Nave n = navii.get(codNave);
-        if (n != null){
-           return n;
-        }else
-            System.out.println("Nave Inesistente");
+        return navi.get(codNave);
     }
 
     public Itinerario getItinerarioCorrente(){
         return itinerarioCorrente;
-    }
-
-    
+    }    
 }
