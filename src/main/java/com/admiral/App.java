@@ -1,10 +1,12 @@
 package com.admiral;
 
-/**
- * Hello world!
- */
 public class App {
+
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Admiral admiral = Admiral.getIstance();
+        
+        admiral.loadDestinazioni();
+        admiral.loadPorti();
+        admiral.loadNavi();
     }
 }
