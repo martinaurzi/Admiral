@@ -108,4 +108,12 @@ public class Admiral {
     public Itinerario getItinerarioCorrente() {
         return itinerarioCorrente;
     }
+
+    public Map<String, Itinerario> getItinerari(){
+        return itinerari;
+    }
+    
+    public Itinerario getItinerario(String codice) {
+        return itinerari.get(codice);
+    }
 }

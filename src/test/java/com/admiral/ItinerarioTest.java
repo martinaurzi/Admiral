@@ -22,4 +22,5 @@ public class ItinerarioTest {
         assertNotNull(i.getPortiDaVisitare(), "Nessun porto da visitare");
         assertEquals(1, i.getPortiDaVisitare().size());
     }
+
 }
