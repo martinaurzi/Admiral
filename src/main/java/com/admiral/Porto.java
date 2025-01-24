@@ -9,4 +9,8 @@ public class Porto {
         this.codice = codice;
         this.nome = nome;
     }
+
+    public String getCodice(){
+        return this.codice;
+    }
 }

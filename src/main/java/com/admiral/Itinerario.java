@@ -1,6 +1,7 @@
 package com.admiral;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Itinerario {
@@ -25,6 +26,8 @@ public class Itinerario {
         this.portoPartenza = admiral.getPorto(codicePortoPartenza);
         this.dataPartenza = dataPartenza;
         this.dataRitorno = dataRitorno;
+
+        this.portiDaVisitare = new HashMap<>();
     }
 
     public void inserisciPortoDaVisitare(String codicePorto, Porto p){
@@ -33,5 +36,9 @@ public class Itinerario {
 
     public String getCodice(){
         return codice;
+    }
+
+    public Map<String, Porto> getPortiDaVisitare(){
+        return this.portiDaVisitare;
     }
 }
