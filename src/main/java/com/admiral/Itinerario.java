@@ -1,7 +1,7 @@
 package com.admiral;
 
-import java.util.Map;
 import java.time.LocalDate;
+import java.util.Map;
 
 public class Itinerario {
 
@@ -28,7 +28,7 @@ public class Itinerario {
     }
 
     public void inserisciPortoDaVisitare(String codicePorto, Porto p){
-
+        this.portiDaVisitare.put(codicePorto, p);
     }
 
     public String getCodice(){
