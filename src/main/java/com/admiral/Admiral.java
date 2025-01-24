@@ -40,8 +40,8 @@ public class Admiral {
         } catch (Exception e) {
             
         }
-        this.itinerarioCorrente = new Itinerario(codice, codiceDestinazione, codiceNave, codicePortoPartenza,
-                dataPartenza, dataRitorno);
+
+        this.itinerarioCorrente = new Itinerario(codice, codiceDestinazione, codiceNave, codicePortoPartenza, dataPartenza, dataRitorno);
         System.out.println("Itinerario Inserito");
     }
 

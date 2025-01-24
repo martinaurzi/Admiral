@@ -56,4 +56,8 @@ public class Itinerario {
     public Map<String, Porto> getPortiDaVisitare(){
         return this.portiDaVisitare;
     }
+
+    public Porto getPorto(String codice){
+        return portiDaVisitare.get(codice);
+    }
 }
