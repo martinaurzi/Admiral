@@ -9,4 +9,8 @@ public class Nave {
         this.codice = codice;
         this.nome = nome;
     }
+
+    public String toString(){
+        return nome + "(" + codice + ")";
+    }
 }

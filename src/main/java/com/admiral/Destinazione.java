@@ -11,4 +11,13 @@ public class Destinazione {
         this.nome = nome;
         this.prezzo = prezzo;
     }
+
+    public String toString(){
+        return nome;
+    }
+
+    public float getPrezzo(){
+        return prezzo;
+    }
+
 }

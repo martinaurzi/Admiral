@@ -9,4 +9,16 @@ public class Porto {
         this.codice = codice;
         this.nome = nome;
     }
+
+    public String getCodice(){
+        return this.codice;
+    }
+
+    public String toString(){
+        return nome + "(" + codice + ")";
+    }
+
+    public String getNome(){
+        return nome;
+    }
 }
