@@ -65,9 +65,9 @@ public class Catalogo {
     }
 
     public void loadDestinazioni() {
-        Destinazione d1 = new Destinazione("1", "Mediterraneo", 100F);
-        Destinazione d2 = new Destinazione("2", "Caraibi", 200F);
-        Destinazione d3 = new Destinazione("3", "Nord Europa", 300F);
+        Destinazione d1 = new Destinazione("1", "Mediterraneo", 900F);
+        Destinazione d2 = new Destinazione("2", "Caraibi", 2000F);
+        Destinazione d3 = new Destinazione("3", "Nord Europa", 1500F);
         this.destinazioni.put("1", d1);
         this.destinazioni.put("2", d2);
         this.destinazioni.put("3", d3);

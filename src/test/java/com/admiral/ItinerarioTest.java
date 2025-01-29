@@ -7,6 +7,25 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 
 public class ItinerarioTest {
+
+    @Test void durataTest(){
+        LocalDate dataPartenza = LocalDate.of(2025, 1, 15);
+        LocalDate dataRitorno = LocalDate.of(2025, 1, 30);
+
+        Itinerario i = new Itinerario("I1", "1", "1", "1", dataPartenza, dataRitorno);
+    
+        assertEquals(15, i.getDurata());
+    }
+
+    @Test void calcolaPrezzoItinerarioTest(){
+        LocalDate dataPartenza = LocalDate.of(2025, 1, 15);
+        LocalDate dataRitorno = LocalDate.of(2025, 1, 30);
+
+        Destinazione d = new Destinazione("1", "Mediterraneo", 900F);
+        Itinerario i = new Itinerario("I1", d.getCodice(), "1", "1", dataPartenza, dataRitorno);
+    
+        assertEquals(2400, i.getPrezzo());
+    }
     
     @Test
     public void inserisciPortoDaVisitareTest(){
