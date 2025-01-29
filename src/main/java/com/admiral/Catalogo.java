@@ -28,6 +28,7 @@ public class Catalogo {
     public static Catalogo getInstance() {
         if (catalogo == null)
             catalogo = new Catalogo();
+
         return catalogo;
     }
 
@@ -40,12 +41,14 @@ public class Catalogo {
 
         this.itinerarioCorrente = new Itinerario(codice, codiceDestinazione, codiceNave, codicePortoPartenza,
                 dataPartenza, dataRitorno);
+
         System.out.println("Itinerario Inserito");
     }
 
     public void inserisciPortoDaVisitare(String codicePorto) {
         if (itinerarioCorrente != null) {
             Porto p = getPorto(codicePorto);
+            
             if (p != null) {
                 this.itinerarioCorrente.inserisciPortoDaVisitare(codicePorto, p);
                 System.out.println("Porto da visitare inserito");

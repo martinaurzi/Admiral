@@ -17,8 +17,4 @@ public class Admiral {
 
         return admiral;
     }
-
-    public Catalogo getCatalogo() {
-        return catalogo;
-    }
 }

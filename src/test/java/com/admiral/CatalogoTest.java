@@ -18,20 +18,25 @@ public class CatalogoTest {
     }
 
     @Test
-    public void testCaricamentoDati() {
+    public void catalogoInizializzazioneTest() {
+        assertNotNull(catalogo);
+    }
+
+    @Test
+    public void caricamentoDatiTest() {
         assertNotNull(catalogo.getDestinazione("1"));
         assertNotNull(catalogo.getPorto("1"));
         assertNotNull(catalogo.getNave("1"));
     }
 
     @Test
-    public void testInserisciNuovoItinerario() {
+    public void inserisciNuovoItinerarioTest() {
         catalogo.inserisciNuovoItinerario("1", "1", "1", "1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
         assertNotNull(catalogo.getItinerarioCorrente());
     }
 
     @Test
-    public void testConfermaInserimento() {
+    public void confermaInserimentoTest() {
         catalogo.inserisciNuovoItinerario("1", "1", "1", "1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
         catalogo.confermaInserimento();
         assertEquals(1, catalogo.getItinerari().size());
@@ -39,7 +44,7 @@ public class CatalogoTest {
     }
 
     @Test
-    public void testInserisciPortoDaVisitare() {
+    public void inserisciPortoDaVisitareTest() {
         Itinerario i = new Itinerario("1", "1", "1", "1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
         assertNotNull(i);
 

@@ -11,9 +11,4 @@ public class AdmiralTest {
     public static void initTest() {
         admiral = Admiral.getInstance();
     }
-
-    @Test
-    public void catalogoInizializzazioneTest() {
-        assertNotNull(admiral.getCatalogo());
-    }
 }

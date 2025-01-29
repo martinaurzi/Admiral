@@ -19,5 +19,4 @@ public class Destinazione {
     public float getPrezzo(){
         return prezzo;
     }
-
 }
