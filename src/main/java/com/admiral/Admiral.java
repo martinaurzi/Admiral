@@ -1,9 +1,12 @@
 package com.admiral;
 
+import java.time.LocalDate;
+
 public class Admiral {
 
     private static Admiral admiral;
     private Catalogo catalogo;
+    private GestorePrenotazioni gestorePrenotazioni;
 
     private Admiral() {
         this.catalogo = Catalogo.getInstance();
@@ -16,5 +19,44 @@ public class Admiral {
             System.out.println("Istanza già creata");
 
         return admiral;
+    }
+
+    public void inserisciNuovoItinerario(String codice, String codiceDestinazione, String codiceNave,
+            String codicePortoPartenza, LocalDate dataPartenza, LocalDate dataRitorno){
+
+    }
+    
+    public void inserisciPortoDaVisitare(String codicePorto){
+
+    } 
+
+    public void confermaInserimento(){
+
+    }
+
+    public void nuovaPrenotazione(){
+
+    }
+
+    public void selezionaDestinazione(String codiceDestinazione, int mesePartenza){
+        catalogo.trovaItinerari(codiceDestinazione, mesePartenza);
+    }
+
+    public void selezionaItinerario(String codiceItinerario){
+        Itinerario i = catalogo.selezionaItinerario(codiceItinerario);
+
+        gestorePrenotazioni.setItinerario(i);
+    }
+
+    public void selezionaTipoCabina(int idTipoCabina){
+
+    }
+
+    public void inserisciNumeroOspiti(int numeroOspiti){
+
+    }
+
+    public void confermaPrenotazione(){
+
     }
 }

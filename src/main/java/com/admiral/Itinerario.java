@@ -42,6 +42,10 @@ public class Itinerario {
         return destinazione.getPrezzo() + (100 * durata);
     }
 
+    public boolean checkMesePartenza(int mesePartenza){
+        return dataPartenza.getMonthValue() == mesePartenza;
+    }
+
     public String getCodice() {
         return codice;
     }
@@ -60,6 +64,18 @@ public class Itinerario {
 
     public int getDurata(){
         return durata;
+    }
+
+    public LocalDate getDataPartenza(){
+        return dataPartenza;
+    }
+
+    public Destinazione getDestinazione(){
+        return destinazione;
+    }
+
+    public Nave getNave(){
+        return nave;
     }
 
     public String toString() {

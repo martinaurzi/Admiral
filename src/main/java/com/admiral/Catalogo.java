@@ -45,7 +45,7 @@ public class Catalogo {
         System.out.println("Itinerario Inserito");
     }
 
-    public void inserisciPortoDaVisitare(String codicePorto) {
+    public void inserisciPortoDaVisitare(String codicePorto){
         if (itinerarioCorrente != null) {
             Porto p = getPorto(codicePorto);
             
@@ -57,11 +57,31 @@ public class Catalogo {
         }
     }
 
-    public void confermaInserimento() {
+    public void confermaInserimento(){
         if (itinerarioCorrente != null) {
             this.itinerari.put(itinerarioCorrente.getCodice(), itinerarioCorrente);
             System.out.println("Operazione Inserimento Itinerario Conclusa");
         }
+    }
+
+    public void trovaItinerari(String codiceDestinazione, int mesePartenza){ // void no Mappa itinerari
+        Destinazione d = findDestinazione(codiceDestinazione);
+        catalogo.checkItinerario(d, mesePartenza);
+    }
+
+    public Itinerario selezionaItinerario(String codiceItinerario){
+        return itinerari.get(codiceItinerario);
+    }
+
+    public Destinazione findDestinazione(String codiceDestinazione){
+        return destinazioni.get(codiceDestinazione);
+    }
+
+    public void checkItinerario(Destinazione d, int mesePartenza){
+        itinerari.forEach((codice, i) -> {
+            if(i.getDestinazione().getCodice() == d.getCodice() && i.checkMesePartenza(mesePartenza))
+                System.out.println(i); 
+        });
     }
 
     public void loadDestinazioni() {

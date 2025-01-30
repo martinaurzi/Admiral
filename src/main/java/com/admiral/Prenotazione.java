@@ -1,5 +1,7 @@
 package com.admiral;
 
+import java.time.LocalDate;
+
 public class Prenotazione {
     
     private int numeroPrenotazione;
@@ -17,6 +19,10 @@ public class Prenotazione {
         this.numeroOspiti = numeroOspiti;
     }
 
+    public void setItinerario(Itinerario i){
+        itinerario = i;
+    }
+
     public float calcolaPrezzoPerNumeroOspiti(){
         return itinerario.getPrezzo() * numeroOspiti;
     }
@@ -27,6 +33,21 @@ public class Prenotazione {
         return this.prezzoTotale;
     }
 
+    public float calcolaSconto(){
+        float scontoLastMinute = 0;
+
+        if(LocalDate.now().getMonthValue() == (itinerario.getDataPartenza().minusMonths(1).getMonthValue())){
+            setScontoStrategy(new ScontoLastMinute());
+            scontoLastMinute = scontoStrategy.calcolaSconto(this.prezzoTotale);
+        }
+
+        return scontoLastMinute;
+    }
+
+    public Itinerario getItinerario(){
+        return itinerario;
+    }
+
     public void setPrezzoTotale(float prezzoTotale){
         this.prezzoTotale = prezzoTotale;
     }
@@ -34,10 +55,4 @@ public class Prenotazione {
     public void setScontoStrategy(ScontoStrategy scontoStrategy){
         this.scontoStrategy = scontoStrategy;
     }
-
-    /*
-    public float calcolaSconto(){
-        setScontoStrategy(new ScontoLastMinute());
-        scontoStrategy.calcolaSconto(this.prezzoTotale);
-    }*/
 }
