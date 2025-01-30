@@ -10,6 +10,7 @@ public class Admiral {
 
     private Admiral() {
         this.catalogo = Catalogo.getInstance();
+        this.gestorePrenotazioni = GestorePrenotazioni.getInstance();
     }
 
     public static Admiral getInstance() {

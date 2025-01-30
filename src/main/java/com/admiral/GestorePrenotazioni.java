@@ -25,6 +25,7 @@ public class GestorePrenotazioni {
     }
 
     public int generaNumeroPrenotazione(){
+        if (prenotazioni == null) return 1;
         return prenotazioni.size() + 1;
     }
 
