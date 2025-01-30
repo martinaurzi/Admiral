@@ -29,7 +29,23 @@ public class GestorePrenotazioni {
     }
 
     public void selezionaTipoCabina(int idTipoCabina){
+        TipoCabina tc = naveCorrente.selezionaTipoCabina(idTipoCabina);
+        Itinerario i = prenotazioneCorrente.getItinerario();
 
+        prenotazioni.forEach((numP, p) -> {
+            if(p.getItinerario().getCodice() == i.getCodice()){
+                Cabina cabinaPrenotata = p.getCabina();
+
+                if(cabinaPrenotata.getTipo().getId() == tc.getId()){
+                    tc.rimuoviCabina(cabinaPrenotata);
+                }
+            }
+        });
+
+        Cabina cabina = tc.getCabinaDisponibile();
+
+        if(cabina != null)
+            prenotazioneCorrente.setCabina(cabina);
     }
 
     public void inserisciNumeroOspiti(int numeroOspiti){
@@ -47,7 +63,11 @@ public class GestorePrenotazioni {
     public void setItinerario(Itinerario i){ 
         prenotazioneCorrente.setItinerario(i);
 
-        naveCorrente.getTipiCabina(); // qui
+        Map<Integer, TipoCabina> tipiCabine = naveCorrente.getTipiCabina();
+
+        tipiCabine.forEach((id, tc) -> {
+            System.out.println(tc);
+        });
     }
 
     public void setNave(){

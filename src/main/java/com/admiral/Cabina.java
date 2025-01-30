@@ -10,7 +10,15 @@ public class Cabina {
         this.tipoCabina = tipoCabina;
     }
 
+    public int getNumeroCabina(){
+        return numeroCabina;
+    }
+
     public float getPrezzo(){
         return tipoCabina.getPrezzo();
+    }
+
+    public TipoCabina getTipo(){
+        return tipoCabina;
     }
 }

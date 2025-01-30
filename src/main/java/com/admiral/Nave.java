@@ -17,6 +17,10 @@ public class Nave {
         return tipiCabina;
     }
 
+    public TipoCabina selezionaTipoCabina(int idTipoCabina){
+        return tipiCabina.get(idTipoCabina);
+    }
+
     public String toString(){
         return nome + "(" + codice + ")";
     }
