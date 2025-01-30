@@ -15,8 +15,15 @@ public class Prenotazione {
         this.numeroPrenotazione = numeroPrenotazione;
     }
 
+    public void calcolaPrezzo(){
+        calcolaPrezzoPrenotazione();
+        float sconto = calcolaSconto();
+        setPrezzoTotale(this.prezzoTotale - sconto);
+    }
+
     public void setNumeroOspiti(int numeroOspiti){
         this.numeroOspiti = numeroOspiti;
+        calcolaPrezzo();
     }
 
     public void setItinerario(Itinerario i){
@@ -27,10 +34,9 @@ public class Prenotazione {
         return itinerario.getPrezzo() * numeroOspiti;
     }
 
-    public float calcolaPrezzoPrenotazione(){
-        setPrezzoTotale(calcolaPrezzoPerNumeroOspiti() + cabina.getPrezzo()); // aggiungere calcola sconto
+    public void calcolaPrezzoPrenotazione(){
+        setPrezzoTotale(calcolaPrezzoPerNumeroOspiti() + cabina.getPrezzo());
 
-        return this.prezzoTotale;
     }
 
     public float calcolaSconto(){
@@ -48,10 +54,6 @@ public class Prenotazione {
         return itinerario;
     }
 
-    public Cabina getCabina(){
-        return cabina;
-    }
-
     public void setPrezzoTotale(float prezzoTotale){
         this.prezzoTotale = prezzoTotale;
     }
@@ -60,7 +62,9 @@ public class Prenotazione {
         this.scontoStrategy = scontoStrategy;
     }
 
-    public void setCabina(Cabina cabina){
-        this.cabina = cabina;
+    public int getNumero(){
+        return this.numeroPrenotazione;
     }
+
+
 }

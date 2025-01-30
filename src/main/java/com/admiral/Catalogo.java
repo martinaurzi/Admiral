@@ -44,7 +44,7 @@ public class Catalogo {
             return;
         }
 
-        codice = String.valueOf(itinerari.size() + 1);
+        codice = "i" + String.valueOf(itinerari.size() + 1);
 
         this.itinerarioCorrente = new Itinerario(codice, codiceDestinazione, codiceNave, codicePortoPartenza,
                 dataPartenza, dataRitorno);
