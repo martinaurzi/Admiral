@@ -21,21 +21,21 @@ public class Admiral {
         return admiral;
     }
 
-    public void inserisciNuovoItinerario(String codice, String codiceDestinazione, String codiceNave,
+    public void inserisciNuovoItinerario(String codiceDestinazione, String codiceNave,
             String codicePortoPartenza, LocalDate dataPartenza, LocalDate dataRitorno){
-
+        catalogo.inserisciNuovoItinerario(codiceDestinazione, codiceNave, codicePortoPartenza, dataPartenza, dataRitorno);
     }
     
     public void inserisciPortoDaVisitare(String codicePorto){
-
+        catalogo.inserisciPortoDaVisitare(codicePorto);
     } 
 
     public void confermaInserimento(){
-
+        catalogo.confermaInserimento();
     }
 
     public void nuovaPrenotazione(){
-
+        gestorePrenotazioni.nuovaPrenotazione();     
     }
 
     public void selezionaDestinazione(String codiceDestinazione, int mesePartenza){

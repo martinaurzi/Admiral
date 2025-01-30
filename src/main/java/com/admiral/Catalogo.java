@@ -11,6 +11,7 @@ public class Catalogo {
     private Map<String, Destinazione> destinazioni;
     private Map<String, Porto> porti;
     private Map<String, Nave> navi;
+    private String codice;
 
     private Itinerario itinerarioCorrente;
 
@@ -32,12 +33,18 @@ public class Catalogo {
         return catalogo;
     }
 
-    public void inserisciNuovoItinerario(String codice, String codiceDestinazione, String codiceNave,
+    public void inserisciNuovoItinerario(String codiceDestinazione, String codiceNave,
             String codicePortoPartenza, LocalDate dataPartenza, LocalDate dataRitorno) {
         if (getPorto(codicePortoPartenza) == null) {
             System.out.println("Porto di partenza inesistente");
             return;
         }
+        if (getNave(codiceNave) == null) {
+            System.out.println("Porto di partenza inesistente");
+            return;
+        }
+
+        codice = String.valueOf(itinerari.size() + 1);
 
         this.itinerarioCorrente = new Itinerario(codice, codiceDestinazione, codiceNave, codicePortoPartenza,
                 dataPartenza, dataRitorno);
