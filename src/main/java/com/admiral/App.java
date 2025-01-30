@@ -36,37 +36,39 @@ public class App {
         while((scelta = menu(buf)) != 5) {
             switch (scelta){
                 case 1:
-                    System.out.println("Inserire le informazioni dell'itinerario"); // codiceDestinazione, codiceNave, codicePortoPartenza, dataPartenza, dataRitorno): ");
-                    System.out.print("Codice della destinazione: ");
-                    codiceDestinazione = buf.readLine();
-                    System.out.print("Codice della nave: ");
-                    codiceNave = buf.readLine();
-                    System.out.print("Codice del porto di partenza: ");
-                    codicePortoPartenza = buf.readLine();
-                    System.out.print("Data di partenza: ");
-                    dataPartenza = LocalDate.parse(buf.readLine());
-                    System.out.print("Data di ritorno: ");
-                    dataRitorno = LocalDate.parse(buf.readLine());
-                    admiral.inserisciNuovoItinerario(codiceDestinazione, codiceNave, codicePortoPartenza, dataPartenza, dataRitorno);
+                    try {
+                        System.out.println("Inserire le informazioni dell'itinerario"); // codiceDestinazione, codiceNave, codicePortoPartenza, dataPartenza, dataRitorno): ");
+                        System.out.print("Codice della destinazione: ");
+                        codiceDestinazione = buf.readLine();
+                        System.out.print("Codice della nave: ");
+                        codiceNave = buf.readLine();
+                        System.out.print("Codice del porto di partenza: ");
+                        codicePortoPartenza = buf.readLine();
+                        System.out.print("Data di partenza: ");
+                        dataPartenza = LocalDate.parse(buf.readLine());
+                        System.out.print("Data di ritorno: ");
+                        dataRitorno = LocalDate.parse(buf.readLine());
+                        admiral.inserisciNuovoItinerario(codiceDestinazione, codiceNave, codicePortoPartenza, dataPartenza, dataRitorno);
 
-                    System.out.println("Inserire i porti da visitare");
-                    while(true){
-                        System.out.print("Inserire il codice del porto da visitare (digita 'stop' per terminare): ");
-                        codicePorto = buf.readLine();
-                        if (codicePorto.equalsIgnoreCase("stop")) break;
-                        admiral.inserisciPortoDaVisitare(codicePorto);
-                    }
+                        System.out.println("Inserire i porti da visitare");
+                        while(true){
+                            System.out.print("Inserire il codice del porto da visitare (digita 'stop' per terminare): ");
+                            codicePorto = buf.readLine();
+                            if (codicePorto.equalsIgnoreCase("stop")) break;
+                            admiral.inserisciPortoDaVisitare(codicePorto);
+                        }
 
-                    System.out.print("\nConferma inserimento (si o no)");
-                    if (buf.readLine().equalsIgnoreCase("si")){
-                        admiral.confermaInserimento();
-                    } else break;
-                    
-                break;
+                        System.out.print("\nConferma inserimento (si o no)");
+                        if (buf.readLine().equalsIgnoreCase("si")){
+                            admiral.confermaInserimento();
+                        } else break;
+                    } catch(IOException e){}
+                    break;
                 
                 case 2: 
                     admiral.nuovaPrenotazione();
 
+                    try { 
                     System.out.println("Seleziona la destinazione");
                     System.out.print("Inserisci il codice della destinazione desiderata: ");
                     codiceDestinazione = buf.readLine();
@@ -96,6 +98,7 @@ public class App {
                         admiral.confermaPrenotazione();
                     } else break;
 
+                } catch(IOException e){}
                 break;
             }
         }
