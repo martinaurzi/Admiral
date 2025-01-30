@@ -54,12 +54,20 @@ public class Prenotazione {
         return itinerario;
     }
 
+    public Cabina getCabina(){
+        return cabina;
+    }
+
     public void setPrezzoTotale(float prezzoTotale){
         this.prezzoTotale = prezzoTotale;
     }
 
     public void setScontoStrategy(ScontoStrategy scontoStrategy){
         this.scontoStrategy = scontoStrategy;
+    }
+
+    public void setCabina(Cabina cabina){
+        this.cabina = cabina;
     }
 
     public int getNumero(){
