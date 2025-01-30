@@ -49,15 +49,14 @@ public class GestorePrenotazioni {
     }
 
     public void inserisciNumeroOspiti(int numeroOspiti){
-
+        prenotazioneCorrente.setNumeroOspiti(numeroOspiti);
     }
 
     public void confermaPrenotazione(){
-
-    }
-
-    public void setCabina(Cabina cabina){
-
+        if (prenotazioneCorrente != null) {
+            this.prenotazioni.put(prenotazioneCorrente.getNumero(), prenotazioneCorrente);
+            System.out.println("Prenotazione Effettuata con Successo");
+        }
     }
 
     public void setItinerario(Itinerario i){ 
