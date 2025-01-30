@@ -7,11 +7,15 @@ public class App {
 
     static public int menu(BufferedReader bf){
         try {
+            System.out.println("***ADMIRAL***");
             System.out.println("1. Inserire un nuovo Itinerario");
             System.out.println("2. Effettuare una nuova prenotazione");
             System.out.println("3. Aggiungere un pacchetto");
             System.out.println("4. Visualizzare tutti gli itinerari");
-            System.out.println("5. Uscita");
+            System.out.println("5. Visualizzare tutte le destinazioni");
+            System.out.println("6. Visualizzare tutte le navi");
+            System.out.println("7. Visualizzare tutti i porti");
+            System.out.println("0. Uscita");
             System.out.println("---> Inserisci il numero dell'operazione che vuoi effettuare: ");
             return (Integer.parseInt(bf.readLine()));
         } catch (IOException e) {
@@ -33,7 +37,7 @@ public class App {
 
         System.out.println("Applicazione avviata e Catalogo inizializzato.");
 
-        while((scelta = menu(buf)) != 5) {
+        while((scelta = menu(buf)) != 0) {
             switch (scelta){
                 case 1:
                     try {
@@ -44,9 +48,9 @@ public class App {
                         codiceNave = buf.readLine();
                         System.out.print("Codice del porto di partenza: ");
                         codicePortoPartenza = buf.readLine();
-                        System.out.print("Data di partenza: ");
+                        System.out.print("Data di partenza (YYYY-MM-DD): ");
                         dataPartenza = LocalDate.parse(buf.readLine());
-                        System.out.print("Data di ritorno: ");
+                        System.out.print("Data di ritorno (YYYY-MM-DD): ");
                         dataRitorno = LocalDate.parse(buf.readLine());
                         admiral.inserisciNuovoItinerario(codiceDestinazione, codiceNave, codicePortoPartenza, dataPartenza, dataRitorno);
 

@@ -73,6 +73,4 @@ public class Prenotazione {
     public int getNumero(){
         return this.numeroPrenotazione;
     }
-
-
 }
