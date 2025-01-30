@@ -48,16 +48,21 @@ public class Admiral {
         gestorePrenotazioni.setItinerario(i);
     }
 
+       
     // 7. UC2 SD Seleziona Tipo Cabina
     public void selezionaTipoCabina(int idTipoCabina){
         gestorePrenotazioni.selezionaTipoCabina(idTipoCabina);
+
     }
 
     public void inserisciNumeroOspiti(int numeroOspiti){
 
+
+        gestorePrenotazioni.inserisciNumeroOspiti(numeroOspiti);
     }
 
     public void confermaPrenotazione(){
 
+        gestorePrenotazioni.confermaPrenotazione();
     }
 }
