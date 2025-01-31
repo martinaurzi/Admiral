@@ -74,4 +74,8 @@ public class GestorePrenotazioni {
     public void setNave(){
         naveCorrente = prenotazioneCorrente.getItinerario().getNave(); // togliere n Nave in setNave?
     }
+
+    public Prenotazione getPrenotazioneCorrente(){
+        return prenotazioneCorrente;
+    }
 }
