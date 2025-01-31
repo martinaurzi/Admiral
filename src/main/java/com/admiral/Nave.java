@@ -42,6 +42,10 @@ public class Nave {
         return nome;
     }
 
+    public String getCodice(){
+        return codice;
+    }
+
     public String toString(){
         return nome + "(" + codice + ")";
     }

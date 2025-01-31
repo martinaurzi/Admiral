@@ -70,6 +70,10 @@ public class Itinerario {
         return dataPartenza;
     }
 
+    public LocalDate getDataRitorno(){
+        return dataPartenza;
+    }
+
     public Destinazione getDestinazione(){
         return destinazione;
     }
