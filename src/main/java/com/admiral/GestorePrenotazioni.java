@@ -83,4 +83,8 @@ public class GestorePrenotazioni {
     public Prenotazione getPrenotazioneCorrente(){
         return prenotazioneCorrente;
     }
+
+    public Map<Integer, Prenotazione> getPrenotazioni(){
+        return prenotazioni;
+    }
 }
