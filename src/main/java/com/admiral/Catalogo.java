@@ -33,8 +33,17 @@ public class Catalogo {
         return catalogo;
     }
 
+    public String generaCodiceItinerario(){
+        return "i" + String.valueOf(itinerari.size() + 1);
+    }
+
     public void inserisciNuovoItinerario(String codiceDestinazione, String codiceNave,
             String codicePortoPartenza, LocalDate dataPartenza, LocalDate dataRitorno) {
+        if (getDestinazione(codiceDestinazione) == null) {
+            System.out.println("Destinazione inesistente");
+            return;
+        }
+        
         if (getPorto(codicePortoPartenza) == null) {
             System.out.println("Porto di partenza inesistente");
             return;
@@ -44,7 +53,7 @@ public class Catalogo {
             return;
         }
 
-        codice = "i" + String.valueOf(itinerari.size() + 1);
+        codice = generaCodiceItinerario();
 
         this.itinerarioCorrente = new Itinerario(codice, codiceDestinazione, codiceNave, codicePortoPartenza,
                 dataPartenza, dataRitorno);
@@ -143,5 +152,10 @@ public class Catalogo {
 
     public Nave getNave(String codNave) {
         return navi.get(codNave);
+    }
+
+    public void getDestinazioni(){
+        System.out.println("Le destinazioni disponibili sono: ");
+        destinazioni.values().forEach(System.out::println);
     }
 }

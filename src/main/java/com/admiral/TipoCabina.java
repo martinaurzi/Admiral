@@ -16,6 +16,19 @@ public class TipoCabina {
         this.prezzo = prezzo;
 
         this.cabine = new HashMap<>();
+
+        loadCabine();
+    }
+
+    public void loadCabine(){
+        Cabina c1 = new Cabina(1, this);
+        Cabina c2 = new Cabina(2, this);
+        Cabina c3 = new Cabina(3, this);
+        Cabina c4 = new Cabina(4, this);
+        this.cabine.put(1, c1);
+        this.cabine.put(2, c2);
+        this.cabine.put(3, c3);
+        this.cabine.put(4, c4);
     }
 
     public void rimuoviCabina(Cabina cabina){
