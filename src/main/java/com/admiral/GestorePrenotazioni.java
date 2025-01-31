@@ -1,5 +1,6 @@
 package com.admiral;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class GestorePrenotazioni {
@@ -9,7 +10,9 @@ public class GestorePrenotazioni {
     private Prenotazione prenotazioneCorrente;
     private Nave naveCorrente;
 
-    private GestorePrenotazioni(){}
+    private GestorePrenotazioni(){
+        this.prenotazioni = new HashMap<>();
+    }
 
     public static GestorePrenotazioni getInstance() {
         if (gestorePrenotazioni == null)
@@ -52,6 +55,7 @@ public class GestorePrenotazioni {
 
     public void inserisciNumeroOspiti(int numeroOspiti){
         prenotazioneCorrente.setNumeroOspiti(numeroOspiti);
+        System.out.println(prenotazioneCorrente);
     }
 
     public void confermaPrenotazione(){
@@ -63,6 +67,7 @@ public class GestorePrenotazioni {
 
     public void setItinerario(Itinerario i){ 
         prenotazioneCorrente.setItinerario(i);
+        setNave();
 
         Map<Integer, TipoCabina> tipiCabine = naveCorrente.getTipiCabina();
 

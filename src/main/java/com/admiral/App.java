@@ -16,7 +16,7 @@ public class App {
             System.out.println("6. Visualizzare tutte le navi");
             System.out.println("7. Visualizzare tutti i porti");
             System.out.println("0. Uscita");
-            System.out.println("---> Inserisci il numero dell'operazione che vuoi effettuare: ");
+            System.out.print("---> Inserisci il numero dell'operazione che vuoi effettuare: ");
             return (Integer.parseInt(bf.readLine()));
         } catch (IOException e) {
             System.out.println("ERRORE durante la lettura da tastiera");
@@ -27,6 +27,7 @@ public class App {
 
     public static void main(String[] args) {
         Admiral admiral = Admiral.getInstance();
+        Catalogo catalogo = Catalogo.getInstance();
         
         String codiceDestinazione, codiceNave, codicePortoPartenza, codicePorto, codiceItinerario;
         LocalDate dataPartenza, dataRitorno;
@@ -104,6 +105,10 @@ public class App {
 
                 } catch(IOException e){}
                 break;
+
+                case 5:
+                    catalogo.getDestinazioni();
+                    break;
             }
         }
     }

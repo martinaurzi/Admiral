@@ -78,12 +78,16 @@ public class Itinerario {
         return nave;
     }
 
+    public Porto getPortoPartenza(){
+        return portoPartenza;
+    }
+
     public String toString() {
         String s = "Itinerario " + codice + "\n"
                 + "Destinazione: " + destinazione + "\n"
                 + "Porto di partenza: " + portoPartenza + "\n"
                 + "Nave: " + nave + "\n"
-                + "Prezzo per persona: " + destinazione.getPrezzo() + "\n"
+                + "Prezzo per persona: " + prezzo + "\n"
                 + "Data di partenza: " + dataPartenza + "  Data di ritorno: " + dataRitorno + "\n"
                 + "Durata: " + durata + " giorni\n"
                 + "Lista Porti da visitare: \n";

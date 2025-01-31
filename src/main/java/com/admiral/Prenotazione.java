@@ -73,4 +73,14 @@ public class Prenotazione {
     public int getNumero(){
         return this.numeroPrenotazione;
     }
+
+    public String toString() {
+        String s = "Prenotazione " + numeroPrenotazione + "\n"
+                + "Destinazione: " + itinerario.getDestinazione().getNome() + "\n"
+                + "Porto di partenza: " + itinerario.getPortoPartenza().getNome() + "\n"
+                + "Nave: " + itinerario.getNave().getNome() + "\n"
+                + "Prezzo totale: " + prezzoTotale + "\n"
+                + "Data di partenza: " + itinerario.getDataPartenza() + "\n";
+        return s;
+    }
 }
