@@ -1,6 +1,8 @@
 package com.admiral;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Prenotazione {
     
@@ -10,9 +12,13 @@ public class Prenotazione {
     private Itinerario itinerario;
     private Cabina cabina;
     private ScontoStrategy scontoStrategy;
+    private Pacchetto pacchettoCorrente;
+    private Map<String, Pacchetto> pacchettiPrenotati;
 
     public Prenotazione(int numeroPrenotazione){
         this.numeroPrenotazione = numeroPrenotazione;
+
+        this.pacchettiPrenotati = new HashMap<>();
     }
 
     public void calcolaPrezzo(){

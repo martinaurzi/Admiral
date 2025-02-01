@@ -6,12 +6,14 @@ import java.util.Map;
 public class GestorePrenotazioni {
     
     private static GestorePrenotazioni gestorePrenotazioni;
-    private Map<Integer, Prenotazione> prenotazioni;
     private Prenotazione prenotazioneCorrente;
     private Nave naveCorrente;
+    private Map<Integer, Prenotazione> prenotazioni;
+    private Map<String, Pacchetto> pacchetti;
 
     private GestorePrenotazioni(){
         this.prenotazioni = new HashMap<>();
+        this.pacchetti = new HashMap<>();
     }
 
     public static GestorePrenotazioni getInstance() {
@@ -65,6 +67,26 @@ public class GestorePrenotazioni {
         }
     }
 
+    public boolean verificaNumeroPrenotazione(int numeroPrenotazione){
+        Prenotazione p = this.prenotazioni.get(numeroPrenotazione);
+        setPrenotazioneCorrente(p);  
+
+        if(p != null) 
+            return true; 
+        else 
+            return false;
+    }
+
+    public void visualizzaPacchetti(){
+        pacchetti.forEach((codice, p) -> {
+            System.out.println(p);
+        });
+    }
+
+    public void findPacchetto(String codicePacchetto){
+        // implementare
+    }
+
     public void setItinerario(Itinerario i){ 
         prenotazioneCorrente.setItinerario(i);
         setNave();
@@ -86,5 +108,9 @@ public class GestorePrenotazioni {
 
     public Map<Integer, Prenotazione> getPrenotazioni(){
         return prenotazioni;
+    }
+
+    public void setPrenotazioneCorrente(Prenotazione p){
+        this.prenotazioneCorrente = p;
     }
 }

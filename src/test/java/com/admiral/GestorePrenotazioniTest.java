@@ -14,8 +14,8 @@ public class GestorePrenotazioniTest {
 
     @BeforeEach
     public void setUp() {
-        gestorePrenotazioni = gestorePrenotazioni.getInstance();
-        catalogo = catalogo.getInstance();
+        gestorePrenotazioni = GestorePrenotazioni.getInstance();
+        catalogo = Catalogo.getInstance();
     }
 
     @Test
@@ -40,5 +40,13 @@ public class GestorePrenotazioniTest {
         gestorePrenotazioni.confermaPrenotazione();
         assertNotNull(gestorePrenotazioni.getPrenotazioni().values().contains(gestorePrenotazioni.getPrenotazioneCorrente()));
         assertEquals(1, gestorePrenotazioni.getPrenotazioni().size());
+    }
+
+    @Test
+    public void verificaNumeroPrenotazioneTest(){
+        Prenotazione p = new Prenotazione(6);
+        gestorePrenotazioni.getPrenotazioni().put(6, p);
+        boolean result = gestorePrenotazioni.verificaNumeroPrenotazione(6);
+        assertEquals(true, result);
     }
 }
