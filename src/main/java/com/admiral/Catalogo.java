@@ -168,8 +168,7 @@ public class Catalogo {
             if (i.getNave().getCodice().equals(codiceNave)) {
                 LocalDate partenzaItinerario = i.getDataPartenza();
                 LocalDate ritornoItinerario = i.getDataRitorno();
-
-                if (!(ritorno.isBefore(partenzaItinerario) || partenza.isAfter(ritornoItinerario))) {
+                if (!(ritorno.isBefore(partenzaItinerario) || ritornoItinerario.isBefore(partenza))) {
                     return false;
                 }
             }
@@ -181,7 +180,7 @@ public class Catalogo {
         return navi.containsKey(codice);
     }
 
-    public boolean verificaCodicePorto(String codice) {
+    public boolean validateCodicePorto(String codice) {
         return porti.containsKey(codice);
     }
 }

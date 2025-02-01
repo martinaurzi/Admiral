@@ -27,7 +27,7 @@ public class Itinerario {
         this.portoPartenza = catalogo.getPorto(codicePortoPartenza);
         this.dataPartenza = dataPartenza;
         this.dataRitorno = dataRitorno;
-        this.durata = (int)ChronoUnit.DAYS.between(dataPartenza, dataRitorno);
+        this.durata = (int) ChronoUnit.DAYS.between(dataPartenza, dataRitorno);
         this.prezzo = calcolaPrezzoItinerario();
 
         this.portiDaVisitare = new HashMap<>();
@@ -38,11 +38,11 @@ public class Itinerario {
     }
 
     // Regola di dominio R1
-    public float calcolaPrezzoItinerario(){
+    public float calcolaPrezzoItinerario() {
         return destinazione.getPrezzo() + (100 * durata);
     }
 
-    public boolean checkMesePartenza(int mesePartenza){
+    public boolean checkMesePartenza(int mesePartenza) {
         return dataPartenza.getMonthValue() == mesePartenza;
     }
 
@@ -58,31 +58,31 @@ public class Itinerario {
         return portiDaVisitare.get(codice);
     }
 
-    public float getPrezzo(){
+    public float getPrezzo() {
         return prezzo;
     }
 
-    public int getDurata(){
+    public int getDurata() {
         return durata;
     }
 
-    public LocalDate getDataPartenza(){
+    public LocalDate getDataPartenza() {
         return dataPartenza;
     }
 
-    public LocalDate getDataRitorno(){
-        return dataPartenza;
+    public LocalDate getDataRitorno() {
+        return dataRitorno;
     }
 
-    public Destinazione getDestinazione(){
+    public Destinazione getDestinazione() {
         return destinazione;
     }
 
-    public Nave getNave(){
+    public Nave getNave() {
         return nave;
     }
 
-    public Porto getPortoPartenza(){
+    public Porto getPortoPartenza() {
         return portoPartenza;
     }
 

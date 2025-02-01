@@ -53,7 +53,13 @@ public class App {
                             }
                         } while (!catalogo.validateCodiceDestinazione(codiceDestinazione));
                         dataPartenza = DateValidation.leggiData(buf, "Data di partenza (YYYY-MM-DD): ");
-                        dataRitorno = DateValidation.leggiData(buf, "Data di ritorno (YYYY-MM-DD): ");
+                        do {
+                            dataRitorno = DateValidation.leggiData(buf, "Data di ritorno (YYYY-MM-DD): ");
+                            if (dataRitorno.isBefore(dataPartenza) || dataRitorno.isEqual(dataPartenza)) {
+                                System.out.println(
+                                        "La data di ritorno deve essere successiva alla data di partenza, riprova.");
+                            }
+                        } while (dataRitorno.isBefore(dataPartenza) || dataRitorno.isEqual(dataPartenza));
                         boolean codiceValido, disponibilitaValida = false;
                         do {
                             System.out.print("Codice della nave: ");
@@ -73,20 +79,31 @@ public class App {
 
                         } while (!codiceValido || !disponibilitaValida);
 
-                        System.out.print("Codice del porto di partenza: ");
-                        codicePortoPartenza = buf.readLine();
+                        do {
+                            System.out.print("Codice del porto di partenza: ");
+                            codicePortoPartenza = buf.readLine();
+                            if (!catalogo.validateCodicePorto(codicePortoPartenza)) {
+                                System.out.println("Codice porto inesistente, riprova.");
+                            }
+                        } while (!catalogo.validateCodicePorto(codicePortoPartenza));
+
                         admiral.inserisciNuovoItinerario(codiceDestinazione, codiceNave, codicePortoPartenza,
                                 dataPartenza, dataRitorno);
 
                         System.out.println("Inserire i porti da visitare");
-                        while (true) {
+                        do {
                             System.out
                                     .print("Inserire il codice del porto da visitare (digita 'stop' per terminare): ");
                             codicePorto = buf.readLine();
                             if (codicePorto.equalsIgnoreCase("stop"))
                                 break;
-                            admiral.inserisciPortoDaVisitare(codicePorto);
-                        }
+                            if (!catalogo.validateCodicePorto(codicePorto)) {
+                                System.out.println("Codice porto inesistente, riprova.");
+                            } else {
+                                admiral.inserisciPortoDaVisitare(codicePorto);
+
+                            }
+                        } while (!catalogo.validateCodicePorto(codicePorto) || !codicePorto.equals("stop"));
 
                         System.out.print("\nConferma inserimento (si o no)");
                         if (buf.readLine().equalsIgnoreCase("si")) {
