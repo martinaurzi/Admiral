@@ -12,11 +12,19 @@ public class Destinazione {
         this.prezzo = prezzo;
     }
 
-    public String toString(){
-        return nome;
+    public String getCodice(){
+        return codice;
     }
 
     public float getPrezzo(){
         return prezzo;
+    }
+
+    public String getNome(){
+        return nome;
+    }
+
+    public String toString(){
+        return nome + "(" + codice + ")";
     }
 }
