@@ -49,4 +49,24 @@ public class GestorePrenotazioniTest {
         boolean result = gestorePrenotazioni.verificaNumeroPrenotazione(6);
         assertEquals(true, result);
     }
+
+    @Test
+    public void confermaAcquistoTest(){
+        Prenotazione p = new Prenotazione(1);
+        gestorePrenotazioni.getPrenotazioni().put(1, p);
+
+        Pacchetto pa = new PacchettoEscursioni("p1", "Escursioni", 600F, 3, false);
+        p.setPacchettoCorrente(pa);
+        assertEquals("p1", p.getPacchettoCorrente().getCodice());
+
+        p.confermaAcquisto();
+
+        Pacchetto pa2 = new PacchettoBevande("p2", "Bevande", 200F);
+        p.setPacchettoCorrente(pa2);
+        assertEquals("p2", p.getPacchettoCorrente().getCodice());
+
+        p.confermaAcquisto();
+
+        assertEquals(2, p.getPacchetti().size());
+    }
 }
