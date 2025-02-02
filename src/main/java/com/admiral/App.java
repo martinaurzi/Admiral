@@ -121,12 +121,28 @@ public class App {
                     admiral.nuovaPrenotazione();
 
                     try {
-                        //System.out.println("Seleziona la destinazione");
-                        System.out.print("\nInserisci il codice della destinazione desiderata: ");
-                        codiceDestinazione = buf.readLine();
-                        System.out.print("\nInserisci il mese di partenza: ");
-                        mesePartenza = Integer.parseInt(buf.readLine());
-                        admiral.selezionaDestinazione(codiceDestinazione, mesePartenza);
+                        do {
+                            do {
+                                //System.out.println("Seleziona la destinazione");
+                                System.out.print("\nInserisci il codice della destinazione desiderata: ");
+                                codiceDestinazione = buf.readLine();
+                                if (!catalogo.validateCodiceDestinazione(codiceDestinazione)) {
+                                    System.out.println("Codice destinazione inesistente, riprova.");
+                                }
+                            } while (!catalogo.validateCodiceDestinazione(codiceDestinazione));
+
+                            boolean meseValido;
+                            do {
+                                System.out.print("\nInserisci il mese di partenza: ");
+                                mesePartenza = Integer.parseInt(buf.readLine());
+
+                                meseValido = mesePartenza >= 1 && mesePartenza <= 12;
+                                if (!meseValido) {
+                                    System.out.println("Mese non valido, riprova.");
+                                }
+                            } while (!meseValido);
+                            admiral.selezionaDestinazione(codiceDestinazione, mesePartenza);
+                        } while (!admiral.selezionaDestinazione(codiceDestinazione, mesePartenza));
 
                         //System.out.println("Seleziona l' itinerario");
                         System.out.print("\nInserisci il codice dell' itinerario scelto: ");
