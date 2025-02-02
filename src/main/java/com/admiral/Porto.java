@@ -15,7 +15,7 @@ public class Porto {
     }
 
     public String toString(){
-        return nome + "(" + codice + ")";
+        return "(" + codice + ") " + nome;
     }
 
     public String getNome(){

@@ -198,9 +198,26 @@ public class Catalogo {
         return navi.get(codNave);
     }
 
-    public void getDestinazioni() {
-        System.out.println("Le destinazioni disponibili sono: ");
+    public void visualizzaDestinazioni() {
         destinazioni.values().forEach(System.out::println);
+    }
+
+    public void visualizzaItinerari(){
+        itinerari.forEach((codice, i) -> {
+            System.out.println(i);
+        });
+    }
+
+    public void visualizzaPorti(){
+        porti.forEach((codice, p) -> {
+            System.out.println(p);
+        });
+    }
+
+    public void visualizzaNavi(){
+        navi.forEach((codice, n) -> {
+            System.out.println(n);
+        });
     }
 
     public boolean validateCodiceDestinazione(String codiceDestinazione) {

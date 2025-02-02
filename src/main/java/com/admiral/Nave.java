@@ -80,6 +80,6 @@ public class Nave {
     }
 
     public String toString(){
-        return nome + "(" + codice + ")";
+        return "(" + codice + ") " + nome;
     }
 }

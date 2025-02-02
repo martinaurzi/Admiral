@@ -25,6 +25,6 @@ public class Destinazione {
     }
 
     public String toString(){
-        return nome + "(" + codice + ")";
+        return "(" + codice + ") " + nome;
     }
 }

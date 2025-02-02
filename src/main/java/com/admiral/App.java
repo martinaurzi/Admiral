@@ -13,10 +13,12 @@ public class App {
             System.out.println("1. Inserisci un nuovo Itinerario");
             System.out.println("2. Effettua una nuova prenotazione");
             System.out.println("3. Acquista un pacchetto");
-            System.out.println("4. Visualizza tutti gli itinerari");
-            System.out.println("5. Visualizza tutte le destinazioni");
-            System.out.println("6. Visualizza tutte le navi");
-            System.out.println("7. Visualizza tutti i porti");
+            System.out.println("4. Inserisci una nuova nave");
+            System.out.println("5. Visualizza tutte le prenotazioni");
+            System.out.println("6. Visualizza tutte le destinazioni");
+            System.out.println("7. Visualizza tutti gli itinerari");
+            System.out.println("8. Visualizza tutti i porti");
+            System.out.println("9. Visualizza tutte le navi");
             System.out.println("0. Esci");
             System.out.print("---> Inserisci il numero dell'operazione che vuoi effettuare: ");
             return (Integer.parseInt(bf.readLine()));
@@ -40,10 +42,9 @@ public class App {
         BufferedReader buf = new BufferedReader(new InputStreamReader(System.in));
         int scelta;
 
-        System.out.println("Applicazione avviata e Catalogo inizializzato.");
-
         while ((scelta = menu(buf)) != 0) {
             switch (scelta) {
+                // Nuovo itinerario
                 case 1:
                     try {
                         System.out.println("Inserire le informazioni dell'itinerario");
@@ -92,10 +93,10 @@ public class App {
                         admiral.inserisciNuovoItinerario(codiceDestinazione, codiceNave, codicePortoPartenza,
                                 dataPartenza, dataRitorno);
 
-                        System.out.println("Inserire i porti da visitare");
+                        //System.out.println("Inserire i porti da visitare");
                         do {
                             System.out
-                                    .print("Inserire il codice del porto da visitare (digita 'stop' per terminare): ");
+                                    .print("Inserire il codice del porto da visitare ('stop' per terminare): ");
                             codicePorto = buf.readLine();
                             if (codicePorto.equalsIgnoreCase("stop"))
                                 break;
@@ -107,7 +108,7 @@ public class App {
                             }
                         } while (!catalogo.validateCodicePorto(codicePorto) || !codicePorto.equals("stop"));
 
-                        System.out.print("\nConferma inserimento (si o no)");
+                        System.out.print("\nConferma inserimento (si o no): ");
                         if (buf.readLine().equalsIgnoreCase("si")) {
                             admiral.confermaInserimento();
                         } else
@@ -116,6 +117,7 @@ public class App {
                     }
                     break;
 
+                // Nuova prenotazione
                 case 2:
                     admiral.nuovaPrenotazione();
 
@@ -154,6 +156,7 @@ public class App {
                     }
                     break;
 
+                // Acquista pacchetto
                 case 3:
                     try {
                         System.out.print("Inserisci il numero della prenotazione: ");
@@ -172,6 +175,7 @@ public class App {
                     }
                     break;
 
+                // Nuova nave
                 case 4:
                     try {
                         do {
@@ -206,7 +210,7 @@ public class App {
                             }
                         } while (!nomeTipoCabina.equals("stop"));
                         
-                        System.out.print("\nConferma inserimento (si o no)");
+                        System.out.print("\nConferma inserimento (si o no): ");
                         if (buf.readLine().equalsIgnoreCase("si")) {
                             admiral.confermaInserimentoNave();
                         } else
@@ -216,8 +220,29 @@ public class App {
                     }
                 break;
 
+                // Visualizza prenotazioni
                 case 5:
-                    catalogo.getDestinazioni();
+                    gestorePrenotazioni.visualizzaPrenotazioni();
+                    break;
+
+                // Visualizza destinazioni
+                case 6:
+                    catalogo.visualizzaDestinazioni();
+                    break;
+
+                // Visualizza itinerari
+                case 7:
+                    catalogo.visualizzaItinerari();
+                    break;
+
+                // Visualizza porti
+                case 8:
+                    catalogo.visualizzaPorti();
+                    break;
+
+                // Visualizza navi
+                case 9:
+                    catalogo.visualizzaNavi();
                     break;
             }
         }

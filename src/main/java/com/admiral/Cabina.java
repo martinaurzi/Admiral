@@ -23,6 +23,6 @@ public class Cabina {
     }
 
     public String toString() {
-        return "\nCabina " + tipoCabina.getNome() + " " + numeroCabina + "\n";
+        return "\n" + tipoCabina.getNome() + " " + numeroCabina + "\n";
     }
 }

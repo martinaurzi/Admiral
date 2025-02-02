@@ -101,6 +101,12 @@ public class GestorePrenotazioni {
         });
     }
 
+    public void visualizzaPrenotazioni(){
+        prenotazioni.forEach((numero, p) -> {
+            System.out.println(p);
+        });
+    }
+
     public void findPacchetto(String codicePacchetto){
         Pacchetto pa = pacchetti.get(codicePacchetto);
 

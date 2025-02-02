@@ -38,7 +38,7 @@ public class Admiral {
     public void nuovaPrenotazione(){
         gestorePrenotazioni.nuovaPrenotazione(); 
         
-        catalogo.getDestinazioni();
+        catalogo.visualizzaDestinazioni();
     }
 
     public void selezionaDestinazione(String codiceDestinazione, int mesePartenza){
