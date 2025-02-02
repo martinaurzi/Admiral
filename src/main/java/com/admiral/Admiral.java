@@ -66,13 +66,17 @@ public class Admiral {
     }
 
     // 10. UC3 SD Inserisci Numero Prenotazione
-    public void inserisciNumeroPrenotazione(int numeroPrenotazione){
-        if(gestorePrenotazioni.verificaNumeroPrenotazione(numeroPrenotazione))
-            gestorePrenotazioni.visualizzaPacchetti();
+    public boolean inserisciNumeroPrenotazione(int numeroPrenotazione){
+        return gestorePrenotazioni.verificaNumeroPrenotazione(numeroPrenotazione);
     }
 
     // 11. UC3 SD Seleziona pacchetto
     public void selezionaPacchetto(String codicePacchetto){
         gestorePrenotazioni.findPacchetto(codicePacchetto);
+    }
+
+    // 12. UC3 SD Conferma acquisto
+    public void confermaAcquisto(){
+        gestorePrenotazioni.confermaAcquisto();
     }
 }

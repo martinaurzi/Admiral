@@ -21,4 +21,8 @@ public class Cabina {
     public TipoCabina getTipo(){
         return tipoCabina;
     }
+
+    public String toString() {
+        return "\nCabina " + tipoCabina.getNome() + " " + numeroCabina + "\n";
+    }
 }

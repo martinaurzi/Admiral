@@ -42,7 +42,6 @@ public class Prenotazione {
 
     public void calcolaPrezzoPrenotazione(){
         setPrezzoTotale(calcolaPrezzoPerNumeroOspiti() + cabina.getPrezzo());
-
     }
 
     public float calcolaSconto(){
@@ -56,12 +55,29 @@ public class Prenotazione {
         return scontoLastMinute;
     }
 
+    public void confermaAcquisto(){
+        String codicePacchetto = pacchettoCorrente.getCodice();
+        addPacchetto(codicePacchetto);
+        System.out.println("Pacchetto Acquistato");
+    }
+
+    public void addPacchetto(String codicePacchetto){
+        pacchettiPrenotati.put(codicePacchetto, pacchettoCorrente);
+
+        float prezzo = pacchettoCorrente.getPrezzo();
+        setPrezzoTotale(this.prezzoTotale += prezzo);
+    }
+
     public Itinerario getItinerario(){
         return itinerario;
     }
 
     public Cabina getCabina(){
         return cabina;
+    }
+
+    public int getNumero(){
+        return this.numeroPrenotazione;
     }
 
     public void setPrezzoTotale(float prezzoTotale){
@@ -76,17 +92,22 @@ public class Prenotazione {
         this.cabina = cabina;
     }
 
-    public int getNumero(){
-        return this.numeroPrenotazione;
+    public void setPacchettoCorrente(Pacchetto pa){
+        this.pacchettoCorrente = pa;
     }
 
     public String toString() {
-        String s = "Prenotazione " + numeroPrenotazione + "\n"
-                + "Destinazione: " + itinerario.getDestinazione().getNome() + "\n"
-                + "Porto di partenza: " + itinerario.getPortoPartenza().getNome() + "\n"
-                + "Nave: " + itinerario.getNave().getNome() + "\n"
+        String s = "\nPrenotazione " + numeroPrenotazione + "\n"
+                //+ "Destinazione: " + itinerario.getDestinazione().getNome() + "\n"
+                //+ "Porto di partenza: " + itinerario.getPortoPartenza().getNome() + "\n"
+                //+ "Nave: " + itinerario.getNave().getNome() + "\n"
                 + "Prezzo totale: " + prezzoTotale + "\n"
-                + "Data di partenza: " + itinerario.getDataPartenza() + "\n";
+                + "Data di partenza: " + itinerario.getDataPartenza() + "\n"
+                + "Cabina: " + cabina + "\n"
+                + "Pacchetti:\n";
+                for (Pacchetto pacchetto : pacchettiPrenotati.values()) {
+                    s += pacchetto.getNome() + " ";
+                }
         return s;
     }
 }

@@ -9,15 +9,15 @@ public class App {
 
     static public int menu(BufferedReader bf) {
         try {
-            System.out.println("***ADMIRAL***");
-            System.out.println("1. Inserire un nuovo Itinerario");
-            System.out.println("2. Effettuare una nuova prenotazione");
-            System.out.println("3. Aggiungere un pacchetto");
-            System.out.println("4. Visualizzare tutti gli itinerari");
-            System.out.println("5. Visualizzare tutte le destinazioni");
-            System.out.println("6. Visualizzare tutte le navi");
-            System.out.println("7. Visualizzare tutti i porti");
-            System.out.println("0. Uscita");
+            System.out.println("\n***ADMIRAL***");
+            System.out.println("1. Inserisci un nuovo Itinerario");
+            System.out.println("2. Effettua una nuova prenotazione");
+            System.out.println("3. Acquista un pacchetto");
+            System.out.println("4. Visualizza tutti gli itinerari");
+            System.out.println("5. Visualizza tutte le destinazioni");
+            System.out.println("6. Visualizza tutte le navi");
+            System.out.println("7. Visualizza tutti i porti");
+            System.out.println("0. Esci");
             System.out.print("---> Inserisci il numero dell'operazione che vuoi effettuare: ");
             return (Integer.parseInt(bf.readLine()));
         } catch (IOException e) {
@@ -30,6 +30,7 @@ public class App {
     public static void main(String[] args) {
         Admiral admiral = Admiral.getInstance();
         Catalogo catalogo = Catalogo.getInstance();
+        GestorePrenotazioni gestorePrenotazioni = GestorePrenotazioni.getInstance();
 
         String codiceDestinazione, codiceNave, codicePortoPartenza, codicePorto, codiceItinerario;
         LocalDate dataPartenza, dataRitorno;
@@ -118,26 +119,26 @@ public class App {
                     admiral.nuovaPrenotazione();
 
                     try {
-                        System.out.println("Seleziona la destinazione");
-                        System.out.print("Inserisci il codice della destinazione desiderata: ");
+                        //System.out.println("Seleziona la destinazione");
+                        System.out.print("\nInserisci il codice della destinazione desiderata: ");
                         codiceDestinazione = buf.readLine();
-                        System.out.print("Inserisci il mese di partenza: ");
+                        System.out.print("\nInserisci il mese di partenza: ");
                         mesePartenza = Integer.parseInt(buf.readLine());
                         admiral.selezionaDestinazione(codiceDestinazione, mesePartenza);
 
-                        System.out.println("Seleziona l' itinerario");
-                        System.out.print("Inserisci il codice dell' itinerario scelto: ");
+                        //System.out.println("Seleziona l' itinerario");
+                        System.out.print("\nInserisci il codice dell' itinerario scelto: ");
                         codiceItinerario = buf.readLine();
                         admiral.selezionaItinerario(codiceItinerario);
 
-                        System.out.println("Seleziona il tipo di cabina");
-                        System.out.print("Inserisci il codice del tipo di cabina scelto: ");
+                        //System.out.println("Seleziona il tipo di cabina");
+                        System.out.print("\nInserisci il codice del tipo di cabina scelto: ");
                         codiceTipoCabina = Integer.parseInt(buf.readLine());
                         admiral.selezionaTipoCabina(codiceTipoCabina);
 
-                        System.out.println("Specificare il numero di ospiti");
+                        //System.out.println("Specificare il numero di ospiti");
                         do {
-                            System.out.print("Inserire il numero di ospiti (max = 4): ");
+                            System.out.print("\nInseririsci il numero di ospiti (max = 4): ");
                             numeroOspiti = Integer.parseInt(buf.readLine());
                         } while (numeroOspiti > 4);
                         admiral.inserisciNumeroOspiti(numeroOspiti);
@@ -148,6 +149,24 @@ public class App {
                         } else
                             break;
 
+                    } catch (IOException e) {
+                    }
+                    break;
+
+                case 3:
+                    try {
+                        System.out.print("Inserisci il numero della prenotazione: ");
+                        int numeroPrenotazione = Integer.parseInt(buf.readLine());
+
+                        if(admiral.inserisciNumeroPrenotazione(numeroPrenotazione)){
+                            gestorePrenotazioni.visualizzaPacchetti();
+
+                            System.out.print("Inserisci il codice del pacchetto da acquistare: ");
+                            String codicePacchetto = buf.readLine();
+                            admiral.selezionaPacchetto(codicePacchetto);
+                            admiral.confermaAcquisto();
+                        } else
+                            System.err.println("Prenotazione non trovata");
                     } catch (IOException e) {
                     }
                     break;

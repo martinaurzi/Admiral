@@ -52,6 +52,10 @@ public class TipoCabina {
         return prezzo;
     }
 
+    public String getNome(){
+        return nome;
+    }
+
     public String toString() {
         String s = "Tipo Cabina " + id + "\n"
                 + "Nome: " + nome + "\n"

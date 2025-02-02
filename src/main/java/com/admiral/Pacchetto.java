@@ -12,9 +12,20 @@ public abstract class Pacchetto {
         this.prezzo = prezzo;
     }
 
+    public String getCodice(){
+        return codice;
+    }
+
+    public float getPrezzo(){
+        return prezzo;
+    }
+
+    public String getNome(){
+        return nome;
+    }
+
     public String toString() {
-        String s = "Pacchetto " + codice + "\n"
-                + "Nome: " + nome + "\n"
+        String s = "Pacchetto " + nome + " " + codice + "\n"
                 + "Prezzo: " + prezzo + " euro " + "\n";
         return s;
     }

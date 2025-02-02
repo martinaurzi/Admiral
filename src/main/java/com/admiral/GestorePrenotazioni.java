@@ -14,6 +14,8 @@ public class GestorePrenotazioni {
     private GestorePrenotazioni(){
         this.prenotazioni = new HashMap<>();
         this.pacchetti = new HashMap<>();
+
+        loadPacchetti();
     }
 
     public static GestorePrenotazioni getInstance() {
@@ -63,8 +65,24 @@ public class GestorePrenotazioni {
     public void confermaPrenotazione(){
         if (prenotazioneCorrente != null) {
             this.prenotazioni.put(prenotazioneCorrente.getNumero(), prenotazioneCorrente);
-            System.out.println("Prenotazione Effettuata con Successo");
+            System.out.println(prenotazioneCorrente);
         }
+    }
+
+    public void loadPacchetti(){
+        Pacchetto p1 = new PacchettoBevande("p1", "Bevande", 200F);
+        Pacchetto p2 = new PacchettoBevande("p2", "Bevande Plus", 250F);
+        Pacchetto p3 = new PacchettoEscursioni("p3", "Escursioni", 600F, 3, true);
+        Pacchetto p4 = new PacchettoBenessere("p4", "Benessere", 300F, 3);
+        Pacchetto p5 = new PacchettoEscursioni("p5", "Escursioni", 1200F, 10, true);
+        Pacchetto p6 = new PacchettoBenessere("p6", "Benessere", 90F, 1);
+        this.pacchetti.put("p1", p1);
+        this.pacchetti.put("p2", p2);
+        this.pacchetti.put("p3", p3);
+        this.pacchetti.put("p4", p4);
+        this.pacchetti.put("p5", p5);
+        this.pacchetti.put("p6", p6);
+        System.out.println("Caricamento Pacchetti Completato");
     }
 
     public boolean verificaNumeroPrenotazione(int numeroPrenotazione){
@@ -84,7 +102,14 @@ public class GestorePrenotazioni {
     }
 
     public void findPacchetto(String codicePacchetto){
-        // implementare
+        Pacchetto pa = pacchetti.get(codicePacchetto);
+
+        if(pa != null)
+            prenotazioneCorrente.setPacchettoCorrente(pa);
+    }
+
+    public void confermaAcquisto(){
+        prenotazioneCorrente.confermaAcquisto();
     }
 
     public void setItinerario(Itinerario i){ 
