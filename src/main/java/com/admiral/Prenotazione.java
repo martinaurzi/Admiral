@@ -65,6 +65,10 @@ public class Prenotazione {
         pacchettiPrenotati.put(codicePacchetto, pacchettoCorrente);
 
         float prezzo = pacchettoCorrente.getPrezzo();
+        aggiornaPrezzo(prezzo);
+    }
+
+    public void aggiornaPrezzo(float prezzo){
         setPrezzoTotale(this.prezzoTotale += prezzo);
     }
 
