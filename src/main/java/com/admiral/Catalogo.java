@@ -12,8 +12,8 @@ public class Catalogo {
     private Map<String, Porto> porti;
     private Map<String, Nave> navi;
     private String codice;
-
     private Itinerario itinerarioCorrente;
+    private Nave naveCorrente;
 
     private Catalogo() {
         this.itinerari = new HashMap<>();
@@ -37,6 +37,10 @@ public class Catalogo {
         return "i" + String.valueOf(itinerari.size() + 1);
     }
 
+    public String generaCodiceNave() {
+        return "n" + String.valueOf(navi.size() + 1);
+    }
+
     public void inserisciNuovoItinerario(String codiceDestinazione, String codiceNave,
             String codicePortoPartenza, LocalDate dataPartenza, LocalDate dataRitorno) {
         if (getDestinazione(codiceDestinazione) == null) {
@@ -58,7 +62,7 @@ public class Catalogo {
         this.itinerarioCorrente = new Itinerario(codice, codiceDestinazione, codiceNave, codicePortoPartenza,
                 dataPartenza, dataRitorno);
 
-        System.out.println("Itinerario Inserito");
+        System.out.println("Itinerario Creato");
     }
 
     public void inserisciPortoDaVisitare(String codicePorto) {
@@ -98,6 +102,33 @@ public class Catalogo {
             if (i.getDestinazione().getCodice() == d.getCodice() && i.checkMesePartenza(mesePartenza))
                 System.out.println(i);
         });
+    }
+
+    public void inserisciNuovaNave(String nomeNave){ 
+        navi.forEach((codice, n) -> {
+            if (nomeNave.equalsIgnoreCase(n.getNome()))
+            System.out.println("La nave e' già presente nel Sistema");
+        });
+        
+        String codice = generaCodiceNave();
+
+        this.naveCorrente = new Nave(codice, nomeNave, false);
+        System.out.println("Nave Creata");
+    }
+
+    public void inserisciTipoCabina(String nomeTipoCabina){
+        naveCorrente.inserisciTipoCabina(nomeTipoCabina);
+    } 
+
+    public void inserisciCabina(int numeroCabina){
+        naveCorrente.inserisciCabina(numeroCabina);
+    } 
+
+    public void confermaInserimentoNave(){
+        if (naveCorrente != null) {
+            this.navi.put(naveCorrente.getCodice(), naveCorrente);
+            System.out.println("Operazione Inserimento Nave Conclusa");
+        }
     }
 
     public void loadDestinazioni() {

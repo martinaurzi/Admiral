@@ -79,4 +79,24 @@ public class Admiral {
     public void confermaAcquisto(){
         gestorePrenotazioni.confermaAcquisto();
     }
+
+    // 13. UC4 SD Inserisci nuova nave
+    public void inserisciNuovaNave(String nomeNave){
+        catalogo.inserisciNuovaNave(nomeNave);
+    } 
+
+    // 14. UC4 SD Inserisci tipo cabina
+    public void inserisciTipoCabina(String nomeTipoCabina){
+        catalogo.inserisciTipoCabina(nomeTipoCabina);
+    } 
+
+    // 15. UC4 Inserisci cabina
+    public void inserisciCabina(int numeroCabina){
+        catalogo.inserisciCabina(numeroCabina);
+    } 
+
+    // 16. UC4 SD Conferma inserimento nave
+    public void confermaInserimentoNave(){
+        catalogo.confermaInserimentoNave();
+    }
 }

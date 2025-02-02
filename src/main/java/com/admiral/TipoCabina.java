@@ -20,6 +20,24 @@ public class TipoCabina {
         loadCabine();
     }
 
+    public TipoCabina(int id, String nome){
+        this.id = id;
+        this.nome = nome;
+        
+        if (nome.equalsIgnoreCase("Cabina interna")) this.prezzo = 0F;
+        if (nome.equalsIgnoreCase("Cabina vista mare")) this.prezzo = 200F ;
+        if (nome.equalsIgnoreCase("Cabina con balcone")) this.prezzo = 300F;
+        if (nome.equalsIgnoreCase("Suite")) this.prezzo = 500F;
+    
+        this.cabine = new HashMap<>();
+    }
+
+    public void inserisciCabina(int numeroCabina){
+        Cabina c = new Cabina(numeroCabina, this);
+
+        this.cabine.put(numeroCabina, c);
+    } 
+
     public void loadCabine(){
         Cabina c1 = new Cabina(1, this);
         Cabina c2 = new Cabina(2, this);
