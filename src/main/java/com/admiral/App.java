@@ -95,8 +95,7 @@ public class App {
 
                         //System.out.println("Inserire i porti da visitare");
                         do {
-                            System.out
-                                    .print("Inserire il codice del porto da visitare ('stop' per terminare): ");
+                            System.out.print("Inserire il codice del porto da visitare ('stop' per terminare): ");
                             codicePorto = buf.readLine();
                             if (codicePorto.equalsIgnoreCase("stop"))
                                 break;

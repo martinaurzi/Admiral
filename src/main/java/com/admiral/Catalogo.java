@@ -1,5 +1,11 @@
 package com.admiral;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.io.File;
+import java.io.IOException;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +40,7 @@ public class Catalogo {
     }
 
     public String generaCodiceItinerario() {
-        return "i" + String.valueOf(itinerari.size() + 1);
+        return "I" + String.valueOf(itinerari.size() + 1);
     }
 
     public String generaCodiceNave() {
@@ -61,8 +67,6 @@ public class Catalogo {
 
         this.itinerarioCorrente = new Itinerario(codice, codiceDestinazione, codiceNave, codicePortoPartenza,
                 dataPartenza, dataRitorno);
-
-        System.out.println("Itinerario Creato");
     }
 
     public void inserisciPortoDaVisitare(String codicePorto) {
@@ -71,7 +75,6 @@ public class Catalogo {
 
             if (p != null) {
                 this.itinerarioCorrente.inserisciPortoDaVisitare(codicePorto, p);
-                System.out.println("Porto da visitare inserito");
             } else
                 System.out.println("Porto Inesistente");
         }
@@ -145,33 +148,67 @@ public class Catalogo {
     }
 
     public void loadDestinazioni() {
-        Destinazione d1 = new Destinazione("1", "Mediterraneo", 900F);
-        Destinazione d2 = new Destinazione("2", "Caraibi", 2000F);
-        Destinazione d3 = new Destinazione("3", "Nord Europa", 1500F);
-        this.destinazioni.put("1", d1);
-        this.destinazioni.put("2", d2);
-        this.destinazioni.put("3", d3);
-        System.out.println("Caricamento Destinazioni Completato");
+        ObjectMapper destinazioniMapper = new ObjectMapper();
+
+        try {
+            JsonNode destinazioniNode = destinazioniMapper.readTree(new File("src/main/java/com/admiral/data/destinazioni.json"));
+
+            for (JsonNode node : destinazioniNode) {
+                String codice = node.get("codice").asText();
+                String nome = node.get("nome").asText();
+                float prezzo = node.get("prezzo").floatValue();
+    
+                Destinazione d = new Destinazione(codice, nome, prezzo);
+                this.destinazioni.put(codice, d);
+            }
+
+            System.out.println("Caricamento Destinazioni Completato");
+        } catch (IOException e) {
+            System.out.println("Errore nella lettura del file destinazioni.json");
+            e.printStackTrace();
+        }
     }
 
     public void loadPorti() {
-        Porto p1 = new Porto("1", "Catania");
-        Porto p2 = new Porto("2", "Guadalupa");
-        Porto p3 = new Porto("3", "Amburgo");
-        this.porti.put("1", p1);
-        this.porti.put("2", p2);
-        this.porti.put("3", p3);
-        System.out.println("Caricamento Porti Completato");
+        ObjectMapper portiMapper = new ObjectMapper();
+
+        try {
+            JsonNode portiNode = portiMapper.readTree(new File("src/main/java/com/admiral/data/porti.json"));
+
+            for (JsonNode node : portiNode) {
+                String codice = node.get("codice").asText();
+                String nome = node.get("nome").asText();
+    
+                Porto p = new Porto(codice, nome);
+                this.porti.put(codice, p);
+            }
+
+            System.out.println("Caricamento Porti Completato");
+        } catch (IOException e) {
+            System.out.println("Errore nella lettura del file porti.json");
+            e.printStackTrace();
+        }
     }
 
     public void loadNavi() {
-        Nave n1 = new Nave("1", "Smeralda");
-        Nave n2 = new Nave("2", "Favolosa");
-        Nave n3 = new Nave("3", "Diadema");
-        this.navi.put("1", n1);
-        this.navi.put("2", n2);
-        this.navi.put("3", n3);
-        System.out.println("Caricamento Navi Completato");
+        ObjectMapper naviMapper = new ObjectMapper();
+
+        try {
+            JsonNode naviNode = naviMapper.readTree(new File("src/main/java/com/admiral/data/navi.json"));
+
+            for (JsonNode node : naviNode) {
+                String codice = node.get("codice").asText();
+                String nome = node.get("nome").asText();
+
+                Nave n = new Nave(codice, nome);
+                this.navi.put(codice, n);
+            }
+
+            System.out.println("Caricamento Navi Completato");
+        } catch (IOException e) {
+            System.out.println("Errore nella lettura del file navi.json");
+            e.printStackTrace();
+        }
     }
 
     public Itinerario getItinerarioCorrente() {

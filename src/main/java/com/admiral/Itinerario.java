@@ -95,9 +95,10 @@ public class Itinerario {
                 + "\t" + "Data di partenza: " + dataPartenza + "\n"
                 + "\t" + "Data di ritorno: " + dataRitorno + "\n"
                 + "\t" + "Durata: " + durata + " giorni\n"
-                + "\t" + "Porti da visitare:\n";
+                + "\t" + "Porti da visitare:\n"
+                + "\t";
         for (Porto porto : portiDaVisitare.values()) {
-            s += "\t" + porto.getNome() + " ";
+            s += porto.getNome() + " ";
         }
         return s;
     }

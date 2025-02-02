@@ -1,0 +1,58 @@
+[
+    {
+        "codice": "1",
+        "nome": "Catania"
+    },
+    {
+        "codice": "2",
+        "nome": "Guadalupa"
+    },
+    {
+        "codice": "3",
+        "nome": "Amburgo"
+    },
+    {
+        "codice": "4",
+        "nome": "Amsterdam"
+    },
+    {
+        "codice": "5",
+        "nome": "Tokyo"
+    },
+    {
+        "codice": "6",
+        "nome": "Savona"
+    },
+    {
+        "codice": "7",
+        "nome": "Las Palmas"
+    },
+    {
+        "codice": "8",
+        "nome": "Hong Kong"
+    },
+    {
+        "codice": "8",
+        "nome": "Barcellona"
+    },
+    {
+        "codice": "9",
+        "nome": "Citta del capo"
+    },
+    {
+        "codice": "10",
+        "nome": "Sydney"
+    },
+    {
+        "codice": "11",
+        "nome": "Genova"
+    },
+    {
+        "codice": "12",
+        "nome": "Marsiglia"
+    },
+    {
+        "codice": "13",
+        "nome": "Dubai"
+    }
+]
