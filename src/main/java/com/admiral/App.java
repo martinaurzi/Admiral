@@ -33,8 +33,9 @@ public class App {
         GestorePrenotazioni gestorePrenotazioni = GestorePrenotazioni.getInstance();
 
         String codiceDestinazione, codiceNave, codicePortoPartenza, codicePorto, codiceItinerario;
+        String nomeTipoCabina, nomeNave;
         LocalDate dataPartenza, dataRitorno;
-        int mesePartenza, codiceTipoCabina, numeroOspiti;
+        int mesePartenza, codiceTipoCabina, numeroOspiti, numeroCabina;
 
         BufferedReader buf = new BufferedReader(new InputStreamReader(System.in));
         int scelta;
@@ -170,6 +171,50 @@ public class App {
                     } catch (IOException e) {
                     }
                     break;
+
+                case 4:
+                    try {
+                        do {
+                            System.out.print("Inserire il nome della nave: ");
+                            nomeNave = buf.readLine();
+                            if (!catalogo.validateNomeNave(nomeNave)) break;
+                            System.out.print("La nave e' già presente nel Sistema");
+                        } while (true);
+                        admiral.inserisciNuovaNave(nomeNave);
+
+                        do {
+                            System.out
+                                    .print("Inserire il nome del tipo di cabina da aggiungere (digita 'stop' per terminare): ");
+                            nomeTipoCabina = buf.readLine();
+                            if (nomeTipoCabina.equalsIgnoreCase("stop"))
+                                break;
+                            if (catalogo.validateNomeTipoCabina(nomeTipoCabina)) {
+                                admiral.inserisciTipoCabina(nomeTipoCabina);
+                                
+                                do {
+                                    System.out
+                                            .print("Inserire il numero della cabina (digita '0' per terminare): ");
+                                    numeroCabina = Integer.parseInt(buf.readLine());
+                                    if (numeroCabina == 0) {
+                                        break;
+                                    } else {
+                                        admiral.inserisciCabina(numeroCabina);
+                                    }
+                                } while (numeroCabina != 0);
+                            } else {
+                                System.out.println("Nome Tipo Cabina non valido, riprova.");
+                            }
+                        } while (!nomeTipoCabina.equals("stop"));
+                        
+                        System.out.print("\nConferma inserimento (si o no)");
+                        if (buf.readLine().equalsIgnoreCase("si")) {
+                            admiral.confermaInserimentoNave();
+                        } else
+                            break;
+                    } catch (IOException e){
+
+                    }
+                break;
 
                 case 5:
                     catalogo.getDestinazioni();

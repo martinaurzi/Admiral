@@ -104,12 +104,25 @@ public class Catalogo {
         });
     }
 
-    public void inserisciNuovaNave(String nomeNave){ 
-        navi.forEach((codice, n) -> {
-            if (nomeNave.equalsIgnoreCase(n.getNome()))
-            System.out.println("La nave e' già presente nel Sistema");
-        });
-        
+    public boolean validateNomeNave(String nomeNave) {
+        for (Nave n : navi.values()) {  
+            if (nomeNave.equalsIgnoreCase(n.getNome())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean validateNomeTipoCabina(String nomeTipoCabina) {
+        if(!nomeTipoCabina.equalsIgnoreCase("Cabina interna") 
+        || !nomeTipoCabina.equalsIgnoreCase("Cabina vista mare")
+        || !nomeTipoCabina.equalsIgnoreCase("Cabina con balcone")
+        || !nomeTipoCabina.equalsIgnoreCase("Suite")){
+        return false;
+        } else return true;
+    }
+
+    public void inserisciNuovaNave(String nomeNave){         
         String codice = generaCodiceNave();
 
         this.naveCorrente = new Nave(codice, nomeNave, false);
