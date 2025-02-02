@@ -84,6 +84,14 @@ public class Prenotazione {
         return this.numeroPrenotazione;
     }
 
+    public Pacchetto getPacchettoCorrente(){
+        return pacchettoCorrente;
+    }
+
+    public Map<String, Pacchetto> getPacchetti(){
+        return pacchettiPrenotati;
+    }
+
     public void setPrezzoTotale(float prezzoTotale){
         this.prezzoTotale = prezzoTotale;
     }
