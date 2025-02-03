@@ -48,18 +48,18 @@ public class Prenotazione {
     }
 
     public float calcolaSconto(){
-        //float sconto = 0;
+        float sconto = 0;
 
         if(LocalDate.now().getMonthValue() == (itinerario.getDataPartenza().minusMonths(1).getMonthValue())){
             setScontoStrategy(new ScontoLastMinute());
-            //sconto = scontoStrategy.calcolaSconto(this.prezzoTotale);
+            sconto = scontoStrategy.calcolaSconto(this.prezzoTotale);
         } 
         else if(itinerario.getDataPartenza().getMonthValue() == 9){
             setScontoStrategy(new ScontoMaxImporto());
-            //sconto = scontoStrategy.calcolaSconto(this.prezzoTotale);
+            sconto = scontoStrategy.calcolaSconto(this.prezzoTotale);
         }
 
-        return scontoStrategy.calcolaSconto(this.prezzoTotale);
+        return sconto;
     }
 
     public void confermaAcquisto(){
