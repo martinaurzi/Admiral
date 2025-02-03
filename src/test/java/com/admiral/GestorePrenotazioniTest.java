@@ -59,11 +59,17 @@ public class GestorePrenotazioniTest {
         p.setPacchettoCorrente(pa);
         assertEquals("p1", p.getPacchettoCorrente().getCodice());
 
+        Itinerario i = new Itinerario("I1", "1", "1", "1", LocalDate.of(2025, 9, 21), LocalDate.of(2025, 9, 30));
+        p.setItinerario(i);
+
         p.confermaAcquisto();
 
         Pacchetto pa2 = new PacchettoBevande("p2", "Bevande", 200F);
         p.setPacchettoCorrente(pa2);
         assertEquals("p2", p.getPacchettoCorrente().getCodice());
+
+        Itinerario i2 = new Itinerario("I2", "1", "1", "1", LocalDate.of(2025, 10, 21), LocalDate.of(2025, 10, 30));
+        p.setItinerario(i2);
 
         p.confermaAcquisto();
 
