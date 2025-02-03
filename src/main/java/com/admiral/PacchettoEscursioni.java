@@ -11,4 +11,12 @@ public class PacchettoEscursioni extends Pacchetto{
         this.includeGuida = includeGuida;
     }
     
+    @Override
+    public String toString() {
+        String s = "Pacchetto " + nome + " " + codice + "\n"
+                + "Prezzo: " + prezzo + " euro " + "\n"
+                + "Numero Escursioni: " + numeroEscursioni + "\n"
+                + "Guida: " + (includeGuida ? "inclusa" : "non inclusa") + "\n";
+        return s;
+    }
 }

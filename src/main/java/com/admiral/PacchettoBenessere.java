@@ -9,4 +9,11 @@ public class PacchettoBenessere extends Pacchetto{
         this.durataOre = durataOre;
     }
     
+    @Override
+    public String toString() {
+        String s = "Pacchetto " + nome + " " + codice + "\n"
+                + "Prezzo: " + prezzo + " euro " + "\n"
+                + "Durata Ore: " + durataOre + " ore" + "\n";
+        return s;
+    }
 }

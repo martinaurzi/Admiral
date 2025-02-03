@@ -1,7 +1,12 @@
 package com.admiral;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Nave {
     
@@ -52,15 +57,27 @@ public class Nave {
     } 
 
     public void loadTipiCabina(){
-        TipoCabina tc1 = new TipoCabina(1, "Cabina interna", 0);
-        TipoCabina tc2 = new TipoCabina(2, "Cabina vista mare", 200F);
-        TipoCabina tc3 = new TipoCabina(3, "Cabina con balcone", 300F);
-        TipoCabina tc4 = new TipoCabina(4, "Suite", 500F);
-        this.tipiCabina.put(1, tc1);
-        this.tipiCabina.put(2, tc2);
-        this.tipiCabina.put(3, tc3);
-        this.tipiCabina.put(4, tc4);
-        System.out.println("Caricamento TipiCabina in Nave Completato");
+        ObjectMapper tipiCabinaMapper = new ObjectMapper();
+
+        try {
+            JsonNode tipiCabinaNode = tipiCabinaMapper.readTree(new File("src/main/java/com/admiral/data/tipiCabina.json"));
+
+            for (JsonNode node : tipiCabinaNode) {
+                int id = node.get("id").intValue();
+                String nome = node.get("nome").asText();
+                float prezzo = node.get("prezzo").floatValue();
+    
+                TipoCabina tc = new TipoCabina(id, nome, prezzo);
+                //tc.setNave(this);
+
+                this.tipiCabina.put(id, tc);
+            }
+
+            System.out.println("Caricamento Tipi Cabina Completato");
+        } catch (IOException e) {
+            System.out.println("Errore nella lettura del file tipiCabina.json");
+            e.printStackTrace();
+        }
     }
 
     public Map<Integer, TipoCabina> getTipiCabina(){
