@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Catalogo {
 
@@ -87,9 +88,9 @@ public class Catalogo {
         }
     }
 
-    public void trovaItinerari(String codiceDestinazione, int mesePartenza) { // void no Mappa itinerari
+    public boolean trovaItinerari(String codiceDestinazione, int mesePartenza) { // void no Mappa itinerari
         Destinazione d = findDestinazione(codiceDestinazione);
-        catalogo.checkItinerario(d, mesePartenza);
+        return catalogo.checkItinerario(d, mesePartenza);
     }
 
     public Itinerario selezionaItinerario(String codiceItinerario) {
@@ -100,11 +101,19 @@ public class Catalogo {
         return destinazioni.get(codiceDestinazione);
     }
 
-    public void checkItinerario(Destinazione d, int mesePartenza) {
-        itinerari.forEach((codice, i) -> {
-            if (i.getDestinazione().getCodice() == d.getCodice() && i.checkMesePartenza(mesePartenza))
+    public boolean checkItinerario(Destinazione d, int mesePartenza) {
+        AtomicBoolean isEmpty = new AtomicBoolean(true);
+        itinerari.forEach((codiceItinerario, i) -> {
+            if (i.getDestinazione().getCodice().equals(d.getCodice()) && i.checkMesePartenza(mesePartenza)) {
                 System.out.println(i);
+                isEmpty.set(false);
+            }
         });
+        if (isEmpty.get() == true) {
+            System.out.println("Non è stato trovato nessun itinerario");
+            return false;
+        }
+        return true;
     }
 
     public boolean validateNomeNave(String nomeNave) {
