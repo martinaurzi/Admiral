@@ -1,6 +1,7 @@
 package com.admiral;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 public class Admiral {
 
@@ -42,7 +43,7 @@ public class Admiral {
         catalogo.visualizzaDestinazioni();
     }
 
-    public boolean selezionaDestinazione(String codiceDestinazione, int mesePartenza) {
+    public Map<String, Itinerario> selezionaDestinazione(String codiceDestinazione, int mesePartenza) {
         return catalogo.trovaItinerari(codiceDestinazione, mesePartenza);
     }
 
@@ -53,8 +54,8 @@ public class Admiral {
     }
 
     // 7. UC2 SD Seleziona Tipo Cabina
-    public void selezionaTipoCabina(int idTipoCabina) {
-        gestorePrenotazioni.selezionaTipoCabina(idTipoCabina);
+    public Cabina selezionaTipoCabina(int idTipoCabina) {
+        return gestorePrenotazioni.selezionaTipoCabina(idTipoCabina);
 
     }
 
@@ -67,7 +68,7 @@ public class Admiral {
     }
 
     // 10. UC3 SD Inserisci Numero Prenotazione
-    public boolean inserisciNumeroPrenotazione(int numeroPrenotazione){
+    public boolean inserisciNumeroPrenotazione(int numeroPrenotazione) {
         return gestorePrenotazioni.verificaNumeroPrenotazione(numeroPrenotazione);
     }
 
@@ -77,27 +78,27 @@ public class Admiral {
     }
 
     // 12. UC3 SD Conferma acquisto
-    public void confermaAcquisto(){
+    public void confermaAcquisto() {
         gestorePrenotazioni.confermaAcquisto();
     }
 
     // 13. UC4 SD Inserisci nuova nave
-    public void inserisciNuovaNave(String nomeNave){
+    public void inserisciNuovaNave(String nomeNave) {
         catalogo.inserisciNuovaNave(nomeNave);
-    } 
+    }
 
     // 14. UC4 SD Inserisci tipo cabina
-    public void inserisciTipoCabina(String nomeTipoCabina){
+    public void inserisciTipoCabina(String nomeTipoCabina) {
         catalogo.inserisciTipoCabina(nomeTipoCabina);
-    } 
+    }
 
     // 15. UC4 Inserisci cabina
-    public void inserisciCabina(int numeroCabina){
+    public void inserisciCabina(int numeroCabina) {
         catalogo.inserisciCabina(numeroCabina);
-    } 
+    }
 
     // 16. UC4 SD Conferma inserimento nave
-    public void confermaInserimentoNave(){
+    public void confermaInserimentoNave() {
         catalogo.confermaInserimentoNave();
     }
 }

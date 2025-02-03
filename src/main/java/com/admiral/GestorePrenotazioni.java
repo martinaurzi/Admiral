@@ -9,14 +9,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class GestorePrenotazioni {
-    
+
     private static GestorePrenotazioni gestorePrenotazioni;
     private Prenotazione prenotazioneCorrente;
     private Nave naveCorrente;
     private Map<Integer, Prenotazione> prenotazioni;
     private Map<String, Pacchetto> pacchetti;
 
-    private GestorePrenotazioni(){
+    private GestorePrenotazioni() {
         this.prenotazioni = new HashMap<>();
         this.pacchetti = new HashMap<>();
 
@@ -30,27 +30,28 @@ public class GestorePrenotazioni {
         return gestorePrenotazioni;
     }
 
-    public void nuovaPrenotazione(){
+    public void nuovaPrenotazione() {
         int numeroPrenotazione = generaNumeroPrenotazione();
 
         this.prenotazioneCorrente = new Prenotazione(numeroPrenotazione);
     }
 
-    public int generaNumeroPrenotazione(){
-        if (prenotazioni == null) return 1;
-        
+    public int generaNumeroPrenotazione() {
+        if (prenotazioni == null)
+            return 1;
+
         return prenotazioni.size() + 1;
     }
 
-    public void selezionaTipoCabina(int idTipoCabina){
+    public Cabina selezionaTipoCabina(int idTipoCabina) {
         TipoCabina tc = naveCorrente.selezionaTipoCabina(idTipoCabina);
         Itinerario i = prenotazioneCorrente.getItinerario();
 
         prenotazioni.forEach((numP, p) -> {
-            if(p.getItinerario().getCodice() == i.getCodice()){
+            if (p.getItinerario().getCodice().equals(i.getCodice())) {
                 Cabina cabinaPrenotata = p.getCabina();
 
-                if(cabinaPrenotata.getTipo().getId() == tc.getId()){
+                if (cabinaPrenotata.getTipo().getId() == tc.getId()) {
                     tc.rimuoviCabina(cabinaPrenotata);
                 }
             }
@@ -58,47 +59,48 @@ public class GestorePrenotazioni {
 
         Cabina cabina = tc.getCabinaDisponibile();
 
-        if(cabina != null)
+        if (cabina != null)
             prenotazioneCorrente.setCabina(cabina);
+
+        return cabina;
     }
 
-    public void inserisciNumeroOspiti(int numeroOspiti){
+    public void inserisciNumeroOspiti(int numeroOspiti) {
         prenotazioneCorrente.setNumeroOspiti(numeroOspiti);
         System.out.println(prenotazioneCorrente);
     }
 
-    public void confermaPrenotazione(){
+    public void confermaPrenotazione() {
         if (prenotazioneCorrente != null) {
             this.prenotazioni.put(prenotazioneCorrente.getNumero(), prenotazioneCorrente);
             System.out.println(prenotazioneCorrente);
         }
     }
 
-    public void loadPacchetti(){
+    public void loadPacchetti() {
         ObjectMapper pacchettiMapper = new ObjectMapper();
 
         try {
-            JsonNode pacchettiNode = pacchettiMapper.readTree(new File("src/main/java/com/admiral/data/pacchetti.json"));
+            JsonNode pacchettiNode = pacchettiMapper
+                    .readTree(new File("src/main/java/com/admiral/data/pacchetti.json"));
 
-            for (JsonNode node : pacchettiNode) {  
+            for (JsonNode node : pacchettiNode) {
                 String codice = node.get("codice").asText();
                 String nome = node.get("nome").asText();
                 float prezzo = node.get("prezzo").floatValue();
 
-                if(nome.equals("Bevande") || nome.equals("Bevande Plus")){
+                if (nome.equals("Bevande") || nome.equals("Bevande Plus")) {
                     Pacchetto p = new PacchettoBevande(codice, nome, prezzo);
 
                     this.pacchetti.put(codice, p);
-                }
-                else if(nome.equals("Escursioni")){
+                } else if (nome.equals("Escursioni")) {
                     int numeroEscursioni = node.get("numeroEscursioni").intValue();
                     boolean includeGuida = node.get("includeGuida").booleanValue();
 
                     Pacchetto p = new PacchettoEscursioni(codice, nome, prezzo, numeroEscursioni, includeGuida);
 
                     this.pacchetti.put(codice, p);
-                }
-                else if(nome.equals("Benessere")){
+                } else if (nome.equals("Benessere")) {
                     int durataOre = node.get("durataOre").intValue();
 
                     Pacchetto p = new PacchettoBenessere(codice, nome, prezzo, durataOre);
@@ -114,40 +116,37 @@ public class GestorePrenotazioni {
         }
     }
 
-    public boolean verificaNumeroPrenotazione(int numeroPrenotazione){
+    public boolean verificaNumeroPrenotazione(int numeroPrenotazione) {
         Prenotazione p = this.prenotazioni.get(numeroPrenotazione);
-        setPrenotazioneCorrente(p);  
+        setPrenotazioneCorrente(p);
 
-        if(p != null) 
-            return true; 
-        else 
-            return false;
+        return p != null;
     }
 
-    public void visualizzaPacchetti(){
+    public void visualizzaPacchetti() {
         pacchetti.forEach((codice, p) -> {
             System.out.println(p);
         });
     }
 
-    public void visualizzaPrenotazioni(){
+    public void visualizzaPrenotazioni() {
         prenotazioni.forEach((numero, p) -> {
             System.out.println(p);
         });
     }
 
-    public void findPacchetto(String codicePacchetto){
+    public void findPacchetto(String codicePacchetto) {
         Pacchetto pa = pacchetti.get(codicePacchetto);
 
-        if(pa != null)
+        if (pa != null)
             prenotazioneCorrente.setPacchettoCorrente(pa);
     }
 
-    public void confermaAcquisto(){
+    public void confermaAcquisto() {
         prenotazioneCorrente.confermaAcquisto();
     }
 
-    public void setItinerario(Itinerario i){ 
+    public void setItinerario(Itinerario i) {
         prenotazioneCorrente.setItinerario(i);
         setNave();
 
@@ -158,19 +157,27 @@ public class GestorePrenotazioni {
         });
     }
 
-    public void setNave(){
+    public void setNave() {
         naveCorrente = prenotazioneCorrente.getItinerario().getNave(); // togliere n Nave in setNave?
     }
 
-    public Prenotazione getPrenotazioneCorrente(){
+    public Prenotazione getPrenotazioneCorrente() {
         return prenotazioneCorrente;
     }
 
-    public Map<Integer, Prenotazione> getPrenotazioni(){
+    public Map<Integer, Prenotazione> getPrenotazioni() {
         return prenotazioni;
     }
 
-    public void setPrenotazioneCorrente(Prenotazione p){
+    public void setPrenotazioneCorrente(Prenotazione p) {
         this.prenotazioneCorrente = p;
+    }
+
+    public boolean validateSelezionaTipoCabina(int codiceTipoCabina) {
+        return naveCorrente.getTipiCabina().containsKey(codiceTipoCabina);
+    }
+
+    public boolean validatePacchetto(String codicePacchetto) {
+        return pacchetti.containsKey(codicePacchetto);
     }
 }

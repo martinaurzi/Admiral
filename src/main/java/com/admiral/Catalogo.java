@@ -1,15 +1,13 @@
 package com.admiral;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.File;
 import java.io.IOException;
-
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Catalogo {
 
@@ -88,7 +86,8 @@ public class Catalogo {
         }
     }
 
-    public boolean trovaItinerari(String codiceDestinazione, int mesePartenza) { // void no Mappa itinerari
+    public Map<String, Itinerario> trovaItinerari(String codiceDestinazione, int mesePartenza) { // void no Mappa
+                                                                                                 // itinerari
         Destinazione d = findDestinazione(codiceDestinazione);
         return catalogo.checkItinerario(d, mesePartenza);
     }
@@ -101,23 +100,18 @@ public class Catalogo {
         return destinazioni.get(codiceDestinazione);
     }
 
-    public boolean checkItinerario(Destinazione d, int mesePartenza) {
-        AtomicBoolean isEmpty = new AtomicBoolean(true);
+    public Map<String, Itinerario> checkItinerario(Destinazione d, int mesePartenza) {
+        Map<String, Itinerario> checkItinerari = new HashMap<>();
         itinerari.forEach((codiceItinerario, i) -> {
             if (i.getDestinazione().getCodice().equals(d.getCodice()) && i.checkMesePartenza(mesePartenza)) {
-                System.out.println(i);
-                isEmpty.set(false);
+                checkItinerari.put(i.getCodice(), i);
             }
         });
-        if (isEmpty.get() == true) {
-            System.out.println("Non è stato trovato nessun itinerario");
-            return false;
-        }
-        return true;
+        return checkItinerari;
     }
 
     public boolean validateNomeNave(String nomeNave) {
-        for (Nave n : navi.values()) {  
+        for (Nave n : navi.values()) {
             if (nomeNave.equalsIgnoreCase(n.getNome())) {
                 return true;
             }
@@ -126,30 +120,31 @@ public class Catalogo {
     }
 
     public boolean validateNomeTipoCabina(String nomeTipoCabina) {
-        if(!nomeTipoCabina.equalsIgnoreCase("Cabina interna") 
-        || !nomeTipoCabina.equalsIgnoreCase("Cabina vista mare")
-        || !nomeTipoCabina.equalsIgnoreCase("Cabina con balcone")
-        || !nomeTipoCabina.equalsIgnoreCase("Suite")){
-        return false;
-        } else return true;
+        if (!nomeTipoCabina.equalsIgnoreCase("Cabina interna")
+                || !nomeTipoCabina.equalsIgnoreCase("Cabina vista mare")
+                || !nomeTipoCabina.equalsIgnoreCase("Cabina con balcone")
+                || !nomeTipoCabina.equalsIgnoreCase("Suite")) {
+            return false;
+        } else
+            return true;
     }
 
-    public void inserisciNuovaNave(String nomeNave){         
+    public void inserisciNuovaNave(String nomeNave) {
         String codice = generaCodiceNave();
 
         this.naveCorrente = new Nave(codice, nomeNave, false);
         System.out.println("Nave Creata");
     }
 
-    public void inserisciTipoCabina(String nomeTipoCabina){
+    public void inserisciTipoCabina(String nomeTipoCabina) {
         naveCorrente.inserisciTipoCabina(nomeTipoCabina);
-    } 
+    }
 
-    public void inserisciCabina(int numeroCabina){
+    public void inserisciCabina(int numeroCabina) {
         naveCorrente.inserisciCabina(numeroCabina);
-    } 
+    }
 
-    public void confermaInserimentoNave(){
+    public void confermaInserimentoNave() {
         if (naveCorrente != null) {
             this.navi.put(naveCorrente.getCodice(), naveCorrente);
             System.out.println("Operazione Inserimento Nave Conclusa");
@@ -160,13 +155,14 @@ public class Catalogo {
         ObjectMapper destinazioniMapper = new ObjectMapper();
 
         try {
-            JsonNode destinazioniNode = destinazioniMapper.readTree(new File("src/main/java/com/admiral/data/destinazioni.json"));
+            JsonNode destinazioniNode = destinazioniMapper
+                    .readTree(new File("src/main/java/com/admiral/data/destinazioni.json"));
 
             for (JsonNode node : destinazioniNode) {
                 String codice = node.get("codice").asText();
                 String nome = node.get("nome").asText();
                 float prezzo = node.get("prezzo").floatValue();
-    
+
                 Destinazione d = new Destinazione(codice, nome, prezzo);
                 this.destinazioni.put(codice, d);
             }
@@ -187,7 +183,7 @@ public class Catalogo {
             for (JsonNode node : portiNode) {
                 String codice = node.get("codice").asText();
                 String nome = node.get("nome").asText();
-    
+
                 Porto p = new Porto(codice, nome);
                 this.porti.put(codice, p);
             }
@@ -248,19 +244,19 @@ public class Catalogo {
         destinazioni.values().forEach(System.out::println);
     }
 
-    public void visualizzaItinerari(){
+    public void visualizzaItinerari() {
         itinerari.forEach((codice, i) -> {
             System.out.println(i);
         });
     }
 
-    public void visualizzaPorti(){
+    public void visualizzaPorti() {
         porti.forEach((codice, p) -> {
             System.out.println(p);
         });
     }
 
-    public void visualizzaNavi(){
+    public void visualizzaNavi() {
         navi.forEach((codice, n) -> {
             System.out.println(n);
         });
@@ -289,5 +285,13 @@ public class Catalogo {
 
     public boolean validateCodicePorto(String codice) {
         return porti.containsKey(codice);
+    }
+
+    public boolean validateCodiceItinerario(String codice) {
+        return itinerari.containsKey(codice);
+    }
+
+    public boolean validateInserisciPortoDaVisitare() {
+        return !itinerarioCorrente.getPortiDaVisitare().isEmpty();
     }
 }
