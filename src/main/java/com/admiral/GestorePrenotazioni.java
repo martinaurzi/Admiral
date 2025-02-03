@@ -1,7 +1,12 @@
 package com.admiral;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class GestorePrenotazioni {
     
@@ -70,19 +75,43 @@ public class GestorePrenotazioni {
     }
 
     public void loadPacchetti(){
-        Pacchetto p1 = new PacchettoBevande("p1", "Bevande", 200F);
-        Pacchetto p2 = new PacchettoBevande("p2", "Bevande Plus", 250F);
-        Pacchetto p3 = new PacchettoEscursioni("p3", "Escursioni", 600F, 3, true);
-        Pacchetto p4 = new PacchettoBenessere("p4", "Benessere", 300F, 3);
-        Pacchetto p5 = new PacchettoEscursioni("p5", "Escursioni", 1200F, 10, true);
-        Pacchetto p6 = new PacchettoBenessere("p6", "Benessere", 90F, 1);
-        this.pacchetti.put("p1", p1);
-        this.pacchetti.put("p2", p2);
-        this.pacchetti.put("p3", p3);
-        this.pacchetti.put("p4", p4);
-        this.pacchetti.put("p5", p5);
-        this.pacchetti.put("p6", p6);
-        System.out.println("Caricamento Pacchetti Completato");
+        ObjectMapper pacchettiMapper = new ObjectMapper();
+
+        try {
+            JsonNode pacchettiNode = pacchettiMapper.readTree(new File("src/main/java/com/admiral/data/pacchetti.json"));
+
+            for (JsonNode node : pacchettiNode) {  
+                String codice = node.get("codice").asText();
+                String nome = node.get("nome").asText();
+                float prezzo = node.get("prezzo").floatValue();
+
+                if(nome.equals("Bevande") || nome.equals("Bevande Plus")){
+                    Pacchetto p = new PacchettoBevande(codice, nome, prezzo);
+
+                    this.pacchetti.put(codice, p);
+                }
+                else if(nome.equals("Escursioni")){
+                    int numeroEscursioni = node.get("numeroEscursioni").intValue();
+                    boolean includeGuida = node.get("includeGuida").booleanValue();
+
+                    Pacchetto p = new PacchettoEscursioni(codice, nome, prezzo, numeroEscursioni, includeGuida);
+
+                    this.pacchetti.put(codice, p);
+                }
+                else if(nome.equals("Benessere")){
+                    int durataOre = node.get("durataOre").intValue();
+
+                    Pacchetto p = new PacchettoBenessere(codice, nome, prezzo, durataOre);
+
+                    this.pacchetti.put(codice, p);
+                }
+            }
+
+            System.out.println("Caricamento Pacchetti Completato");
+        } catch (IOException e) {
+            System.out.println("Errore nella lettura del file pacchetti.json");
+            e.printStackTrace();
+        }
     }
 
     public boolean verificaNumeroPrenotazione(int numeroPrenotazione){
