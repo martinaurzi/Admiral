@@ -15,11 +15,12 @@ public class App {
             System.out.println("2. Effettua una nuova prenotazione");
             System.out.println("3. Acquista un pacchetto");
             System.out.println("4. Inserisci una nuova nave");
-            System.out.println("5. Visualizza tutte le prenotazioni");
-            System.out.println("6. Visualizza tutte le destinazioni");
-            System.out.println("7. Visualizza tutti gli itinerari");
-            System.out.println("8. Visualizza tutti i porti");
-            System.out.println("9. Visualizza tutte le navi");
+            System.out.println("5. Modifica itinerario");
+            System.out.println("6. Visualizza tutte le prenotazioni");
+            System.out.println("7. Visualizza tutte le destinazioni");
+            System.out.println("8. Visualizza tutti gli itinerari");
+            System.out.println("9. Visualizza tutti i porti");
+            System.out.println("10. Visualizza tutte le navi");
             System.out.println("0. Esci");
             System.out.print("---> Inserisci il numero dell'operazione che vuoi effettuare: ");
             return (Integer.parseInt(bf.readLine()));
@@ -36,7 +37,7 @@ public class App {
         GestorePrenotazioni gestorePrenotazioni = GestorePrenotazioni.getInstance();
 
         String codiceDestinazione, codiceNave, codicePortoPartenza, codicePorto, codiceItinerario;
-        String nomeTipoCabina, nomeNave;
+        String nomeTipoCabina, nomeNave, risposta;
         LocalDate dataPartenza, dataRitorno;
         int mesePartenza, codiceTipoCabina, numeroOspiti, numeroCabina;
 
@@ -291,29 +292,80 @@ public class App {
 
                     }
                     break;
+                
+                // Modifica itinerario
+                case 5:
+                try {
+                    do {
+                        System.out.print("Inserire il codice dell'itinerario da modificare: ");
+                        codiceItinerario = buf.readLine();
+                        if (!admiral.verificaItinerario(codiceItinerario)) {
+                            System.out.println("Codice itinerario inesistente, riprova.");
+                        }
+                    } while (!admiral.verificaItinerario(codiceItinerario));
+
+                    do {
+                        System.out.print("Cosa desideri modificare? (date o porti): ");
+                        risposta = buf.readLine();
+                        if (risposta.equalsIgnoreCase("date")){
+                            dataPartenza = DateValidation.leggiData(buf, "Data di partenza (YYYY-MM-DD): ");
+                            do {
+                                dataRitorno = DateValidation.leggiData(buf, "Data di ritorno (YYYY-MM-DD): ");
+                                if (dataRitorno.isBefore(dataPartenza) || dataRitorno.isEqual(dataPartenza)) {
+                                    System.out.println(
+                                            "La data di ritorno deve essere successiva alla data di partenza, riprova.");
+                                }
+                            } while (dataRitorno.isBefore(dataPartenza) || dataRitorno.isEqual(dataPartenza));
+
+                            admiral.modificaDateItinerario(dataPartenza, dataRitorno);
+                        }else if(risposta.equalsIgnoreCase("porti")){
+                            admiral.modificaPortiDaVisitare();
+
+                            do {
+                                System.out.print("Inserire il codice del porto da visitare ('stop' per terminare): ");
+                                codicePorto = buf.readLine();
+                                if (codicePorto.equalsIgnoreCase("stop"))
+                                    if (!catalogo.validateInserisciPortoDaVisitare()) {
+                                        System.out.println("Inserire almeno un porto da visitare.");
+                                    } else
+                                        break;
+                                else if (!catalogo.validateCodicePorto(codicePorto)) {
+                                    System.out.println("Codice porto inesistente, riprova.");
+                                } else {
+                                    admiral.inserisciPortoDaVisitare(codicePorto);
+                                }
+                            } while (!catalogo.validateCodicePorto(codicePorto) || !codicePorto.equals("stop")
+                                    || !catalogo.validateInserisciPortoDaVisitare());
+                        }else 
+                        System.out.println("Modifica non prevista, scegliere tra 'date' o 'porti' \n");
+                    } while (!risposta.equalsIgnoreCase("porti") && !risposta.equalsIgnoreCase("date"));
+                   
+                } catch (IOException e) {
+                }
+                break;
 
                 // Visualizza prenotazioni
-                case 5:
+                case 6:
                     gestorePrenotazioni.visualizzaPrenotazioni();
                     break;
 
                 // Visualizza destinazioni
-                case 6:
+                case 7:
                     catalogo.visualizzaDestinazioni();
                     break;
 
                 // Visualizza itinerari
-                case 7:
+                case 8:
                     admiral.visualizzaItinerari();
                     break;
 
                 // Visualizza porti
-                case 8:
+                case 9:
                     catalogo.visualizzaPorti();
                     break;
 
                 // Visualizza navi
-                case 9:
+                case 10:
                     catalogo.visualizzaNavi();
                     break;
             }

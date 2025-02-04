@@ -102,6 +102,23 @@ public class Admiral {
         catalogo.confermaInserimentoNave();
     }
 
+    // 17. UC5 Verifica itinerario
+    public boolean verificaItinerario(String codiceItinerario){
+       if(catalogo.verificaItinerario(codiceItinerario)){
+        return true;
+       }else return false;
+    }
+
+    // 18. UC5 Modifica date
+    public void modificaDateItinerario(LocalDate dataPartenza, LocalDate dataRitorno){
+        catalogo.modificaDateItinerario(dataPartenza, dataRitorno);
+    }
+
+    // 19. UC5 Modifica porti da visitare
+    public void modificaPortiDaVisitare(){
+        catalogo.modificaPortiDaVisitare();
+    }
+
     // UC8
     public void visualizzaItinerari(){
         catalogo.visualizzaItinerari();
