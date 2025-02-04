@@ -101,4 +101,9 @@ public class Admiral {
     public void confermaInserimentoNave() {
         catalogo.confermaInserimentoNave();
     }
+
+    // UC8
+    public void visualizzaItinerari(){
+        catalogo.visualizzaItinerari();
+    }
 }

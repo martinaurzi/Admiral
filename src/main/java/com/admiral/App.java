@@ -304,7 +304,7 @@ public class App {
 
                 // Visualizza itinerari
                 case 7:
-                    catalogo.visualizzaItinerari();
+                    admiral.visualizzaItinerari();
                     break;
 
                 // Visualizza porti

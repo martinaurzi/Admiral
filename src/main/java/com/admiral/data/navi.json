@@ -1,38 +1,38 @@
 [
     {
-        "codice": "1",
+        "codice": "N1",
         "nome": "Smeralda"
     },
     {
-        "codice": "2",
+        "codice": "N2",
         "nome": "Toscana"
     },
     {
-        "codice": "3",
+        "codice": "N3",
         "nome": "Deliziosa"
     },
     {
-        "codice": "4",
+        "codice": "N4",
         "nome": "Diadema"
     },
     {
-        "codice": "5",
+        "codice": "N5",
         "nome": "Fascinosa"
     },
     {
-        "codice": "6",
+        "codice": "N6",
         "nome": "Favolosa"
     },
     {
-        "codice": "7",
+        "codice": "N7",
         "nome": "Fortuna"
     },
     {
-        "codice": "8",
+        "codice": "N8",
         "nome": "Pacifica"
     },
     {
-        "codice": "8",
+        "codice": "N8",
         "nome": "Serena"
     }
 ]
