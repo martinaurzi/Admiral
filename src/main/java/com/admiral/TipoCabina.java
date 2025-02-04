@@ -59,7 +59,6 @@ public class TipoCabina {
                 if(this.id == idTipoCabina)
                     this.cabine.put(numeroCabina, c);
             }
-            System.out.println("Caricamento Cabine Completato");  
         } catch (IOException e) {
                 System.out.println("Errore nella lettura del file cabine.json");
                 e.printStackTrace();

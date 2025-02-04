@@ -24,7 +24,6 @@ public class Prenotazione {
     public void calcolaPrezzo(){
         calcolaPrezzoPrenotazione();
         float sconto = calcolaSconto();
-        System.out.println("Sconto: " + sconto);
         setPrezzoTotale(this.prezzoTotale - sconto);
     }
 
@@ -38,13 +37,11 @@ public class Prenotazione {
     }
 
     public float calcolaPrezzoPerNumeroOspiti(){
-        System.out.println("Prezzo x numero ospiti: " + itinerario.getPrezzo() * numeroOspiti);
         return itinerario.getPrezzo() * numeroOspiti;
     }
 
     public void calcolaPrezzoPrenotazione(){
         setPrezzoTotale(calcolaPrezzoPerNumeroOspiti() + cabina.getPrezzo());
-        System.out.println("Prezzo prenotazione: " + this.prezzoTotale);
     }
 
     public float calcolaSconto(){
@@ -131,13 +128,13 @@ public class Prenotazione {
 
     public String toString() {
         String s = "\nPrenotazione " + numeroPrenotazione + "\n"
-                + "\t" + "Prezzo totale: " + prezzoTotale + " euro" + "\n"
+                + "\t" + cabina.getTipo().getNome() + " " + cabina.getNumeroCabina() + "\n"
                 + "\t" + "Data di partenza: " + itinerario.getDataPartenza() + "\n"
-                + "\t" + cabina + "\n"
-                + "\t" + "Pacchetti:\n";
+                + "\t" + "Prezzo totale: " + prezzoTotale + " euro" + "\n"
+                + "\t" + "Pacchetti:\n\t";
                 for (Pacchetto pacchetto : pacchettiPrenotati.values()) {
-                    s += "\t" + pacchetto.getNome() + " ";
-                }
+                    s += pacchetto.getNome() + " ";
+                };
         return s;
     }
 }

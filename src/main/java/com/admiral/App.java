@@ -188,8 +188,7 @@ public class App {
                             } else {
                                 do {
                                     if (admiral.selezionaTipoCabina(codiceTipoCabina) == null) {
-                                        System.out
-                                                .println("Il tipo di cabina che hai selezionato è sold out, riprova.");
+                                        System.out.println("Il tipo di cabina che hai selezionato è sold out, riprova.");
                                     } else {
                                         admiral.selezionaTipoCabina(codiceTipoCabina);
                                     }

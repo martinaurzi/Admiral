@@ -68,12 +68,9 @@ public class Nave {
                 float prezzo = node.get("prezzo").floatValue();
     
                 TipoCabina tc = new TipoCabina(id, nome, prezzo);
-                //tc.setNave(this);
 
                 this.tipiCabina.put(id, tc);
             }
-
-            System.out.println("Caricamento Tipi Cabina Completato");
         } catch (IOException e) {
             System.out.println("Errore nella lettura del file tipiCabina.json");
             e.printStackTrace();
