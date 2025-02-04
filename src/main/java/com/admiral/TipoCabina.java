@@ -90,6 +90,10 @@ public class TipoCabina {
         return nome;
     }
 
+    public Cabina getCabina(int codice){
+        return cabine.get(codice);
+    }
+
     public Map<Integer, Cabina> getCabine(){
         return cabine;
     }

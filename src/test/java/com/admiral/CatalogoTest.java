@@ -59,11 +59,46 @@ public class CatalogoTest {
     }
 
     @Test
-    public void TrovaItinerariTest(){
+    public void trovaItinerariTest(){
         catalogo.inserisciNuovoItinerario("1", "1", "1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
         catalogo.confermaInserimento();
 
         catalogo.trovaItinerari("1", 1);
         
     }
+
+    @Test
+    public void inserisciNuovaNaveTest(){
+        catalogo.inserisciNuovaNave("Dorata");
+        assertNotNull(catalogo.getNaveCorrente());
+    }
+
+    @Test
+    public void confermaInserimentoNaveTest() {
+        catalogo.inserisciNuovaNave("Dorata");
+        catalogo.confermaInserimentoNave();
+        assertEquals(9, catalogo.getNavi().size());
+        assertNotNull(catalogo.getNaveByNome("Dorata"));
+    }
+
+    @Test
+    public void inserisciTipoCabinaTest() {
+        Nave n = new Nave("n1","Dorata", false);
+        assertNotNull(n);
+
+        n.inserisciTipoCabina("Cabina interna");
+        assertEquals(1, n.getTipiCabina().size());
+        assertNotNull(n.getTipoCabinaCorrente());
+    }
+
+    @Test
+    public void inserisciCabinaTest() {
+        TipoCabina tc = new TipoCabina(1,"Cabina interna");
+        assertNotNull(tc);
+
+        tc.inserisciCabina(1);
+        assertEquals(1, tc.getCabine().size());
+        assertNotNull(tc.getCabina(1));
+    }
+
 }

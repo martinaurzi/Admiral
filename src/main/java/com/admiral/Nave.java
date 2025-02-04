@@ -40,15 +40,9 @@ public class Nave {
     }
 
     public void inserisciTipoCabina(String nomeTipoCabina){
-        if(!nomeTipoCabina.equalsIgnoreCase("Cabina interna") 
-        || !nomeTipoCabina.equalsIgnoreCase("Cabina vista mare")
-        || !nomeTipoCabina.equalsIgnoreCase("Cabina con balcone")
-        || !nomeTipoCabina.equalsIgnoreCase("Suite"))
-        System.out.println("Tipo di cabina non previsto");
-
         int codice = generaCodiceTipoCabina();
 
-        TipoCabina tipoCabinaCorrente = new TipoCabina(codice, nomeTipoCabina);
+        tipoCabinaCorrente = new TipoCabina(codice, nomeTipoCabina);
         this.tipiCabina.put(codice, tipoCabinaCorrente);
     } 
 
@@ -83,6 +77,10 @@ public class Nave {
 
     public TipoCabina selezionaTipoCabina(int idTipoCabina){
         return tipiCabina.get(idTipoCabina);
+    }
+
+    public TipoCabina getTipoCabinaCorrente(){
+        return tipoCabinaCorrente;
     }
 
     public String getNome(){

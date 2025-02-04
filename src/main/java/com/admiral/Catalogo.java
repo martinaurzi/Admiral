@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,7 +44,7 @@ public class Catalogo {
     }
 
     public String generaCodiceNave() {
-        return "n" + String.valueOf(navi.size() + 1);
+        return "N" + String.valueOf(navi.size() + 1);
     }
 
     public void inserisciNuovoItinerario(String codiceDestinazione, String codiceNave,
@@ -120,13 +121,13 @@ public class Catalogo {
     }
 
     public boolean validateNomeTipoCabina(String nomeTipoCabina) {
-        if (!nomeTipoCabina.equalsIgnoreCase("Cabina interna")
-                || !nomeTipoCabina.equalsIgnoreCase("Cabina vista mare")
-                || !nomeTipoCabina.equalsIgnoreCase("Cabina con balcone")
-                || !nomeTipoCabina.equalsIgnoreCase("Suite")) {
-            return false;
-        } else
+        if (nomeTipoCabina.equalsIgnoreCase("Cabina interna")
+            || nomeTipoCabina.equalsIgnoreCase("Cabina vista mare")
+            || nomeTipoCabina.equalsIgnoreCase("Cabina con balcone")
+            || nomeTipoCabina.equalsIgnoreCase("Suite")) {
             return true;
+        } 
+        return false;
     }
 
     public void inserisciNuovaNave(String nomeNave) {
@@ -220,8 +221,16 @@ public class Catalogo {
         return itinerarioCorrente;
     }
 
+    public Nave getNaveCorrente() {
+        return naveCorrente;
+    }
+
     public Map<String, Itinerario> getItinerari() {
         return itinerari;
+    }
+
+    public Map<String, Nave> getNavi() {
+        return navi;
     }
 
     public Itinerario getItinerario(String codice) {
@@ -238,6 +247,15 @@ public class Catalogo {
 
     public Nave getNave(String codNave) {
         return navi.get(codNave);
+    }
+
+    public Nave getNaveByNome(String nomeNave) {
+        for (Nave n : navi.values()) {
+            if (nomeNave.equalsIgnoreCase(n.getNome())) {
+                return n;
+            }
+        }
+        return null;
     }
 
     public void visualizzaDestinazioni() {

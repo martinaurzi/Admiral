@@ -254,7 +254,7 @@ public class App {
                             nomeNave = buf.readLine();
                             if (!catalogo.validateNomeNave(nomeNave))
                                 break;
-                            System.out.print("La nave e' già presente nel Sistema");
+                            System.out.print("La nave e' già presente nel Sistema\n4");
                         } while (true);
                         admiral.inserisciNuovaNave(nomeNave);
 
