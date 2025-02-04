@@ -1,5 +1,6 @@
 package com.admiral;
 
+import java.security.KeyStore.LoadStoreParameter;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -31,6 +32,15 @@ public class Itinerario {
         this.prezzo = calcolaPrezzoItinerario();
 
         this.portiDaVisitare = new HashMap<>();
+    }
+
+    public void modificaPortiDaVisitare(){
+        this.portiDaVisitare.clear();
+    }
+
+    public void setDate(LocalDate dataPartenza, LocalDate dataRitorno){
+        this.dataPartenza = dataPartenza;
+        this.dataRitorno = dataRitorno;
     }
 
     public void inserisciPortoDaVisitare(String codicePorto, Porto p) {

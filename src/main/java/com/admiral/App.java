@@ -44,7 +44,7 @@ public class App {
         BufferedReader buf = new BufferedReader(new InputStreamReader(System.in));
         int scelta;
 
-        admiral.inserisciNuovoItinerario("1", "1", "2", LocalDate.of(2025, 02, 03), LocalDate.of(2025, 02, 10));
+        admiral.inserisciNuovoItinerario("1", "N1", "2", LocalDate.of(2025, 02, 03), LocalDate.of(2025, 02, 10));
         admiral.inserisciPortoDaVisitare("2");
         admiral.inserisciPortoDaVisitare("3");
         admiral.inserisciPortoDaVisitare("4");
