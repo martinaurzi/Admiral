@@ -119,6 +119,21 @@ public class Admiral {
         catalogo.modificaPortiDaVisitare();
     }
 
+    // UC7
+    public boolean annullaPrenotazione(int numeroPrenotazione){
+        Prenotazione p = gestorePrenotazioni.annullaPrenotazione(numeroPrenotazione);
+
+        if(p != null){
+            if(gestorePrenotazioni.checkIfAnnullabile(p))
+                if(gestorePrenotazioni.rimuoviPrenotazione(p)){
+                    System.out.println("Prenotazione annullata con successo");
+                    return true;
+                }
+        }
+
+        return false;
+    }
+
     // UC8
     public void visualizzaItinerari(){
         catalogo.visualizzaItinerari();
