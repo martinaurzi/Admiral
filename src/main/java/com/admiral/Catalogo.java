@@ -152,6 +152,25 @@ public class Catalogo {
         }
     }
 
+    public boolean verificaItinerario(String codiceItinerario){
+        Itinerario i = itinerari.get(codiceItinerario);
+        if(i !=null){
+          itinerarioCorrente = i;
+          return true;
+        }else return false;
+    }
+
+    public void modificaDateItinerario(LocalDate dataPartenza, LocalDate dataRitorno){
+        itinerarioCorrente.setDate(dataPartenza, dataRitorno);
+
+        System.out.println("Dati itinerario aggiornati: \n");;
+        System.out.println(itinerarioCorrente);
+    }
+
+    public void modificaPortiDaVisitare(){
+        itinerarioCorrente.modificaPortiDaVisitare();
+    }
+
     public void loadDestinazioni() {
         ObjectMapper destinazioniMapper = new ObjectMapper();
 
