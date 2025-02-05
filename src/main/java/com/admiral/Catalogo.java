@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -88,8 +87,7 @@ public class Catalogo {
         }
     }
 
-    public Map<String, Itinerario> trovaItinerari(String codiceDestinazione, int mesePartenza) { // void no Mappa
-                                                                                                 // itinerari
+    public Map<String, Itinerario> trovaItinerari(String codiceDestinazione, int mesePartenza) {                                                    
         Destinazione d = findDestinazione(codiceDestinazione);
         return catalogo.checkItinerario(d, mesePartenza);
     }
@@ -104,11 +102,13 @@ public class Catalogo {
 
     public Map<String, Itinerario> checkItinerario(Destinazione d, int mesePartenza) {
         Map<String, Itinerario> checkItinerari = new HashMap<>();
+
         itinerari.forEach((codiceItinerario, i) -> {
             if (i.getDestinazione().getCodice().equals(d.getCodice()) && i.checkMesePartenza(mesePartenza)) {
                 checkItinerari.put(i.getCodice(), i);
             }
         });
+
         return checkItinerari;
     }
 
@@ -135,7 +135,6 @@ public class Catalogo {
         String codice = generaCodiceNave();
 
         this.naveCorrente = new Nave(codice, nomeNave, false);
-        System.out.println("Nave Creata");
     }
 
     public void inserisciTipoCabina(String nomeTipoCabina) {
@@ -203,8 +202,6 @@ public class Catalogo {
                 Destinazione d = new Destinazione(codice, nome, prezzo);
                 this.destinazioni.put(codice, d);
             }
-
-            System.out.println("Caricamento Destinazioni Completato");
         } catch (IOException e) {
             System.out.println("Errore nella lettura del file destinazioni.json");
             e.printStackTrace();
@@ -224,8 +221,6 @@ public class Catalogo {
                 Porto p = new Porto(codice, nome);
                 this.porti.put(codice, p);
             }
-
-            System.out.println("Caricamento Porti Completato");
         } catch (IOException e) {
             System.out.println("Errore nella lettura del file porti.json");
             e.printStackTrace();
@@ -245,8 +240,6 @@ public class Catalogo {
                 Nave n = new Nave(codice, nome);
                 this.navi.put(codice, n);
             }
-
-            System.out.println("Caricamento Navi Completato");
         } catch (IOException e) {
             System.out.println("Errore nella lettura del file navi.json");
             e.printStackTrace();
@@ -292,6 +285,10 @@ public class Catalogo {
             }
         }
         return null;
+    }
+
+    public Porto getPortoCorrente(){
+        return portoCorrente;
     }
 
     public void visualizzaDestinazioni() {
@@ -355,9 +352,5 @@ public class Catalogo {
 
     public void setItinerarioCorrente(Itinerario i){
         this.itinerarioCorrente = i;
-    }
-
-    public Porto getPortoCorrente(){
-        return portoCorrente;
     }
 }

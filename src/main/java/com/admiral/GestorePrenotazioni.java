@@ -109,8 +109,6 @@ public class GestorePrenotazioni {
                     this.pacchetti.put(codice, p);
                 }
             }
-
-            System.out.println("Caricamento Pacchetti Completato");
         } catch (IOException e) {
             System.out.println("Errore nella lettura del file pacchetti.json");
             e.printStackTrace();
@@ -118,7 +116,6 @@ public class GestorePrenotazioni {
     }
 
     public boolean verificaNumeroPrenotazione(int numeroPrenotazione) {
-        //Prenotazione p = this.prenotazioni.get(numeroPrenotazione);
         Prenotazione p = findPrenotazione(numeroPrenotazione);
         setPrenotazioneCorrente(p);
 
@@ -189,7 +186,7 @@ public class GestorePrenotazioni {
     }
 
     public void setNave() {
-        naveCorrente = prenotazioneCorrente.getItinerario().getNave(); // togliere n Nave in setNave?
+        naveCorrente = prenotazioneCorrente.getItinerario().getNave(); 
     }
 
     public Prenotazione getPrenotazioneCorrente() {

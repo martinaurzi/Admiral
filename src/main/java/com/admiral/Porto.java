@@ -32,7 +32,6 @@ public class Porto {
         escursioni.put(codice, escursioneCorrente);
     }
 
-
     public String getCodice(){
         return this.codice;
     }

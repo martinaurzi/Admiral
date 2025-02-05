@@ -8,14 +8,13 @@ import java.util.Map;
 
 public class App {
 
-    // Metodo per validare e leggere un numero intero
     private static int leggiNumeroIntero(BufferedReader buf, String messaggio) throws IOException {
         int numero;
         while (true) {
             System.out.print(messaggio);
             try {
                 numero = Integer.parseInt(buf.readLine());
-                return numero;  // Ritorna il numero valido
+                return numero; 
             } catch (NumberFormatException e) {
                 System.out.println("Errore: Inserire solo numeri interi validi!");
             }
@@ -86,24 +85,9 @@ public class App {
         String codiceDestinazione, codiceNave, codicePortoPartenza, codicePorto, codiceItinerario;
         String nomeTipoCabina, nomeNave, risposta;
         LocalDate dataPartenza, dataRitorno;
-        int mesePartenza, codiceTipoCabina, numeroOspiti, numeroCabina, numeroPrenotazione;
+        int mesePartenza, codiceTipoCabina, numeroOspiti, numeroCabina, numeroPrenotazione, sceltaAttore, scelta;
 
         BufferedReader buf = new BufferedReader(new InputStreamReader(System.in));
-        int sceltaAttore, scelta;
-
-        admiral.inserisciNuovoItinerario("D8", "N1", "PO2", LocalDate.of(2025, 05, 03), LocalDate.of(2025, 05, 10));
-        admiral.inserisciPortoDaVisitare("PO2");
-        admiral.inserisciPortoDaVisitare("PO3");
-        admiral.inserisciPortoDaVisitare("PO4");
-        admiral.inserisciPortoDaVisitare("PO5");
-        admiral.confermaInserimento();
-
-        admiral.nuovaPrenotazione();
-        admiral.selezionaDestinazione("D1", 5);
-        admiral.selezionaItinerario("I1");
-        admiral.selezionaTipoCabina(3);
-        admiral.inserisciNumeroOspiti(4);
-        admiral.confermaPrenotazione();
 
         while ((sceltaAttore = menuPrincipale(buf)) != 0) {
             switch (sceltaAttore) {
@@ -286,8 +270,9 @@ public class App {
                                         nomeNave = buf.readLine();
                                         if (!catalogo.validateNomeNave(nomeNave))
                                             break;
-                                        System.out.print("La nave e' già presente nel Sistema\n4");
+                                        System.out.print("La nave e' già presente nel Sistema\n");
                                     } while (true);
+
                                     admiral.inserisciNuovaNave(nomeNave);
 
                                     do {
