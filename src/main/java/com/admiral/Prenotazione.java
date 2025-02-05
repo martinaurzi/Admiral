@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Prenotazione {
-    
+
     private int numeroPrenotazione;
     private int numeroOspiti;
     private float prezzoTotale;
@@ -15,43 +15,42 @@ public class Prenotazione {
     private Pacchetto pacchettoCorrente;
     private Map<String, Pacchetto> pacchettiPrenotati;
 
-    public Prenotazione(int numeroPrenotazione){
+    public Prenotazione(int numeroPrenotazione) {
         this.numeroPrenotazione = numeroPrenotazione;
 
         this.pacchettiPrenotati = new HashMap<>();
     }
 
-    public void calcolaPrezzo(){
+    public void calcolaPrezzo() {
         calcolaPrezzoPrenotazione();
         float sconto = calcolaSconto();
         setPrezzoTotale(this.prezzoTotale - sconto);
     }
 
-    public void setNumeroOspiti(int numeroOspiti){
+    public void setNumeroOspiti(int numeroOspiti) {
         this.numeroOspiti = numeroOspiti;
         calcolaPrezzo();
     }
 
-    public void setItinerario(Itinerario i){
+    public void setItinerario(Itinerario i) {
         itinerario = i;
     }
 
-    public float calcolaPrezzoPerNumeroOspiti(){
+    public float calcolaPrezzoPerNumeroOspiti() {
         return itinerario.getPrezzo() * numeroOspiti;
     }
 
-    public void calcolaPrezzoPrenotazione(){
+    public void calcolaPrezzoPrenotazione() {
         setPrezzoTotale(calcolaPrezzoPerNumeroOspiti() + cabina.getPrezzo());
     }
 
-    public float calcolaSconto(){
+    public float calcolaSconto() {
         float sconto = 0;
 
-        if(LocalDate.now().getMonthValue() == (itinerario.getDataPartenza().minusMonths(1).getMonthValue())){
+        if (LocalDate.now().getMonthValue() == (itinerario.getDataPartenza().minusMonths(1).getMonthValue())) {
             setScontoStrategy(new ScontoLastMinute());
             sconto = scontoStrategy.calcolaSconto(this.prezzoTotale);
-        } 
-        else if(itinerario.getDataPartenza().getMonthValue() == 9){
+        } else {
             setScontoStrategy(new ScontoMaxImporto());
             sconto = scontoStrategy.calcolaSconto(this.prezzoTotale);
         }
@@ -59,70 +58,71 @@ public class Prenotazione {
         return sconto;
     }
 
-    public void confermaAcquisto(){
+    public void confermaAcquisto() {
         String codicePacchetto = pacchettoCorrente.getCodice();
         addPacchetto(codicePacchetto);
         System.out.println("Pacchetto Acquistato");
     }
 
-    public boolean checkIfSettembre(){
+    public boolean checkIfSettembre() {
         return itinerario.getDataPartenza().getMonthValue() == 9;
     }
 
-    public void addPacchetto(String codicePacchetto){
-        if(!pacchettiPrenotati.containsKey(codicePacchetto))
+    public void addPacchetto(String codicePacchetto) {
+        if (!pacchettiPrenotati.containsKey(codicePacchetto))
             pacchettiPrenotati.put(codicePacchetto, pacchettoCorrente);
         else
             System.out.println("Pacchetto già acquistato");
 
         // Regola di dominio R2
-        if((pacchettoCorrente.getNome() != "Bevande" || pacchettoCorrente.getNome() != "Bevande Plus") && !checkIfSettembre()){
+        if ((pacchettoCorrente.getNome() != "Bevande" || pacchettoCorrente.getNome() != "Bevande Plus")
+                && !checkIfSettembre()) {
             float prezzo = pacchettoCorrente.getPrezzo();
             aggiornaPrezzo(prezzo);
         }
     }
 
-    public void aggiornaPrezzo(float prezzo){
+    public void aggiornaPrezzo(float prezzo) {
         setPrezzoTotale(this.prezzoTotale += prezzo);
     }
 
-    public Itinerario getItinerario(){
+    public Itinerario getItinerario() {
         return itinerario;
     }
 
-    public Cabina getCabina(){
+    public Cabina getCabina() {
         return cabina;
     }
 
-    public int getNumero(){
+    public int getNumero() {
         return this.numeroPrenotazione;
     }
 
-    public float getPrezzoTotale(){
+    public float getPrezzoTotale() {
         return prezzoTotale;
     }
 
-    public Pacchetto getPacchettoCorrente(){
+    public Pacchetto getPacchettoCorrente() {
         return pacchettoCorrente;
     }
 
-    public Map<String, Pacchetto> getPacchetti(){
+    public Map<String, Pacchetto> getPacchetti() {
         return pacchettiPrenotati;
     }
 
-    public void setPrezzoTotale(float prezzoTotale){
+    public void setPrezzoTotale(float prezzoTotale) {
         this.prezzoTotale = prezzoTotale;
     }
 
-    public void setScontoStrategy(ScontoStrategy scontoStrategy){
+    public void setScontoStrategy(ScontoStrategy scontoStrategy) {
         this.scontoStrategy = scontoStrategy;
     }
 
-    public void setCabina(Cabina cabina){
+    public void setCabina(Cabina cabina) {
         this.cabina = cabina;
     }
 
-    public void setPacchettoCorrente(Pacchetto pa){
+    public void setPacchettoCorrente(Pacchetto pa) {
         this.pacchettoCorrente = pa;
     }
 
@@ -132,9 +132,10 @@ public class Prenotazione {
                 + "\t" + "Data di partenza: " + itinerario.getDataPartenza() + "\n"
                 + "\t" + "Prezzo totale: " + prezzoTotale + " euro" + "\n"
                 + "\t" + "Pacchetti:\n\t";
-                for (Pacchetto pacchetto : pacchettiPrenotati.values()) {
-                    s += pacchetto.getNome() + " ";
-                };
+        for (Pacchetto pacchetto : pacchettiPrenotati.values()) {
+            s += pacchetto.getNome() + " ";
+        }
+        ;
         return s;
     }
 }

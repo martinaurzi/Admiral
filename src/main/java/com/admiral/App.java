@@ -45,7 +45,7 @@ public class App {
         BufferedReader buf = new BufferedReader(new InputStreamReader(System.in));
         int scelta;
 
-        admiral.inserisciNuovoItinerario("1", "N1", "2", LocalDate.of(2025, 02, 03), LocalDate.of(2025, 02, 10));
+        admiral.inserisciNuovoItinerario("8", "N1", "2", LocalDate.of(2025, 05, 03), LocalDate.of(2025, 05, 10));
         admiral.inserisciPortoDaVisitare("2");
         admiral.inserisciPortoDaVisitare("3");
         admiral.inserisciPortoDaVisitare("4");
@@ -53,10 +53,10 @@ public class App {
         admiral.confermaInserimento();
 
         admiral.nuovaPrenotazione();
-        admiral.selezionaDestinazione("1", 2);
+        admiral.selezionaDestinazione("1", 5);
         admiral.selezionaItinerario("I1");
-        admiral.selezionaTipoCabina(4);
-        admiral.inserisciNumeroOspiti(2);
+        admiral.selezionaTipoCabina(3);
+        admiral.inserisciNumeroOspiti(4);
         admiral.confermaPrenotazione();
 
         while ((scelta = menu(buf)) != 0) {
@@ -183,20 +183,24 @@ public class App {
 
                         do {
                             System.out.print("\nInserisci il codice del tipo di cabina scelto: ");
-                            codiceTipoCabina = Integer.parseInt(buf.readLine());
+                            try {
+                                codiceTipoCabina = Integer.parseInt(buf.readLine());
 
-                            if (!gestorePrenotazioni.validateSelezionaTipoCabina(codiceTipoCabina)) {
+                                if (!gestorePrenotazioni.validateSelezionaTipoCabina(codiceTipoCabina)) {
+                                    System.out.println("Codice tipo cabina inesistente, riprova.");
+                                    continue;
+                                }
+
+                                if (admiral.selezionaTipoCabina(codiceTipoCabina) == null) {
+                                    System.out.println("Il tipo di cabina che hai selezionato è sold out, riprova.");
+                                } else {
+                                    break;
+                                }
+
+                            } catch (NumberFormatException e) {
                                 System.out.println("Codice tipo cabina inesistente, riprova.");
-                            } else {
-                                do {
-                                    if (admiral.selezionaTipoCabina(codiceTipoCabina) == null) {
-                                        System.out.println("Il tipo di cabina che hai selezionato è sold out, riprova.");
-                                    } else {
-                                        admiral.selezionaTipoCabina(codiceTipoCabina);
-                                    }
-                                } while (admiral.selezionaTipoCabina(codiceTipoCabina) == null);
                             }
-                        } while (!gestorePrenotazioni.validateSelezionaTipoCabina(codiceTipoCabina));
+                        } while (true);
 
                         boolean numeroOspitiValido;
                         do {
@@ -292,57 +296,58 @@ public class App {
 
                     }
                     break;
-                
+
                 // Modifica itinerario
                 case 5:
-                try {
-                    do {
-                        System.out.print("Inserire il codice dell'itinerario da modificare: ");
-                        codiceItinerario = buf.readLine();
-                        if (!admiral.verificaItinerario(codiceItinerario)) {
-                            System.out.println("Codice itinerario inesistente, riprova.");
-                        }
-                    } while (!admiral.verificaItinerario(codiceItinerario));
+                    try {
+                        do {
+                            System.out.print("Inserire il codice dell'itinerario da modificare: ");
+                            codiceItinerario = buf.readLine();
+                            if (!admiral.verificaItinerario(codiceItinerario)) {
+                                System.out.println("Codice itinerario inesistente, riprova.");
+                            }
+                        } while (!admiral.verificaItinerario(codiceItinerario));
 
-                    do {
-                        System.out.print("Cosa desideri modificare? (date o porti): ");
-                        risposta = buf.readLine();
-                        if (risposta.equalsIgnoreCase("date")){
-                            dataPartenza = DateValidation.leggiData(buf, "Data di partenza (YYYY-MM-DD): ");
-                            do {
-                                dataRitorno = DateValidation.leggiData(buf, "Data di ritorno (YYYY-MM-DD): ");
-                                if (dataRitorno.isBefore(dataPartenza) || dataRitorno.isEqual(dataPartenza)) {
-                                    System.out.println(
-                                            "La data di ritorno deve essere successiva alla data di partenza, riprova.");
-                                }
-                            } while (dataRitorno.isBefore(dataPartenza) || dataRitorno.isEqual(dataPartenza));
+                        do {
+                            System.out.print("Cosa desideri modificare? (date o porti): ");
+                            risposta = buf.readLine();
+                            if (risposta.equalsIgnoreCase("date")) {
+                                dataPartenza = DateValidation.leggiData(buf, "Data di partenza (YYYY-MM-DD): ");
+                                do {
+                                    dataRitorno = DateValidation.leggiData(buf, "Data di ritorno (YYYY-MM-DD): ");
+                                    if (dataRitorno.isBefore(dataPartenza) || dataRitorno.isEqual(dataPartenza)) {
+                                        System.out.println(
+                                                "La data di ritorno deve essere successiva alla data di partenza, riprova.");
+                                    }
+                                } while (dataRitorno.isBefore(dataPartenza) || dataRitorno.isEqual(dataPartenza));
 
-                            admiral.modificaDateItinerario(dataPartenza, dataRitorno);
-                        }else if(risposta.equalsIgnoreCase("porti")){
-                            admiral.modificaPortiDaVisitare();
+                                admiral.modificaDateItinerario(dataPartenza, dataRitorno);
+                            } else if (risposta.equalsIgnoreCase("porti")) {
+                                admiral.modificaPortiDaVisitare();
 
-                            do {
-                                System.out.print("Inserire il codice del porto da visitare ('stop' per terminare): ");
-                                codicePorto = buf.readLine();
-                                if (codicePorto.equalsIgnoreCase("stop"))
-                                    if (!catalogo.validateInserisciPortoDaVisitare()) {
-                                        System.out.println("Inserire almeno un porto da visitare.");
-                                    } else
-                                        break;
-                                else if (!catalogo.validateCodicePorto(codicePorto)) {
-                                    System.out.println("Codice porto inesistente, riprova.");
-                                } else {
-                                    admiral.inserisciPortoDaVisitare(codicePorto);
-                                }
-                            } while (!catalogo.validateCodicePorto(codicePorto) || !codicePorto.equals("stop")
-                                    || !catalogo.validateInserisciPortoDaVisitare());
-                        }else 
-                        System.out.println("Modifica non prevista, scegliere tra 'date' o 'porti' \n");
-                    } while (!risposta.equalsIgnoreCase("porti") && !risposta.equalsIgnoreCase("date"));
-                   
-                } catch (IOException e) {
-                }
-                break;
+                                do {
+                                    System.out
+                                            .print("Inserire il codice del porto da visitare ('stop' per terminare): ");
+                                    codicePorto = buf.readLine();
+                                    if (codicePorto.equalsIgnoreCase("stop"))
+                                        if (!catalogo.validateInserisciPortoDaVisitare()) {
+                                            System.out.println("Inserire almeno un porto da visitare.");
+                                        } else
+                                            break;
+                                    else if (!catalogo.validateCodicePorto(codicePorto)) {
+                                        System.out.println("Codice porto inesistente, riprova.");
+                                    } else {
+                                        admiral.inserisciPortoDaVisitare(codicePorto);
+                                    }
+                                } while (!catalogo.validateCodicePorto(codicePorto) || !codicePorto.equals("stop")
+                                        || !catalogo.validateInserisciPortoDaVisitare());
+                            } else
+                                System.out.println("Modifica non prevista, scegliere tra 'date' o 'porti' \n");
+                        } while (!risposta.equalsIgnoreCase("porti") && !risposta.equalsIgnoreCase("date"));
+
+                    } catch (IOException e) {
+                    }
+                    break;
 
                 // Annulla prenotazione
                 case 6:
@@ -353,7 +358,7 @@ public class App {
                         admiral.annullaPrenotazione(numeroPrenotazione);
                     } catch (IOException e) {
                     }
-                    break;  
+                    break;
 
                 // Visualizza prenotazioni
                 case 7:
