@@ -24,20 +24,20 @@ public class CatalogoTest {
 
     @Test
     public void caricamentoDatiTest() {
-        assertNotNull(catalogo.getDestinazione("1"));
-        assertNotNull(catalogo.getPorto("1"));
+        assertNotNull(catalogo.getDestinazione("D1"));
+        assertNotNull(catalogo.getPorto("P1"));
         assertNotNull(catalogo.getNave("N1"));
     }
 
     @Test
     public void inserisciNuovoItinerarioTest() {
-        catalogo.inserisciNuovoItinerario("1", "N1", "1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
+        catalogo.inserisciNuovoItinerario("D1", "N1", "PO1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
         assertNotNull(catalogo.getItinerarioCorrente());
     }
 
     @Test
     public void confermaInserimentoTest() {
-        catalogo.inserisciNuovoItinerario("1", "N1", "1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
+        catalogo.inserisciNuovoItinerario("D1", "N1", "PO1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
         catalogo.confermaInserimento();
         assertEquals(1, catalogo.getItinerari().size());
         assertNotNull(catalogo.getItinerario("I1"));
@@ -45,25 +45,25 @@ public class CatalogoTest {
 
     @Test
     public void inserisciPortoDaVisitareTest() {
-        Itinerario i = new Itinerario("1", "1", "1", "1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
+        Itinerario i = new Itinerario("I1", "D1", "N1", "PO1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
         assertNotNull(i);
 
-        Porto p = catalogo.getPorto("2");
+        Porto p = catalogo.getPorto("PO2");
         assertNotNull(p);
 
         i.inserisciPortoDaVisitare(p.getCodice(), p);
         assertEquals(1, i.getPortiDaVisitare().size());
-        assertNotNull(i.getPorto("2"));
+        assertNotNull(i.getPorto("PO2"));
 
-        assertNull(i.getPorto("8"));
+        assertNull(i.getPorto("PO8"));
     }
 
     @Test
     public void trovaItinerariTest(){
-        catalogo.inserisciNuovoItinerario("1", "1", "1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
+        catalogo.inserisciNuovoItinerario("D1", "N1", "PO1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
         catalogo.confermaInserimento();
 
-        catalogo.trovaItinerari("1", 1);
+        catalogo.trovaItinerari("D1", 1);
         
     }
 
@@ -83,7 +83,7 @@ public class CatalogoTest {
 
     @Test
     public void inserisciTipoCabinaTest() {
-        Nave n = new Nave("n1","Dorata", false);
+        Nave n = new Nave("N1","Dorata", false);
         assertNotNull(n);
 
         n.inserisciTipoCabina("Cabina interna");
@@ -103,13 +103,13 @@ public class CatalogoTest {
 
     @Test
     public void inserisciEscursioneInPortoTest(){
-        catalogo.inserisciEscursioneInPorto("1");
+        catalogo.inserisciEscursioneInPorto("PO1");
         assertNotNull(catalogo.getPortoCorrente());
     }
 
     @Test
     public void inserisciEscursioneTest(){
-        catalogo.inserisciEscursioneInPorto("1");
+        catalogo.inserisciEscursioneInPorto("PO1");
         catalogo.inserisciEscursione("Trekking", 2, 3);
         Porto portoCorrente = catalogo.getPortoCorrente();
         assertNotNull(portoCorrente.getEscursioneCorrente());      
@@ -117,7 +117,7 @@ public class CatalogoTest {
 
     @Test
     public void confermaInserimentoEscursioneTest(){
-        catalogo.inserisciEscursioneInPorto("1");
+        catalogo.inserisciEscursioneInPorto("PO1");
         catalogo.inserisciEscursione("Trekking", 2, 3);
         catalogo.confermaInserimentoEscursione();
         Porto portoCorrente = catalogo.getPortoCorrente();
