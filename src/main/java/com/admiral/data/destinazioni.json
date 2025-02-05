@@ -1,41 +1,41 @@
 [
     {
-        "codice": "1",
+        "codice": "D1",
         "nome": "Mediterraneo",
         "prezzo": 900
     },
     {
-        "codice": "2",
+        "codice": "D2",
         "nome": "Caraibi",
         "prezzo": 2000
     },
     {
-        "codice": "3",
+        "codice": "D3",
         "nome": "Nord Europa",
         "prezzo": 1500
     },
     {
-        "codice": "4",
+        "codice": "D4",
         "nome": "Emirati Arabi",
         "prezzo": 1000
     },
     {
-        "codice": "5",
+        "codice": "D5",
         "nome": "Isole Canarie",
         "prezzo": 600
     },
     {
-        "codice": "6",
+        "codice": "D6",
         "nome": "Asia",
         "prezzo": 1700
     },
     {
-        "codice": "7",
+        "codice": "D7",
         "nome": "Sud America",
         "prezzo": 1800
     },
     {
-        "codice": "8",
+        "codice": "D8",
         "nome": "Giro del mondo",
         "prezzo": 5000
     }
