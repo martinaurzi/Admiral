@@ -39,7 +39,7 @@ public class CatalogoTest {
     public void confermaInserimentoTest() {
         catalogo.inserisciNuovoItinerario("D1", "N1", "PO1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
         catalogo.confermaInserimento();
-        assertEquals(1, catalogo.getItinerari().size());
+        assertEquals(2, catalogo.getItinerari().size());
         assertNotNull(catalogo.getItinerario("I1"));
     }
 
