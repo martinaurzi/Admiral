@@ -37,10 +37,6 @@ public class Porto {
         return this.codice;
     }
 
-    public String toString(){
-        return "(" + codice + ") " + nome;
-    }
-
     public String getNome(){
         return nome;
     }
@@ -55,5 +51,21 @@ public class Porto {
 
     public Map<String, Escursione> getEscursioni(){
         return this.escursioni;
+    }
+
+    public String toString(){
+        String s =  "(" + codice + ") " + nome + "\n";
+
+        if(escursioni.size() > 0){
+            s += "\t" + "Escursioni:\n\t";
+
+            for (Escursione escursione: escursioni.values()) {
+                s += escursione.getNome() + " ";
+            }
+
+            s += "\n";
+        }
+
+        return s;
     }
 }

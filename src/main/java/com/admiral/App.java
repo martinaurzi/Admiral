@@ -29,12 +29,13 @@ public class App {
             System.out.println("\n***MENU AMMINISTRATORE ADMIRAL***");
             System.out.println("1. Inserisci un nuovo itinerario");
             System.out.println("2. Modifica itinerario");
-            System.out.println("3. Inserisci una nuova nave");
-            System.out.println("4. Visualizza tutti gli itinerari");
-            System.out.println("5. Visualizza tutte le destinazioni");
-            System.out.println("6. Visualizza tutti i porti");
-            System.out.println("7. Visualizza tutte le navi");
-            System.out.println("8. Visualizza tutte le prenotazioni");
+            System.out.println("3. Inserisci una nuova escursione");
+            System.out.println("4. Inserisci una nuova nave");
+            System.out.println("5. Visualizza tutti gli itinerari");
+            System.out.println("6. Visualizza tutte le destinazioni");
+            System.out.println("7. Visualizza tutti i porti");
+            System.out.println("8. Visualizza tutte le navi");
+            System.out.println("9. Visualizza tutte le prenotazioni");
             System.out.println("0. Esci");
             System.out.print("---> Inserisci il numero dell'operazione che vuoi effettuare: ");
             return (Integer.parseInt(bf.readLine()));
@@ -76,15 +77,15 @@ public class App {
         BufferedReader buf = new BufferedReader(new InputStreamReader(System.in));
         int sceltaAttore, scelta;
 
-        admiral.inserisciNuovoItinerario("8", "N1", "2", LocalDate.of(2025, 05, 03), LocalDate.of(2025, 05, 10));
-        admiral.inserisciPortoDaVisitare("2");
-        admiral.inserisciPortoDaVisitare("3");
-        admiral.inserisciPortoDaVisitare("4");
-        admiral.inserisciPortoDaVisitare("5");
+        admiral.inserisciNuovoItinerario("D8", "N1", "PO2", LocalDate.of(2025, 05, 03), LocalDate.of(2025, 05, 10));
+        admiral.inserisciPortoDaVisitare("PO2");
+        admiral.inserisciPortoDaVisitare("PO3");
+        admiral.inserisciPortoDaVisitare("PO4");
+        admiral.inserisciPortoDaVisitare("PO5");
         admiral.confermaInserimento();
 
         admiral.nuovaPrenotazione();
-        admiral.selezionaDestinazione("1", 5);
+        admiral.selezionaDestinazione("D1", 5);
         admiral.selezionaItinerario("I1");
         admiral.selezionaTipoCabina(3);
         admiral.inserisciNumeroOspiti(4);
@@ -111,8 +112,7 @@ public class App {
                                     do {
                                         dataRitorno = DateValidation.leggiData(buf, "Data di ritorno (YYYY-MM-DD): ");
                                         if (dataRitorno.isBefore(dataPartenza) || dataRitorno.isEqual(dataPartenza)) {
-                                            System.out.println(
-                                                    "La data di ritorno deve essere successiva alla data di partenza, riprova.");
+                                            System.out.println("La data di ritorno deve essere successiva alla data di partenza, riprova.");
                                         }
                                     } while (dataRitorno.isBefore(dataPartenza) || dataRitorno.isEqual(dataPartenza));
                                     boolean codiceValido, disponibilitaValida = false;
@@ -231,9 +231,41 @@ public class App {
                                 } catch (IOException e) {
                                 }
                                 break;
+                            
+                            // Nuova escursione
+                            case 3:
+                                try {
+                                    do{
+                                        System.out.print("Inserisci il codice del porto: ");
+                                        codicePorto = buf.readLine();
+
+                                        if(admiral.inserisciEscursioneInPorto(codicePorto)){
+                                            System.out.print("Inserisci il nome dell'escursione: ");
+                                            String nome = buf.readLine();
+
+                                            System.out.print("Inserisci la durata dell'escursione: ");
+                                            int durata = Integer.parseInt(buf.readLine());
+
+                                            System.out.print("Inserisci la difficoltà dell'escursione: ");
+                                            int difficolta = Integer.parseInt(buf.readLine());
+
+                                            admiral.inserisciEscursione(nome, durata, difficolta);
+
+                                            System.out.print("\nConferma inserimento (si o no): ");
+                                            if (buf.readLine().equalsIgnoreCase("si")) {
+                                                admiral.confermaInserimentoEscursione();
+                                            } else
+                                                break;
+                                        } else{
+                                            System.out.println("Codice porto inesistente, riprova.");
+                                        }
+                                    } while(!catalogo.validateCodicePorto(codicePorto));
+                                } catch (IOException e) {
+                                }
+                            break;
 
                             // Nuova nave
-                            case 3:
+                            case 4:
                                 try {
                                     do {
                                         System.out.print("Inserire il nome della nave: ");
@@ -278,27 +310,27 @@ public class App {
                                 break;
 
                             // Visualizza itinerari
-                            case 4:
+                            case 5:
                                 admiral.visualizzaItinerari();
                                 break;
 
                             // Visualizza destinazioni
-                            case 5:
+                            case 6:
                                 catalogo.visualizzaDestinazioni();
                                 break;
 
                             // Visualizza porti
-                            case 6:
+                            case 7:
                                 catalogo.visualizzaPorti();
                                 break;
 
                             // Visualizza navi
-                            case 7:
+                            case 8:
                                 catalogo.visualizzaNavi();
                                 break;
 
                             // Visualizza prenotazioni
-                            case 8:
+                            case 9:
                                 gestorePrenotazioni.visualizzaPrenotazioni();
                                 break;
                         }

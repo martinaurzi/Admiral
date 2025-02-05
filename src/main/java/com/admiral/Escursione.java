@@ -17,4 +17,8 @@ public class Escursione {
     public String getCodice(){
         return codice;
     }
+
+    public String getNome(){
+        return nome;
+    }
 }

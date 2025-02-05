@@ -130,12 +130,18 @@ public class Prenotazione {
         String s = "\nPrenotazione " + numeroPrenotazione + "\n"
                 + "\t" + cabina.getTipo().getNome() + " " + cabina.getNumeroCabina() + "\n"
                 + "\t" + "Data di partenza: " + itinerario.getDataPartenza() + "\n"
-                + "\t" + "Prezzo totale: " + prezzoTotale + " euro" + "\n"
-                + "\t" + "Pacchetti:\n\t";
-        for (Pacchetto pacchetto : pacchettiPrenotati.values()) {
-            s += pacchetto.getNome() + " ";
+                + "\t" + "Prezzo totale: " + prezzoTotale + " euro" + "\n";
+
+        if(!pacchettiPrenotati.isEmpty()){
+            s += "\t" + "Pacchetti:\n\t";
+
+            for (Pacchetto pacchetto : pacchettiPrenotati.values()) {
+                s += pacchetto.getNome() + " ";
+            }
+
+            s += "\n";
         }
-        ;
+            
         return s;
     }
 }
