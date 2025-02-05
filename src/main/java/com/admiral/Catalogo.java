@@ -20,6 +20,7 @@ public class Catalogo {
     private String codice;
     private Itinerario itinerarioCorrente;
     private Nave naveCorrente;
+    private Porto portoCorrente;
 
     private Catalogo() {
         this.itinerari = new HashMap<>();
@@ -155,7 +156,7 @@ public class Catalogo {
     public boolean verificaItinerario(String codiceItinerario){
         Itinerario i = itinerari.get(codiceItinerario);
         if(i !=null){
-          itinerarioCorrente = i;
+          setItinerarioCorrente(i);
           return true;
         }else return false;
     }
@@ -169,6 +170,22 @@ public class Catalogo {
 
     public void modificaPortiDaVisitare(){
         itinerarioCorrente.modificaPortiDaVisitare();
+    }
+    
+    public boolean inserisciEscursioneInPorto(String codicePorto){
+        Porto p = porti.get(codicePorto);
+        if (p != null){
+            setPortoCorrente(p);
+            return true;
+        }else return false;
+    }
+
+    public void inserisciEscursione(String nome, int durata, int difficolta){
+        portoCorrente.inserisciEscursione(nome, durata, difficolta);
+    }
+
+    public void confermaInserimentoEscursione(){
+        portoCorrente.confermaInserimentoEscursione();
     }
 
     public void loadDestinazioni() {
@@ -245,7 +262,7 @@ public class Catalogo {
     }
 
     public Map<String, Itinerario> getItinerari() {
-        return itinerari;
+        return this.itinerari;
     }
 
     public Map<String, Nave> getNavi() {
@@ -330,5 +347,17 @@ public class Catalogo {
 
     public boolean validateInserisciPortoDaVisitare() {
         return !itinerarioCorrente.getPortiDaVisitare().isEmpty();
+    }
+
+    public void setPortoCorrente(Porto p){
+        this.portoCorrente = p;
+    }
+
+    public void setItinerarioCorrente(Itinerario i){
+        this.itinerarioCorrente = i;
+    }
+
+    public Porto getPortoCorrente(){
+        return portoCorrente;
     }
 }

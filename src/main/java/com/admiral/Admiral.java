@@ -119,6 +119,23 @@ public class Admiral {
         catalogo.modificaPortiDaVisitare();
     }
 
+    // UC6 Inserisci escursione in porto
+    public boolean inserisciEscursioneInPorto(String codicePorto){
+        if (catalogo.inserisciEscursioneInPorto(codicePorto)){
+            return true;
+        }else return false;
+    }
+
+    // UC6 Inserisci escursione
+    public void inserisciEscursione(String nome, int durata, int difficolta){
+        catalogo.inserisciEscursione(nome, durata, difficolta);
+    }
+    
+    // UC6 Conferma inserimento escursione
+    public void confermaInserimentoEscursione(){
+        catalogo.confermaInserimentoEscursione();
+    }
+
     // UC7
     public boolean annullaPrenotazione(int numeroPrenotazione){
         Prenotazione p = gestorePrenotazioni.annullaPrenotazione(numeroPrenotazione);
