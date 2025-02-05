@@ -2,6 +2,7 @@ package com.admiral;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -108,8 +109,6 @@ public class GestorePrenotazioni {
                     this.pacchetti.put(codice, p);
                 }
             }
-
-            System.out.println("Caricamento Pacchetti Completato");
         } catch (IOException e) {
             System.out.println("Errore nella lettura del file pacchetti.json");
             e.printStackTrace();
@@ -117,10 +116,28 @@ public class GestorePrenotazioni {
     }
 
     public boolean verificaNumeroPrenotazione(int numeroPrenotazione) {
-        Prenotazione p = this.prenotazioni.get(numeroPrenotazione);
+        Prenotazione p = findPrenotazione(numeroPrenotazione);
         setPrenotazioneCorrente(p);
 
         return p != null;
+    }
+
+    public Prenotazione annullaPrenotazione(int numeroPrenotazione){
+        return findPrenotazione(numeroPrenotazione);
+    }
+
+    public boolean checkIfAnnullabile(Prenotazione p){
+        if(LocalDate.now().getMonthValue() <= (p.getItinerario().getDataPartenza().minusMonths(2).getMonthValue()))
+            return true;
+        else
+            return false;
+    }
+
+    public boolean rimuoviPrenotazione(Prenotazione p){
+        if(prenotazioni.remove(p.getNumero()) != null)
+            return true;
+        else
+            return false;
     }
 
     public void visualizzaPacchetti() {
@@ -133,6 +150,17 @@ public class GestorePrenotazioni {
         prenotazioni.forEach((numero, p) -> {
             System.out.println(p);
         });
+    }
+
+    public Prenotazione findPrenotazione(int numeroPrenotazione){
+        Prenotazione p = this.prenotazioni.get(numeroPrenotazione);
+
+        if(p != null)
+            return p;
+        
+            System.out.println("Prenotazione non trovata");
+            return null;
+        
     }
 
     public void findPacchetto(String codicePacchetto) {
@@ -158,7 +186,7 @@ public class GestorePrenotazioni {
     }
 
     public void setNave() {
-        naveCorrente = prenotazioneCorrente.getItinerario().getNave(); // togliere n Nave in setNave?
+        naveCorrente = prenotazioneCorrente.getItinerario().getNave(); 
     }
 
     public Prenotazione getPrenotazioneCorrente() {

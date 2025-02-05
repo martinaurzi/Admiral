@@ -70,7 +70,6 @@ public class TipoCabina {
     }
 
     public Cabina getCabinaDisponibile(){
-        // Implementare eccezione Cabine sold out
         if(!cabine.isEmpty()){
             return cabine.values().iterator().next();
         }

@@ -33,7 +33,7 @@ public class GestorePrenotazioniTest {
     @Test
     public void confermaPrenotazioneTest(){
         gestorePrenotazioni.nuovaPrenotazione();
-        Itinerario i = new Itinerario("i1", "1", "1", "1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
+        Itinerario i = new Itinerario("I1", "D1", "N1", "PO1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
         gestorePrenotazioni.setItinerario(i);
         gestorePrenotazioni.selezionaTipoCabina(1);
         gestorePrenotazioni.inserisciNumeroOspiti(2);
@@ -55,20 +55,20 @@ public class GestorePrenotazioniTest {
         Prenotazione p = new Prenotazione(1);
         gestorePrenotazioni.getPrenotazioni().put(1, p);
 
-        Pacchetto pa = new PacchettoEscursioni("p1", "Escursioni", 600F, 3, false);
+        Pacchetto pa = new PacchettoEscursioni("P1", "Escursioni", 600F, 3, false);
         p.setPacchettoCorrente(pa);
-        assertEquals("p1", p.getPacchettoCorrente().getCodice());
+        assertEquals("P1", p.getPacchettoCorrente().getCodice());
 
-        Itinerario i = new Itinerario("I1", "1", "1", "1", LocalDate.of(2025, 9, 21), LocalDate.of(2025, 9, 30));
+        Itinerario i = new Itinerario("I1", "D1", "N1", "PO1", LocalDate.of(2025, 9, 21), LocalDate.of(2025, 9, 30));
         p.setItinerario(i);
 
         p.confermaAcquisto();
 
-        Pacchetto pa2 = new PacchettoBevande("p2", "Bevande", 200F);
+        Pacchetto pa2 = new PacchettoBevande("P2", "Bevande", 200F);
         p.setPacchettoCorrente(pa2);
-        assertEquals("p2", p.getPacchettoCorrente().getCodice());
+        assertEquals("P2", p.getPacchettoCorrente().getCodice());
 
-        Itinerario i2 = new Itinerario("I2", "1", "1", "1", LocalDate.of(2025, 10, 21), LocalDate.of(2025, 10, 30));
+        Itinerario i2 = new Itinerario("I2", "D1", "N1", "PO1", LocalDate.of(2025, 10, 21), LocalDate.of(2025, 10, 30));
         p.setItinerario(i2);
 
         p.confermaAcquisto();

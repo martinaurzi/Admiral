@@ -1,58 +1,58 @@
 [
     {
-        "codice": "1",
+        "codice": "PO1",
         "nome": "Catania"
     },
     {
-        "codice": "2",
+        "codice": "PO2",
         "nome": "Guadalupa"
     },
     {
-        "codice": "3",
+        "codice": "PO3",
         "nome": "Amburgo"
     },
     {
-        "codice": "4",
+        "codice": "PO4",
         "nome": "Amsterdam"
     },
     {
-        "codice": "5",
+        "codice": "PO5",
         "nome": "Tokyo"
     },
     {
-        "codice": "6",
+        "codice": "PO6",
         "nome": "Savona"
     },
     {
-        "codice": "7",
+        "codice": "PO7",
         "nome": "Las Palmas"
     },
     {
-        "codice": "8",
+        "codice": "PO8",
         "nome": "Hong Kong"
     },
     {
-        "codice": "8",
+        "codice": "PO9",
         "nome": "Barcellona"
     },
     {
-        "codice": "9",
+        "codice": "PO10",
         "nome": "Citta del capo"
     },
     {
-        "codice": "10",
+        "codice": "PO11",
         "nome": "Sydney"
     },
     {
-        "codice": "11",
+        "codice": "PO12",
         "nome": "Genova"
     },
     {
-        "codice": "12",
+        "codice": "PO13",
         "nome": "Marsiglia"
     },
     {
-        "codice": "13",
+        "codice": "PO14",
         "nome": "Dubai"
     }
 ]

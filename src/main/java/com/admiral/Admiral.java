@@ -53,7 +53,7 @@ public class Admiral {
         gestorePrenotazioni.setItinerario(i);
     }
 
-    // 7. UC2 SD Seleziona Tipo Cabina
+    // UC2 SD Seleziona Tipo Cabina
     public Cabina selezionaTipoCabina(int idTipoCabina) {
         return gestorePrenotazioni.selezionaTipoCabina(idTipoCabina);
 
@@ -67,42 +67,91 @@ public class Admiral {
         gestorePrenotazioni.confermaPrenotazione();
     }
 
-    // 10. UC3 SD Inserisci Numero Prenotazione
+    // UC3 Inserisci Numero Prenotazione
     public boolean inserisciNumeroPrenotazione(int numeroPrenotazione) {
         return gestorePrenotazioni.verificaNumeroPrenotazione(numeroPrenotazione);
     }
 
-    // 11. UC3 SD Seleziona pacchetto
+    // UC3 Seleziona pacchetto
     public void selezionaPacchetto(String codicePacchetto) {
         gestorePrenotazioni.findPacchetto(codicePacchetto);
     }
 
-    // 12. UC3 SD Conferma acquisto
+    // UC3 Conferma acquisto
     public void confermaAcquisto() {
         gestorePrenotazioni.confermaAcquisto();
     }
 
-    // 13. UC4 SD Inserisci nuova nave
+    // UC4 Inserisci nuova nave
     public void inserisciNuovaNave(String nomeNave) {
         catalogo.inserisciNuovaNave(nomeNave);
     }
 
-    // 14. UC4 SD Inserisci tipo cabina
+    // UC4 Inserisci tipo cabina
     public void inserisciTipoCabina(String nomeTipoCabina) {
         catalogo.inserisciTipoCabina(nomeTipoCabina);
     }
 
-    // 15. UC4 Inserisci cabina
+    // UC4 Inserisci cabina
     public void inserisciCabina(int numeroCabina) {
         catalogo.inserisciCabina(numeroCabina);
     }
 
-    // 16. UC4 SD Conferma inserimento nave
+    // UC4 Conferma inserimento nave
     public void confermaInserimentoNave() {
         catalogo.confermaInserimentoNave();
     }
 
-    // UC8
+    // UC5 Verifica itinerario
+    public boolean verificaItinerario(String codiceItinerario){
+       if(catalogo.verificaItinerario(codiceItinerario)){
+        return true;
+       }else return false;
+    }
+
+    // UC5 Modifica date
+    public void modificaDateItinerario(LocalDate dataPartenza, LocalDate dataRitorno){
+        catalogo.modificaDateItinerario(dataPartenza, dataRitorno);
+    }
+
+    // UC5 Modifica porti da visitare
+    public void modificaPortiDaVisitare(){
+        catalogo.modificaPortiDaVisitare();
+    }
+
+    // UC6 Inserisci escursione in porto
+    public boolean inserisciEscursioneInPorto(String codicePorto){
+        if (catalogo.inserisciEscursioneInPorto(codicePorto)){
+            return true;
+        }else return false;
+    }
+
+    // UC6 Inserisci escursione
+    public void inserisciEscursione(String nome, int durata, int difficolta){
+        catalogo.inserisciEscursione(nome, durata, difficolta);
+    }
+    
+    // UC6 Conferma inserimento escursione
+    public void confermaInserimentoEscursione(){
+        catalogo.confermaInserimentoEscursione();
+    }
+
+    // UC7 Annulla prenotazione
+    public boolean annullaPrenotazione(int numeroPrenotazione){
+        Prenotazione p = gestorePrenotazioni.annullaPrenotazione(numeroPrenotazione);
+
+        if(p != null){
+            if(gestorePrenotazioni.checkIfAnnullabile(p))
+                if(gestorePrenotazioni.rimuoviPrenotazione(p)){
+                    System.out.println("Prenotazione annullata con successo");
+                    return true;
+                }
+        }
+
+        return false;
+    }
+
+    // UC8 Visualizza itinerari
     public void visualizzaItinerari(){
         catalogo.visualizzaItinerari();
     }
