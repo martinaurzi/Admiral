@@ -147,9 +147,13 @@ public class GestorePrenotazioni {
     }
 
     public void visualizzaPrenotazioni() {
-        prenotazioni.forEach((numero, p) -> {
-            System.out.println(p);
-        });
+        if(!prenotazioni.isEmpty()){
+            prenotazioni.forEach((numero, p) -> {
+                System.out.println(p);
+            });
+        } else {
+            System.out.println("Nessuna prenotazione");
+        }
     }
 
     public Prenotazione findPrenotazione(int numeroPrenotazione){
