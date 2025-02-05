@@ -25,7 +25,7 @@ public class CatalogoTest {
     @Test
     public void caricamentoDatiTest() {
         assertNotNull(catalogo.getDestinazione("D1"));
-        assertNotNull(catalogo.getPorto("P1"));
+        assertNotNull(catalogo.getPorto("PO1"));
         assertNotNull(catalogo.getNave("N1"));
     }
 
