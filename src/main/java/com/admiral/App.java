@@ -8,6 +8,20 @@ import java.util.Map;
 
 public class App {
 
+    // Metodo per validare e leggere un numero intero
+    private static int leggiNumeroIntero(BufferedReader buf, String messaggio) throws IOException {
+        int numero;
+        while (true) {
+            System.out.print(messaggio);
+            try {
+                numero = Integer.parseInt(buf.readLine());
+                return numero;  // Ritorna il numero valido
+            } catch (NumberFormatException e) {
+                System.out.println("Errore: Inserire solo numeri interi validi!");
+            }
+        }
+    }
+
     static public int menuPrincipale(BufferedReader bf) {
         try {
             System.out.println("\n***MENU PRINCIPALE ADMIRAL***");
@@ -284,17 +298,16 @@ public class App {
                                             break;
                                         if (catalogo.validateNomeTipoCabina(nomeTipoCabina)) {
                                             admiral.inserisciTipoCabina(nomeTipoCabina);
-
+                                            
                                             do {
-                                                System.out
-                                                        .print("Inserire il numero della cabina (digita '0' per terminare): ");
-                                                numeroCabina = Integer.parseInt(buf.readLine());
+                                                numeroCabina = leggiNumeroIntero(buf, "Inserire il numero della cabina (digita '0' per terminare): ");
                                                 if (numeroCabina == 0) {
                                                     break;
                                                 } else {
                                                     admiral.inserisciCabina(numeroCabina);
                                                 }
                                             } while (numeroCabina != 0);
+                                    
                                         } else {
                                             System.out.println("Nome Tipo Cabina non valido, riprova.");
                                         }
