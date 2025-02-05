@@ -1,12 +1,12 @@
 package com.admiral;
 
-public class Destinazione {
-    
-    private String codice;
-    private String nome;
-    private Float prezzo;
+public abstract class Pacchetto {
 
-    public Destinazione(String codice, String nome, Float prezzo){
+    protected String codice;
+    protected String nome;
+    protected float prezzo;
+    
+    public Pacchetto(String codice, String nome, float prezzo){
         this.codice = codice;
         this.nome = nome;
         this.prezzo = prezzo;
@@ -22,9 +22,5 @@ public class Destinazione {
 
     public String getNome(){
         return nome;
-    }
-
-    public String toString(){
-        return "(" + codice + ") " + nome;
     }
 }

@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "nome": "Cabina interna",
+        "prezzo": 0,
+        "cabine": {}
+    },
+    {
+        "id": 2,
+        "nome": "Cabina vista mare",
+        "prezzo": 200,
+        "cabine": {}
+    },
+    {
+        "id": 3,
+        "nome": "Cabina con balcone",
+        "prezzo": 200,
+        "cabine": {}
+    },
+    {
+        "id": 4,
+        "nome": "Suite",
+        "prezzo": 500,
+        "cabine": {}
+    }
+]

@@ -1,8 +1,14 @@
 package com.admiral;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Catalogo {
 
@@ -12,8 +18,8 @@ public class Catalogo {
     private Map<String, Porto> porti;
     private Map<String, Nave> navi;
     private String codice;
-
     private Itinerario itinerarioCorrente;
+    private Nave naveCorrente;
 
     private Catalogo() {
         this.itinerari = new HashMap<>();
@@ -34,7 +40,11 @@ public class Catalogo {
     }
 
     public String generaCodiceItinerario() {
-        return "i" + String.valueOf(itinerari.size() + 1);
+        return "I" + String.valueOf(itinerari.size() + 1);
+    }
+
+    public String generaCodiceNave() {
+        return "N" + String.valueOf(navi.size() + 1);
     }
 
     public void inserisciNuovoItinerario(String codiceDestinazione, String codiceNave,
@@ -57,8 +67,6 @@ public class Catalogo {
 
         this.itinerarioCorrente = new Itinerario(codice, codiceDestinazione, codiceNave, codicePortoPartenza,
                 dataPartenza, dataRitorno);
-
-        System.out.println("Itinerario Inserito");
     }
 
     public void inserisciPortoDaVisitare(String codicePorto) {
@@ -67,7 +75,6 @@ public class Catalogo {
 
             if (p != null) {
                 this.itinerarioCorrente.inserisciPortoDaVisitare(codicePorto, p);
-                System.out.println("Porto da visitare inserito");
             } else
                 System.out.println("Porto Inesistente");
         }
@@ -80,9 +87,10 @@ public class Catalogo {
         }
     }
 
-    public void trovaItinerari(String codiceDestinazione, int mesePartenza) { // void no Mappa itinerari
+    public Map<String, Itinerario> trovaItinerari(String codiceDestinazione, int mesePartenza) { // void no Mappa
+                                                                                                 // itinerari
         Destinazione d = findDestinazione(codiceDestinazione);
-        catalogo.checkItinerario(d, mesePartenza);
+        return catalogo.checkItinerario(d, mesePartenza);
     }
 
     public Itinerario selezionaItinerario(String codiceItinerario) {
@@ -93,49 +101,136 @@ public class Catalogo {
         return destinazioni.get(codiceDestinazione);
     }
 
-    public void checkItinerario(Destinazione d, int mesePartenza) {
-        itinerari.forEach((codice, i) -> {
-            if (i.getDestinazione().getCodice() == d.getCodice() && i.checkMesePartenza(mesePartenza))
-                System.out.println(i);
+    public Map<String, Itinerario> checkItinerario(Destinazione d, int mesePartenza) {
+        Map<String, Itinerario> checkItinerari = new HashMap<>();
+        itinerari.forEach((codiceItinerario, i) -> {
+            if (i.getDestinazione().getCodice().equals(d.getCodice()) && i.checkMesePartenza(mesePartenza)) {
+                checkItinerari.put(i.getCodice(), i);
+            }
         });
+        return checkItinerari;
+    }
+
+    public boolean validateNomeNave(String nomeNave) {
+        for (Nave n : navi.values()) {
+            if (nomeNave.equalsIgnoreCase(n.getNome())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean validateNomeTipoCabina(String nomeTipoCabina) {
+        if (nomeTipoCabina.equalsIgnoreCase("Cabina interna")
+            || nomeTipoCabina.equalsIgnoreCase("Cabina vista mare")
+            || nomeTipoCabina.equalsIgnoreCase("Cabina con balcone")
+            || nomeTipoCabina.equalsIgnoreCase("Suite")) {
+            return true;
+        } 
+        return false;
+    }
+
+    public void inserisciNuovaNave(String nomeNave) {
+        String codice = generaCodiceNave();
+
+        this.naveCorrente = new Nave(codice, nomeNave, false);
+        System.out.println("Nave Creata");
+    }
+
+    public void inserisciTipoCabina(String nomeTipoCabina) {
+        naveCorrente.inserisciTipoCabina(nomeTipoCabina);
+    }
+
+    public void inserisciCabina(int numeroCabina) {
+        naveCorrente.inserisciCabina(numeroCabina);
+    }
+
+    public void confermaInserimentoNave() {
+        if (naveCorrente != null) {
+            this.navi.put(naveCorrente.getCodice(), naveCorrente);
+            System.out.println("Operazione Inserimento Nave Conclusa");
+        }
     }
 
     public void loadDestinazioni() {
-        Destinazione d1 = new Destinazione("1", "Mediterraneo", 900F);
-        Destinazione d2 = new Destinazione("2", "Caraibi", 2000F);
-        Destinazione d3 = new Destinazione("3", "Nord Europa", 1500F);
-        this.destinazioni.put("1", d1);
-        this.destinazioni.put("2", d2);
-        this.destinazioni.put("3", d3);
-        System.out.println("Caricamento Destinazioni Completato");
+        ObjectMapper destinazioniMapper = new ObjectMapper();
+
+        try {
+            JsonNode destinazioniNode = destinazioniMapper
+                    .readTree(new File("src/main/java/com/admiral/data/destinazioni.json"));
+
+            for (JsonNode node : destinazioniNode) {
+                String codice = node.get("codice").asText();
+                String nome = node.get("nome").asText();
+                float prezzo = node.get("prezzo").floatValue();
+
+                Destinazione d = new Destinazione(codice, nome, prezzo);
+                this.destinazioni.put(codice, d);
+            }
+
+            System.out.println("Caricamento Destinazioni Completato");
+        } catch (IOException e) {
+            System.out.println("Errore nella lettura del file destinazioni.json");
+            e.printStackTrace();
+        }
     }
 
     public void loadPorti() {
-        Porto p1 = new Porto("1", "Catania");
-        Porto p2 = new Porto("2", "Guadalupa");
-        Porto p3 = new Porto("3", "Amburgo");
-        this.porti.put("1", p1);
-        this.porti.put("2", p2);
-        this.porti.put("3", p3);
-        System.out.println("Caricamento Porti Completato");
+        ObjectMapper portiMapper = new ObjectMapper();
+
+        try {
+            JsonNode portiNode = portiMapper.readTree(new File("src/main/java/com/admiral/data/porti.json"));
+
+            for (JsonNode node : portiNode) {
+                String codice = node.get("codice").asText();
+                String nome = node.get("nome").asText();
+
+                Porto p = new Porto(codice, nome);
+                this.porti.put(codice, p);
+            }
+
+            System.out.println("Caricamento Porti Completato");
+        } catch (IOException e) {
+            System.out.println("Errore nella lettura del file porti.json");
+            e.printStackTrace();
+        }
     }
 
     public void loadNavi() {
-        Nave n1 = new Nave("1", "Smeralda");
-        Nave n2 = new Nave("2", "Favolosa");
-        Nave n3 = new Nave("3", "Diadema");
-        this.navi.put("1", n1);
-        this.navi.put("2", n2);
-        this.navi.put("3", n3);
-        System.out.println("Caricamento Navi Completato");
+        ObjectMapper naviMapper = new ObjectMapper();
+
+        try {
+            JsonNode naviNode = naviMapper.readTree(new File("src/main/java/com/admiral/data/navi.json"));
+
+            for (JsonNode node : naviNode) {
+                String codice = node.get("codice").asText();
+                String nome = node.get("nome").asText();
+
+                Nave n = new Nave(codice, nome);
+                this.navi.put(codice, n);
+            }
+
+            System.out.println("Caricamento Navi Completato");
+        } catch (IOException e) {
+            System.out.println("Errore nella lettura del file navi.json");
+            e.printStackTrace();
+        }
     }
 
     public Itinerario getItinerarioCorrente() {
         return itinerarioCorrente;
     }
 
+    public Nave getNaveCorrente() {
+        return naveCorrente;
+    }
+
     public Map<String, Itinerario> getItinerari() {
         return itinerari;
+    }
+
+    public Map<String, Nave> getNavi() {
+        return navi;
     }
 
     public Itinerario getItinerario(String codice) {
@@ -154,9 +249,35 @@ public class Catalogo {
         return navi.get(codNave);
     }
 
-    public void getDestinazioni() {
-        System.out.println("Le destinazioni disponibili sono: ");
+    public Nave getNaveByNome(String nomeNave) {
+        for (Nave n : navi.values()) {
+            if (nomeNave.equalsIgnoreCase(n.getNome())) {
+                return n;
+            }
+        }
+        return null;
+    }
+
+    public void visualizzaDestinazioni() {
         destinazioni.values().forEach(System.out::println);
+    }
+
+    public void visualizzaItinerari() {
+        itinerari.forEach((codice, i) -> {
+            System.out.println(i);
+        });
+    }
+
+    public void visualizzaPorti() {
+        porti.forEach((codice, p) -> {
+            System.out.println(p);
+        });
+    }
+
+    public void visualizzaNavi() {
+        navi.forEach((codice, n) -> {
+            System.out.println(n);
+        });
     }
 
     public boolean validateCodiceDestinazione(String codiceDestinazione) {
@@ -182,5 +303,13 @@ public class Catalogo {
 
     public boolean validateCodicePorto(String codice) {
         return porti.containsKey(codice);
+    }
+
+    public boolean validateCodiceItinerario(String codice) {
+        return itinerari.containsKey(codice);
+    }
+
+    public boolean validateInserisciPortoDaVisitare() {
+        return !itinerarioCorrente.getPortiDaVisitare().isEmpty();
     }
 }

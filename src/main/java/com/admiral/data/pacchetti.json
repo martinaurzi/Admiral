@@ -1,0 +1,38 @@
+[
+    {
+        "codice": "P1",
+        "nome": "Bevande",
+        "prezzo": 200
+    },
+    {
+        "codice": "P2",
+        "nome": "Bevande Plus",
+        "prezzo": 250
+    },
+    {
+        "codice": "P3",
+        "nome": "Escursioni",
+        "prezzo": 600,
+        "numeroEscursioni": 3,
+        "includeGuida": true
+    },
+    {
+        "codice": "P4",
+        "nome": "Escursioni",
+        "prezzo": 1200,
+        "numeroEscursioni": 10,
+        "includeGuida": true
+    },
+    {
+        "codice": "P5",
+        "nome": "Benessere",
+        "prezzo": 300,
+        "durataOre": 3
+    },
+    {
+        "codice": "P6",
+        "nome": "Benessere",
+        "prezzo": 90,
+        "durataOre": 1
+    }
+]

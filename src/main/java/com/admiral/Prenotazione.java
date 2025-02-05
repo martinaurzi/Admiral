@@ -1,6 +1,8 @@
 package com.admiral;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Prenotazione {
     
@@ -10,9 +12,13 @@ public class Prenotazione {
     private Itinerario itinerario;
     private Cabina cabina;
     private ScontoStrategy scontoStrategy;
+    private Pacchetto pacchettoCorrente;
+    private Map<String, Pacchetto> pacchettiPrenotati;
 
     public Prenotazione(int numeroPrenotazione){
         this.numeroPrenotazione = numeroPrenotazione;
+
+        this.pacchettiPrenotati = new HashMap<>();
     }
 
     public void calcolaPrezzo(){
@@ -36,18 +42,48 @@ public class Prenotazione {
 
     public void calcolaPrezzoPrenotazione(){
         setPrezzoTotale(calcolaPrezzoPerNumeroOspiti() + cabina.getPrezzo());
-
     }
 
     public float calcolaSconto(){
-        float scontoLastMinute = 0;
+        float sconto = 0;
 
         if(LocalDate.now().getMonthValue() == (itinerario.getDataPartenza().minusMonths(1).getMonthValue())){
             setScontoStrategy(new ScontoLastMinute());
-            scontoLastMinute = scontoStrategy.calcolaSconto(this.prezzoTotale);
+            sconto = scontoStrategy.calcolaSconto(this.prezzoTotale);
+        } 
+        else if(itinerario.getDataPartenza().getMonthValue() == 9){
+            setScontoStrategy(new ScontoMaxImporto());
+            sconto = scontoStrategy.calcolaSconto(this.prezzoTotale);
         }
 
-        return scontoLastMinute;
+        return sconto;
+    }
+
+    public void confermaAcquisto(){
+        String codicePacchetto = pacchettoCorrente.getCodice();
+        addPacchetto(codicePacchetto);
+        System.out.println("Pacchetto Acquistato");
+    }
+
+    public boolean checkIfSettembre(){
+        return itinerario.getDataPartenza().getMonthValue() == 9;
+    }
+
+    public void addPacchetto(String codicePacchetto){
+        if(!pacchettiPrenotati.containsKey(codicePacchetto))
+            pacchettiPrenotati.put(codicePacchetto, pacchettoCorrente);
+        else
+            System.out.println("Pacchetto già acquistato");
+
+        // Regola di dominio R2
+        if((pacchettoCorrente.getNome() != "Bevande" || pacchettoCorrente.getNome() != "Bevande Plus") && !checkIfSettembre()){
+            float prezzo = pacchettoCorrente.getPrezzo();
+            aggiornaPrezzo(prezzo);
+        }
+    }
+
+    public void aggiornaPrezzo(float prezzo){
+        setPrezzoTotale(this.prezzoTotale += prezzo);
     }
 
     public Itinerario getItinerario(){
@@ -56,6 +92,22 @@ public class Prenotazione {
 
     public Cabina getCabina(){
         return cabina;
+    }
+
+    public int getNumero(){
+        return this.numeroPrenotazione;
+    }
+
+    public float getPrezzoTotale(){
+        return prezzoTotale;
+    }
+
+    public Pacchetto getPacchettoCorrente(){
+        return pacchettoCorrente;
+    }
+
+    public Map<String, Pacchetto> getPacchetti(){
+        return pacchettiPrenotati;
     }
 
     public void setPrezzoTotale(float prezzoTotale){
@@ -70,17 +122,19 @@ public class Prenotazione {
         this.cabina = cabina;
     }
 
-    public int getNumero(){
-        return this.numeroPrenotazione;
+    public void setPacchettoCorrente(Pacchetto pa){
+        this.pacchettoCorrente = pa;
     }
 
     public String toString() {
-        String s = "Prenotazione " + numeroPrenotazione + "\n"
-                + "Destinazione: " + itinerario.getDestinazione().getNome() + "\n"
-                + "Porto di partenza: " + itinerario.getPortoPartenza().getNome() + "\n"
-                + "Nave: " + itinerario.getNave().getNome() + "\n"
-                + "Prezzo totale: " + prezzoTotale + "\n"
-                + "Data di partenza: " + itinerario.getDataPartenza() + "\n";
+        String s = "\nPrenotazione " + numeroPrenotazione + "\n"
+                + "\t" + cabina.getTipo().getNome() + " " + cabina.getNumeroCabina() + "\n"
+                + "\t" + "Data di partenza: " + itinerario.getDataPartenza() + "\n"
+                + "\t" + "Prezzo totale: " + prezzoTotale + " euro" + "\n"
+                + "\t" + "Pacchetti:\n\t";
+                for (Pacchetto pacchetto : pacchettiPrenotati.values()) {
+                    s += pacchetto.getNome() + " ";
+                };
         return s;
     }
 }

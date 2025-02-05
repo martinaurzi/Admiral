@@ -87,16 +87,18 @@ public class Itinerario {
     }
 
     public String toString() {
-        String s = "Itinerario " + codice + "\n"
-                + "Destinazione: " + destinazione + "\n"
-                + "Porto di partenza: " + portoPartenza + "\n"
-                + "Nave: " + nave + "\n"
-                + "Prezzo per persona: " + prezzo + "\n"
-                + "Data di partenza: " + dataPartenza + "  Data di ritorno: " + dataRitorno + "\n"
-                + "Durata: " + durata + " giorni\n"
-                + "Lista Porti da visitare: \n";
+        String s = "\nItinerario " + codice + "\n"
+                + "\t" + "Destinazione: " + destinazione + "\n"
+                + "\t" + "Porto di partenza: " + portoPartenza + "\n"
+                + "\t" + "Nave: " + nave + "\n"
+                + "\t" + "Prezzo per persona: " + prezzo + " euro" +"\n"
+                + "\t" + "Data di partenza: " + dataPartenza + "\n"
+                + "\t" + "Data di ritorno: " + dataRitorno + "\n"
+                + "\t" + "Durata: " + durata + " giorni\n"
+                + "\t" + "Porti da visitare:\n"
+                + "\t";
         for (Porto porto : portiDaVisitare.values()) {
-            s += "\t" + porto.getNome() + "\n";
+            s += porto.getNome() + " ";
         }
         return s;
     }

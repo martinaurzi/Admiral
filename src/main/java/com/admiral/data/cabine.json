@@ -1,0 +1,162 @@
+[
+    {
+        "numeroCabina": 1,
+        "tipoCabina": {
+            "id": 1,
+            "nome": "Cabina interna",
+            "prezzo": 0
+        }
+    },
+    {
+        "numeroCabina": 2,
+        "tipoCabina": {
+            "id": 1,
+            "nome": "Cabina interna",
+            "prezzo": 0
+        }
+    },
+    {
+        "numeroCabina": 3,
+        "tipoCabina": {
+            "id": 1,
+            "nome": "Cabina interna",
+            "prezzo": 0
+        }
+    },
+    {
+        "numeroCabina": 4,
+        "tipoCabina": {
+            "id": 1,
+            "nome": "Cabina interna",
+            "prezzo": 0
+        }
+    },
+    {
+        "numeroCabina": 5,
+        "tipoCabina": {
+            "id": 1,
+            "nome": "Cabina interna",
+            "prezzo": 0
+        }
+    },
+    {
+        "numeroCabina": 6,
+        "tipoCabina": {
+            "id": 1,
+            "nome": "Cabina interna",
+            "prezzo": 0
+        }
+    },
+    {
+        "numeroCabina": 7,
+        "tipoCabina": {
+            "id": 1,
+            "nome": "Cabina interna",
+            "prezzo": 0
+        }
+    },
+    {
+        "numeroCabina": 8,
+        "tipoCabina": {
+            "id": 1,
+            "nome": "Cabina interna",
+            "prezzo": 0
+        }
+    },
+    {
+        "numeroCabina": 9,
+        "tipoCabina": {
+            "id": 1,
+            "nome": "Cabina interna",
+            "prezzo": 0
+        }
+    },
+    {
+        "numeroCabina": 10,
+        "tipoCabina": {
+            "id": 1,
+            "nome": "Cabina interna",
+            "prezzo": 0
+        }
+    },
+    {
+        "numeroCabina": 11,
+        "tipoCabina": {
+            "id": 2,
+            "nome": "Cabina vista mare",
+            "prezzo": 200
+        }
+    },
+    {
+        "numeroCabina": 12,
+        "tipoCabina": {
+            "id": 2,
+            "nome": "Cabina vista mare",
+            "prezzo": 200
+        }
+    },
+    {
+        "numeroCabina": 13,
+        "tipoCabina": {
+            "id": 2,
+            "nome": "Cabina vista mare",
+            "prezzo": 200
+        }
+    },
+    {
+        "numeroCabina": 14,
+        "tipoCabina": {
+            "id": 2,
+            "nome": "Cabina vista mare",
+            "prezzo": 200
+        }
+    },
+    {
+        "numeroCabina": 15,
+        "tipoCabina": {
+            "id": 2,
+            "nome": "Cabina vista mare",
+            "prezzo": 200
+        }
+    },
+    {
+        "numeroCabina": 16,
+        "tipoCabina": {
+            "id": 3,
+            "nome": "Cabina con balcone",
+            "prezzo": 200
+        }
+    },
+    {
+        "numeroCabina": 17,
+        "tipoCabina": {
+            "id": 3,
+            "nome": "Cabina con balcone",
+            "prezzo": 200
+        }
+    },
+    {
+        "numeroCabina": 18,
+        "tipoCabina": {
+            "id": 3,
+            "nome": "Cabina con balcone",
+            "prezzo": 200
+        }
+    },
+    {
+        "numeroCabina": 19,
+        "tipoCabina": {
+            "id": 3,
+            "nome": "Cabina con balcone",
+            "prezzo": 200
+        }
+    },
+    {
+        "numeroCabina": 20,
+        "tipoCabina": {
+            "id": 4,
+            "nome": "Suite",
+            "prezzo": 500
+        }
+    }
+]

@@ -1,7 +1,12 @@
 package com.admiral;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TipoCabina {
     
@@ -20,17 +25,46 @@ public class TipoCabina {
         loadCabine();
     }
 
-    public void loadCabine(){
-        Cabina c1 = new Cabina(1, this);
-        Cabina c2 = new Cabina(2, this);
-        Cabina c3 = new Cabina(3, this);
-        Cabina c4 = new Cabina(4, this);
-        this.cabine.put(1, c1);
-        this.cabine.put(2, c2);
-        this.cabine.put(3, c3);
-        this.cabine.put(4, c4);
+    public TipoCabina(int id, String nome){
+        this.id = id;
+        this.nome = nome;
+        
+        if (nome.equalsIgnoreCase("Cabina interna")) this.prezzo = 0F;
+        if (nome.equalsIgnoreCase("Cabina vista mare")) this.prezzo = 200F ;
+        if (nome.equalsIgnoreCase("Cabina con balcone")) this.prezzo = 300F;
+        if (nome.equalsIgnoreCase("Suite")) this.prezzo = 500F;
+    
+        this.cabine = new HashMap<>();
     }
 
+    public void inserisciCabina(int numeroCabina){
+        Cabina c = new Cabina(numeroCabina, this);
+
+        this.cabine.put(numeroCabina, c);
+    } 
+
+    public void loadCabine(){
+        ObjectMapper cabineMapper = new ObjectMapper();
+
+        try {
+            JsonNode cabineNode = cabineMapper.readTree(new File("src/main/java/com/admiral/data/cabine.json"));
+
+            for (JsonNode node : cabineNode) {
+                int numeroCabina = node.get("numeroCabina").intValue();
+
+                int idTipoCabina = node.get("tipoCabina").get("id").intValue();
+    
+                Cabina c = new Cabina(numeroCabina, this);
+
+                if(this.id == idTipoCabina)
+                    this.cabine.put(numeroCabina, c);
+            }
+        } catch (IOException e) {
+                System.out.println("Errore nella lettura del file cabine.json");
+                e.printStackTrace();
+            }
+        }
+                
     public void rimuoviCabina(Cabina cabina){
         cabine.remove(cabina.getNumeroCabina());
     }
@@ -50,6 +84,18 @@ public class TipoCabina {
 
     public float getPrezzo(){
         return prezzo;
+    }
+
+    public String getNome(){
+        return nome;
+    }
+
+    public Cabina getCabina(int codice){
+        return cabine.get(codice);
+    }
+
+    public Map<Integer, Cabina> getCabine(){
+        return cabine;
     }
 
     public String toString() {

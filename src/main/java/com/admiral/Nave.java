@@ -1,13 +1,19 @@
 package com.admiral;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Nave {
     
     private String codice;
     private String nome;
     private Map<Integer, TipoCabina> tipiCabina;
+    private TipoCabina tipoCabinaCorrente;
 
     public Nave(String codice, String nome){
         this.codice = codice;
@@ -18,16 +24,51 @@ public class Nave {
         loadTipiCabina();
     }
 
+    public Nave(String codice, String nome, boolean caricaTipiCabina){
+        this.codice = codice;
+        this.nome = nome;
+
+        this.tipiCabina = new HashMap<>();
+
+        if(caricaTipiCabina){
+            loadTipiCabina();
+        }
+    }
+
+    public int generaCodiceTipoCabina() {
+        return tipiCabina.size() + 1;
+    }
+
+    public void inserisciTipoCabina(String nomeTipoCabina){
+        int codice = generaCodiceTipoCabina();
+
+        tipoCabinaCorrente = new TipoCabina(codice, nomeTipoCabina);
+        this.tipiCabina.put(codice, tipoCabinaCorrente);
+    } 
+
+    public void inserisciCabina(int numeroCabina){
+        tipoCabinaCorrente.inserisciCabina(numeroCabina);
+    } 
+
     public void loadTipiCabina(){
-        TipoCabina tc1 = new TipoCabina(1, "Cabina interna", 0);
-        TipoCabina tc2 = new TipoCabina(2, "Cabina vista mare", 200F);
-        TipoCabina tc3 = new TipoCabina(3, "Cabina con balcone", 300F);
-        TipoCabina tc4 = new TipoCabina(4, "Suite", 500F);
-        this.tipiCabina.put(1, tc1);
-        this.tipiCabina.put(2, tc2);
-        this.tipiCabina.put(3, tc3);
-        this.tipiCabina.put(4, tc4);
-        System.out.println("Caricamento TipiCabina in Nave Completato");
+        ObjectMapper tipiCabinaMapper = new ObjectMapper();
+
+        try {
+            JsonNode tipiCabinaNode = tipiCabinaMapper.readTree(new File("src/main/java/com/admiral/data/tipiCabina.json"));
+
+            for (JsonNode node : tipiCabinaNode) {
+                int id = node.get("id").intValue();
+                String nome = node.get("nome").asText();
+                float prezzo = node.get("prezzo").floatValue();
+    
+                TipoCabina tc = new TipoCabina(id, nome, prezzo);
+
+                this.tipiCabina.put(id, tc);
+            }
+        } catch (IOException e) {
+            System.out.println("Errore nella lettura del file tipiCabina.json");
+            e.printStackTrace();
+        }
     }
 
     public Map<Integer, TipoCabina> getTipiCabina(){
@@ -36,6 +77,10 @@ public class Nave {
 
     public TipoCabina selezionaTipoCabina(int idTipoCabina){
         return tipiCabina.get(idTipoCabina);
+    }
+
+    public TipoCabina getTipoCabinaCorrente(){
+        return tipoCabinaCorrente;
     }
 
     public String getNome(){
@@ -47,6 +92,6 @@ public class Nave {
     }
 
     public String toString(){
-        return nome + "(" + codice + ")";
+        return "(" + codice + ") " + nome;
     }
 }
