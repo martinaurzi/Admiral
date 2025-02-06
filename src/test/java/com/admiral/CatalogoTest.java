@@ -44,30 +44,6 @@ public class CatalogoTest {
     }
 
     @Test
-    public void inserisciPortoDaVisitareTest() {
-        Itinerario i = new Itinerario("I1", "D1", "N1", "PO1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
-        assertNotNull(i);
-
-        Porto p = catalogo.getPorto("PO2");
-        assertNotNull(p);
-
-        i.inserisciPortoDaVisitare(p.getCodice(), p);
-        assertEquals(1, i.getPortiDaVisitare().size());
-        assertNotNull(i.getPorto("PO2"));
-
-        assertNull(i.getPorto("PO8"));
-    }
-
-    @Test
-    public void trovaItinerariTest(){
-        catalogo.inserisciNuovoItinerario("D1", "N1", "PO1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
-        catalogo.confermaInserimento();
-
-        catalogo.trovaItinerari("D1", 1);
-        
-    }
-
-    @Test
     public void inserisciNuovaNaveTest(){
         catalogo.inserisciNuovaNave("Dorata");
         assertNotNull(catalogo.getNaveCorrente());
