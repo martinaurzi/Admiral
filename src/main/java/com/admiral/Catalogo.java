@@ -87,9 +87,17 @@ public class Catalogo {
         }
     }
 
-    public Map<String, Itinerario> trovaItinerari(String codiceDestinazione, int mesePartenza) {                                                    
+    public Map<String, Itinerario> trovaItinerari(String codiceDestinazione, int mesePartenza) {
+        Map<String, Itinerario> checkItinerari = new HashMap<>();
         Destinazione d = findDestinazione(codiceDestinazione);
-        return catalogo.checkItinerario(d, mesePartenza);
+
+        itinerari.forEach((codiceItinerario, i) -> {
+            Itinerario itinerarioCheck = catalogo.checkItinerario(d, mesePartenza, i);
+            if (itinerarioCheck != null)
+                checkItinerari.put(codiceItinerario, itinerarioCheck);
+        });
+
+        return checkItinerari;
     }
 
     public Itinerario selezionaItinerario(String codiceItinerario) {
@@ -100,16 +108,13 @@ public class Catalogo {
         return destinazioni.get(codiceDestinazione);
     }
 
-    public Map<String, Itinerario> checkItinerario(Destinazione d, int mesePartenza) {
-        Map<String, Itinerario> checkItinerari = new HashMap<>();
+    public Itinerario checkItinerario(Destinazione d, int mesePartenza, Itinerario i) {
 
-        itinerari.forEach((codiceItinerario, i) -> {
-            if (i.getDestinazione().getCodice().equals(d.getCodice()) && i.checkMesePartenza(mesePartenza)) {
-                checkItinerari.put(i.getCodice(), i);
-            }
-        });
+        if (i.getDestinazione().getCodice().equals(d.getCodice()) && i.checkMesePartenza(mesePartenza)) {
+            return i;
+        }
 
-        return checkItinerari;
+        return null;
     }
 
     public boolean validateNomeNave(String nomeNave) {
@@ -123,11 +128,11 @@ public class Catalogo {
 
     public boolean validateNomeTipoCabina(String nomeTipoCabina) {
         if (nomeTipoCabina.equalsIgnoreCase("Cabina interna")
-            || nomeTipoCabina.equalsIgnoreCase("Cabina vista mare")
-            || nomeTipoCabina.equalsIgnoreCase("Cabina con balcone")
-            || nomeTipoCabina.equalsIgnoreCase("Suite")) {
+                || nomeTipoCabina.equalsIgnoreCase("Cabina vista mare")
+                || nomeTipoCabina.equalsIgnoreCase("Cabina con balcone")
+                || nomeTipoCabina.equalsIgnoreCase("Suite")) {
             return true;
-        } 
+        }
         return false;
     }
 
@@ -152,38 +157,41 @@ public class Catalogo {
         }
     }
 
-    public boolean verificaItinerario(String codiceItinerario){
+    public boolean verificaItinerario(String codiceItinerario) {
         Itinerario i = itinerari.get(codiceItinerario);
-        if(i !=null){
-          setItinerarioCorrente(i);
-          return true;
-        }else return false;
+        if (i != null) {
+            setItinerarioCorrente(i);
+            return true;
+        } else
+            return false;
     }
 
-    public void modificaDateItinerario(LocalDate dataPartenza, LocalDate dataRitorno){
+    public void modificaDateItinerario(LocalDate dataPartenza, LocalDate dataRitorno) {
         itinerarioCorrente.setDate(dataPartenza, dataRitorno);
 
-        System.out.println("Dati itinerario aggiornati: \n");;
+        System.out.println("Dati itinerario aggiornati: \n");
+        ;
         System.out.println(itinerarioCorrente);
     }
 
-    public void modificaPortiDaVisitare(){
+    public void modificaPortiDaVisitare() {
         itinerarioCorrente.modificaPortiDaVisitare();
     }
-    
-    public boolean inserisciEscursioneInPorto(String codicePorto){
+
+    public boolean inserisciEscursioneInPorto(String codicePorto) {
         Porto p = porti.get(codicePorto);
-        if (p != null){
+        if (p != null) {
             setPortoCorrente(p);
             return true;
-        }else return false;
+        } else
+            return false;
     }
 
-    public void inserisciEscursione(String nome, int durata, int difficolta){
+    public void inserisciEscursione(String nome, int durata, int difficolta) {
         portoCorrente.inserisciEscursione(nome, durata, difficolta);
     }
 
-    public void confermaInserimentoEscursione(){
+    public void confermaInserimentoEscursione() {
         portoCorrente.confermaInserimentoEscursione();
     }
 
@@ -287,7 +295,7 @@ public class Catalogo {
         return null;
     }
 
-    public Porto getPortoCorrente(){
+    public Porto getPortoCorrente() {
         return portoCorrente;
     }
 
@@ -296,11 +304,11 @@ public class Catalogo {
     }
 
     public void visualizzaItinerari() {
-        if(!itinerari.isEmpty()){
+        if (!itinerari.isEmpty()) {
             itinerari.forEach((codice, i) -> {
                 System.out.println(i);
             });
-        } else 
+        } else
             System.out.println("Nessun itinerario");
     }
 
@@ -349,11 +357,11 @@ public class Catalogo {
         return !itinerarioCorrente.getPortiDaVisitare().isEmpty();
     }
 
-    public void setPortoCorrente(Porto p){
+    public void setPortoCorrente(Porto p) {
         this.portoCorrente = p;
     }
 
-    public void setItinerarioCorrente(Itinerario i){
+    public void setItinerarioCorrente(Itinerario i) {
         this.itinerarioCorrente = i;
     }
 }
