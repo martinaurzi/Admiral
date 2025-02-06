@@ -296,9 +296,12 @@ public class Catalogo {
     }
 
     public void visualizzaItinerari() {
-        itinerari.forEach((codice, i) -> {
-            System.out.println(i);
-        });
+        if(!itinerari.isEmpty()){
+            itinerari.forEach((codice, i) -> {
+                System.out.println(i);
+            });
+        } else 
+            System.out.println("Nessun itinerario");
     }
 
     public void visualizzaPorti() {

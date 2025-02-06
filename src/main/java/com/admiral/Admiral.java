@@ -141,11 +141,14 @@ public class Admiral {
         Prenotazione p = gestorePrenotazioni.annullaPrenotazione(numeroPrenotazione);
 
         if(p != null){
-            if(gestorePrenotazioni.checkIfAnnullabile(p))
+            if(gestorePrenotazioni.checkIfAnnullabile(p)){
                 if(gestorePrenotazioni.rimuoviPrenotazione(p)){
                     System.out.println("Prenotazione annullata con successo");
                     return true;
                 }
+            }
+            else 
+                System.out.println("La prenotazione non può essere annullata");
         }
 
         return false;
