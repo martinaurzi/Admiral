@@ -23,6 +23,7 @@ public class Admiral {
         return admiral;
     }
 
+    // UC1 Inserisci nuovo itinerario
     public void inserisciNuovoItinerario(String codiceDestinazione, String codiceNave,
             String codicePortoPartenza, LocalDate dataPartenza, LocalDate dataRitorno) {
         catalogo.inserisciNuovoItinerario(codiceDestinazione, codiceNave, codicePortoPartenza, dataPartenza,

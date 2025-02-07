@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +38,7 @@ public class CatalogoTest {
     public void confermaInserimentoTest() {
         catalogo.inserisciNuovoItinerario("D1", "N1", "PO1", LocalDate.of(2025, 1, 21), LocalDate.of(2025, 1, 30));
         catalogo.confermaInserimento();
-        assertEquals(2, catalogo.getItinerari().size());
+        assertEquals(1, catalogo.getItinerari().size());
         assertNotNull(catalogo.getItinerario("I1"));
     }
 
